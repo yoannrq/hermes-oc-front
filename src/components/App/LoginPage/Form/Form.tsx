@@ -14,15 +14,15 @@ const Form = () => {
         autoComplete="off"
       >
         <div className="input">
-          <TextField id="outlined-basic" label="Identifiant"/>
+          <TextField id="outlined-basic" label="Identifiant" />
         </div>
 
         <div className="input">
           <TextField id="outlined-password-input" label="Mot de passe" type="password" />
         </div>
       </Box>
-      
-      <Box  sx={{ '& button': { m: 4 } }}>
+
+      <Box sx={{ '& button': { m: 4 } }}>
         <div>
           <Button variant="contained">Connexion</Button>
         </div>

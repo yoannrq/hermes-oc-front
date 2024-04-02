@@ -1,7 +1,7 @@
-import Header from "./LoginPage/Header/Header";
-import Form from "./LoginPage/Form/Form";
-import Footer from "./LoginPage/Footer/Footer";
-import "./App.scss";
+import Header from './LoginPage/Header/Header';
+import Form from './LoginPage/Form/Form';
+import Footer from './LoginPage/Footer/Footer';
+import './App.scss';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Form />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

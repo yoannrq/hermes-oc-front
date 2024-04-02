@@ -15,7 +15,7 @@ const Footer = () => {
     setValue(newValue);
   };
   return (
-    <BottomNavigation sx={{ width: '45ch' }} value={value} onChange={handleChange}>
+    <BottomNavigation sx={{ m: 1, width: "100%" }} value={value} onChange={handleChange}>
       <BottomNavigationAction label="Accueil" value="recents" icon={<HomeIcon />} />
       <BottomNavigationAction label="Patients" value="favorites" icon={<MedicalServicesIcon/>} />
       <BottomNavigationAction label="Groupes" value="nearby" icon={<Diversity3Icon/>} />

@@ -6,7 +6,7 @@ import './Header.scss';
 
 const Header = () => {
   return (
-    <div className="header">
+    <div className="header" style={{width: '100%'}}>
       <div className="up">
         <h1>Nom catégorie</h1> {/* à dynamiser en fonction de la catégorie selectionnée*/}
         <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
@@ -16,7 +16,7 @@ const Header = () => {
         <Box
           component="form"
           sx={{
-            '& > :not(style)': { m: 1, width: '40ch' },
+            '& > :not(style)': { m: 1, width: "100%" },
           }}
           noValidate
           autoComplete="off"

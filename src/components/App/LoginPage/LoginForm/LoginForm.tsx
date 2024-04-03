@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-const Form = () => {
+const LoginForm = () => {
   return (
     <>
       <Box
@@ -50,4 +50,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default LoginForm;

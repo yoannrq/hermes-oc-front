@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './components/App/App.tsx'
+import SignUpForm from './components/SignUpPage/SignUpForm'
+// import App from './components/App/App.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <SignUpForm />
   </React.StrictMode>,
 )

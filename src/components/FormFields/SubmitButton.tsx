@@ -1,6 +1,6 @@
 import Button from '@mui/material/Button';
 
-function SubmitButton() {
+function CustomButton() {
   return (
     <Button type="submit" variant="contained" fullWidth sx={{ mt: 3, mb: 2 }}>
       Créer
@@ -8,4 +8,4 @@ function SubmitButton() {
   );
 }
 
-export default SubmitButton;
+export default CustomButton;

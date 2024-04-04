@@ -1,6 +1,6 @@
-import Header from '../LoginPage/Header/Header';
-import Form from '../LoginPage/LoginForm/LoginForm';
-import Footer from '../LoginPage/Footer/Footer';
+import Header from '../../components/AuthHeader/Header';
+import Form from '../Login';
+import Footer from '../../components/AuthFooter/Footer';
 import './App.scss';
 
 function App() {

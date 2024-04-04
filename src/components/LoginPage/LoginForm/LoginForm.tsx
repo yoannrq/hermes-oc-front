@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-const LoginForm = () => {
+function LoginForm() {
   return (
     <>
       <Box
@@ -22,10 +22,18 @@ const LoginForm = () => {
         </div>
 
         <div className="input">
-          <TextField id="outlined-password-input" label="Mot de passe" type="password" />
+          <TextField
+            id="outlined-password-input"
+            label="Mot de passe"
+            type="password"
+          />
         </div>
 
-        <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Se souvenir de moi" sx={{margin: 0}}/>
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Se souvenir de moi"
+          sx={{ margin: 0 }}
+        />
       </Box>
 
       <Box sx={{ '& button': { m: 4 } }}>
@@ -34,7 +42,10 @@ const LoginForm = () => {
         </div>
       </Box>
 
-      <Grid container sx={{ display: 'flex', justifyContent: 'space-around', width: '40ch' }}>
+      <Grid
+        container
+        sx={{ display: 'flex', justifyContent: 'space-around', width: '40ch' }}
+      >
         <Grid item xs>
           <Link href="#" variant="body2">
             Mot de passe oublié?
@@ -48,6 +59,6 @@ const LoginForm = () => {
       </Grid>
     </>
   );
-};
+}
 
 export default LoginForm;

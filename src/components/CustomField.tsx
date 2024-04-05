@@ -1,6 +1,6 @@
 import TextField from '@mui/material/TextField';
 
-interface FieldProps {
+export interface FieldProps {
   type?: string;
   autoComplete?: string;
   name?: string;
@@ -9,6 +9,7 @@ interface FieldProps {
   required?: boolean;
   fullWidth?: boolean;
   autoFocus?: boolean;
+  gridSizes?: { xs?: number, sm?: number };
 }
 
 function Field({

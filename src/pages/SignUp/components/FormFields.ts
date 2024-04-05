@@ -1,0 +1,66 @@
+import { FieldProps } from '../../../components/CustomField';
+
+export const fieldsConfig: FieldProps[] = [
+  {
+    type: 'text',
+    autoComplete: 'fname',
+    name: 'firstName',
+    id: 'firstName',
+    label: 'Prénom',
+    required: true,
+    fullWidth: true,
+    autoFocus: true,
+    gridSizes: { xs: 12, sm: 6 },
+  },
+  {
+    type: 'text',
+    autoComplete: 'lname',
+    name: 'lastName',
+    id: 'lastName',
+    label: 'Nom',
+    required: true,
+    fullWidth: true,
+    gridSizes: { xs: 12, sm: 6 },
+  },
+  {
+    type: 'email',
+    autoComplete: 'email',
+    name: 'email',
+    id: 'email',
+    label: 'Adresse mail',
+    required: true,
+    fullWidth: true,
+    gridSizes: { xs: 12 },
+  },
+  {
+    type: 'text',
+    name: 'rpps',
+    id: 'rpps',
+    label: 'Numero RPPS',
+    required: true,
+    fullWidth: true,
+    gridSizes: { xs: 12 },
+  },
+  {
+    type: 'password',
+    autoComplete: 'new-password',
+    name: 'password',
+    id: 'password',
+    label: 'Mot de passe',
+    required: true,
+    fullWidth: true,
+    gridSizes: { xs: 12 },
+  },
+  {
+    type: 'password',
+    autoComplete: 'new-password',
+    name: 'password',
+    id: 'password',
+    label: 'Mot de passe',
+    required: true,
+    fullWidth: true,
+    gridSizes: { xs: 12 },
+  },
+];
+
+// export default fieldsConfig;

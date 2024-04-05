@@ -54,13 +54,11 @@ export const fieldsConfig: FieldProps[] = [
   {
     type: 'password',
     autoComplete: 'new-password',
-    name: 'password',
-    id: 'password',
+    name: 'confirm-password',
+    id: 'confirm-password',
     label: 'Mot de passe',
     required: true,
     fullWidth: true,
     gridSizes: { xs: 12 },
   },
 ];
-
-// export default fieldsConfig;

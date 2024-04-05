@@ -55,24 +55,27 @@ function SignUpForm() {
           }}
           onSubmit={handleSubmit}
         >
-          <form>
-            <Grid container spacing={2}>
-              {fieldsConfig.map((field, index) => (
-                <Grid item  key={index} xs={field.gridSizes?.xs} sm={field.gridSizes?.sm}>
-                  <Field
-                    type={field.type}
-                    autoComplete={field.autoComplete}
-                    name={field.name}
-                    id={field.id}
-                    label={field.label}
-                    required={field.required}
-                    fullWidth={field.fullWidth}
-                    autoFocus={field.autoFocus}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </form>
+          <Grid container spacing={2}>
+            {fieldsConfig.map((field, index) => (
+              <Grid
+                item
+                key={index}
+                xs={field.gridSizes?.xs}
+                sm={field.gridSizes?.sm}
+              >
+                <Field
+                  type={field.type}
+                  autoComplete={field.autoComplete}
+                  name={field.name}
+                  id={field.id}
+                  label={field.label}
+                  required={field.required}
+                  fullWidth={field.fullWidth}
+                  autoFocus={field.autoFocus}
+                />
+              </Grid>
+            ))}
+          </Grid>
 
           <Grid sx={{ mt: 3 }}>
             <CustomButton

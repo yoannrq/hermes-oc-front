@@ -2,21 +2,22 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { Link } from '@mui/material';
 
+import CustomButton from '../../../components/CustomButton';
 import Field from '../../../components/CustomField';
 import { fieldsConfig } from './FormFields.ts';
-import CustomButton from '../../../components/CustomButton';
-import CustomLink from '../../../components/CustomLink';
+import { linksConfig } from './FormFields.ts';
 
-function SignUpForm() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+function LoginForm() {
+  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get('email'),
+  //     password: data.get('password'),
+  //   });
+  //};
   return (
     <Container
       component="main"
@@ -41,7 +42,7 @@ function SignUpForm() {
           component="h1"
           variant="h6"
         >
-          Créez un compte
+          Entrez vos informations de connexion
         </Typography>
 
         <Box
@@ -50,7 +51,7 @@ function SignUpForm() {
           sx={{
             mt: 3,
           }}
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         >
           <Grid container spacing={2}>
             {fieldsConfig.map((field, index) => (
@@ -79,17 +80,17 @@ function SignUpForm() {
               type="submit"
               variant="contained"
               fullWidth
-              text="Créer"
+              text="Connexion"
               // onClick={handleSubmit}
             />
           </Grid>
 
-          <Grid sx={{ mt: 2, display: 'flex', justifyContent: 'end' }}>
-            <CustomLink
-              href="#"
-              variant="body2"
-              text="Vous avez déjà un compte?"
-            />
+          <Grid sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}>
+            {linksConfig.map((link, index) => (
+              <Link key={index} href={link.href} variant={link.variant}>
+                {link.text}
+              </Link>
+            ))}
           </Grid>
         </Box>
       </Box>
@@ -97,4 +98,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default LoginForm;

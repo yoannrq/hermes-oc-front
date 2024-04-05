@@ -4,11 +4,11 @@ import SignUpForm from "./components/SignUpForm";
 
 function SignUp () {
   return (
-    <div>
+    <>
       <Header />
       <SignUpForm />
       <Footer />
-    </div>
+    </>
   )
 }
 

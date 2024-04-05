@@ -1,14 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-// import App from './pages/App/App'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp/index'
-import './main.scss'
+import ReactDOM from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes';
+import './main.scss';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    {/* <App /> */}
-    <Login />
-    {/* <SignUp /> */}
-  </React.StrictMode>,
-)
+// Je créer un root pour mon application (a partir d'un élément HTML)
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+// On injecte notre application dans le DOM
+root.render(<RouterProvider router={router} />);

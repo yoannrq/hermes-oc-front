@@ -1,38 +1,37 @@
-import { FieldProps } from '../../../components/CustomField';
-import { LinkProps } from '../../../components/CustomLink';
+export interface FieldProps {
+  type: string,
+  name: string,
+  id: string,
+  label: string,
+  required: boolean,
+  fullWidth: boolean,
+  gridSizes: {
+    xs?: number,
+    sm?: number,
+  }
+  autoFocus?: boolean,
+  autoComplete?: string,
+}
 
 export const fieldsConfig: FieldProps[] = [
   {
     type: 'text',
-    name: 'rpps',
-    id: 'rpps',
-    label: 'Numero RPPS',
+    name: 'email',
+    id: 'email',
+    label: 'Numero RPPS ou email',
     required: true,
     fullWidth: true,
-    autoFocus: true,
     gridSizes: { xs: 12 },
+    autoFocus: true,
   },
   {
     type: 'password',
-    autoComplete: 'new-password',
     name: 'password',
     id: 'password',
     label: 'Mot de passe',
     required: true,
     fullWidth: true,
     gridSizes: { xs: 12 },
-  },
-];
-
-export const linksConfig: LinkProps[] = [
-  {
-    href: '#',
-    variant: 'body2',
-    text: 'Mot de passe oublié?',
-  },
-  {
-    href: '#',
-    variant: 'body2',
-    text: 'Créer un compte',
+    autoComplete: 'new-password',
   },
 ];

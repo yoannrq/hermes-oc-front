@@ -1,11 +1,24 @@
-import { FieldProps } from '../../../components/CustomField';
+export interface FieldProps {
+  type: string,
+  name: string,
+  id: string,
+  label: string,
+  required: boolean,
+  fullWidth: boolean,
+  gridSizes: {
+    xs?: number,
+    sm?: number,
+  }
+  autoFocus?: boolean,
+  autoComplete?: string,
+}
 
 export const fieldsConfig: FieldProps[] = [
   {
     type: 'text',
     autoComplete: 'fname',
-    name: 'firstName',
-    id: 'firstName',
+    name: 'firstname',
+    id: 'firstname',
     label: 'Prénom',
     required: true,
     fullWidth: true,
@@ -15,8 +28,8 @@ export const fieldsConfig: FieldProps[] = [
   {
     type: 'text',
     autoComplete: 'lname',
-    name: 'lastName',
-    id: 'lastName',
+    name: 'lastname',
+    id: 'lastname',
     label: 'Nom',
     required: true,
     fullWidth: true,
@@ -34,8 +47,8 @@ export const fieldsConfig: FieldProps[] = [
   },
   {
     type: 'text',
-    name: 'rpps',
-    id: 'rpps',
+    name: 'rppsCode',
+    id: 'rppsCode',
     label: 'Numero RPPS',
     required: true,
     fullWidth: true,
@@ -54,9 +67,9 @@ export const fieldsConfig: FieldProps[] = [
   {
     type: 'password',
     autoComplete: 'new-password',
-    name: 'confirm-password',
-    id: 'confirm-password',
-    label: 'Mot de passe',
+    name: 'confirmPassword',
+    id: 'confirmPassword',
+    label: 'Confirmez le mot de passe',
     required: true,
     fullWidth: true,
     gridSizes: { xs: 12 },

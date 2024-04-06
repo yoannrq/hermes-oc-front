@@ -2,48 +2,50 @@
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField'
+import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-import backend from './../../../utils/backend.ts'
+import backend from './../../../utils/backend.ts';
 import { fieldsConfig } from './FormFields.ts';
 
 export interface SignUpFromProps {
-  onRequireLogin: () => void,
+  onRequireLogin: () => void;
 }
 
 function SignUpForm({ onRequireLogin }: SignUpFromProps) {
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const form = event.target as HTMLFormElement;
     const data = Object.fromEntries(new FormData(form).entries()); // Utilise l'élément formulaire pour créer le FormData
 
-    delete data.confirmPassword
-    console.log("Send this data to backend ", data);
+    delete data.confirmPassword;
+    console.log('Send this data to backend ', data);
 
-    const res = await backend.post('/api/auth/signup', data)
+    const res = await backend.post('/api/auth/signup', data);
 
-    console.log("Le serveur à répondu avec une réponse : ", res.status)
+    console.log('Le serveur à répondu avec une réponse : ', res.status);
 
-    if (res.ok){
+    if (res.ok) {
       // L'utilisateur est crée
       // TODO feed back user compte bien crée !
-      console.log("L'utilisateur à bien été crée : ", res.data)
+      console.log("L'utilisateur à bien été crée : ", res.data);
 
-      onRequireLogin()
+      onRequireLogin();
     } else {
       // Feed back user à propos de toutes ces erreurs.
-      console.log("Les erreurs suivantes sont apparues :")
-      if (res.data.error.errors){
-        res.data.error.errors.forEach(error => {
-          const fieldName = error.path[0]
-          const message = error.message
+      console.log('Les erreurs suivantes sont apparues :');
+      if (res.data.error.errors) {
+        res.data.error.errors.forEach((error: any) => {
+          const fieldName = error.path[0];
+          const message = error.message;
 
-          console.log(`Le champ {${fieldName}} [${message.code}] : ${message.value}\nVoir plus: `, error)
+          console.log(
+            `Le champ {${fieldName}} [${message.code}] : ${message.value}\nVoir plus: `,
+            error
+          );
         });
       }
     }
@@ -119,4 +121,4 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
   );
 }
 
-export default SignUpForm;
+export default SignUpForm;

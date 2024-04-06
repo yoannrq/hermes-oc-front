@@ -1,26 +1,21 @@
-export type ResData = {
-  data: object;
+export type ResponseData = {
+  data: { [key: string]: any };
   status: number;
   ok: boolean;
   statusText: string;
   error: string;
 };
 
-async function parseJson(res: Response): Promise<ResData | void> {
-  return res
-    .json()
-    .then((json) => {
-      return {
-        data: json,
-        status: res.status,
-        ok: res.ok,
-        statusText: res.statusText,
-        error: json?.error || '',
-      };
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+async function parseJson(res: Response): Promise<ResponseData> {
+  return res.json().then((json) => {
+    return {
+      data: json,
+      status: res.status,
+      ok: res.ok,
+      statusText: res.statusText,
+      error: json?.error || '',
+    };
+  });
 }
 
 async function parseFile(res: Response): Promise<Blob> {
@@ -33,15 +28,9 @@ type fetchBackendProps = {
   method: string;
   url: string;
   data?: object;
-  parsingStrategy?: (res: Response) => Promise<ResData | Blob | void>;
 };
 
-async function fetchBackend({
-  method,
-  url,
-  data,
-  parsingStrategy = parseJson,
-}: fetchBackendProps) {
+async function fetchBackend({ method, url, data }: fetchBackendProps) {
   const headers = new Headers();
   headers.set('Accept', 'application/json');
 
@@ -54,14 +43,7 @@ async function fetchBackend({
     headers,
     body: data ? JSON.stringify(data) : null,
   }).then(async (res) => {
-    if (res.redirected) {
-      throw new Error('Bad url : ' + url);
-    }
-    if (res.status >= 500) {
-      return { error: `${res.status}: ${res.statusText}` };
-    }
-
-    return parsingStrategy(res);
+    return res;
   });
 }
 
@@ -74,38 +56,42 @@ export default {
   },
 
   async getFile(url: string) {
-    return fetchBackend({
-      method: 'GET',
-      parsingStrategy: parseFile,
-      url,
-    });
+    return parseFile(
+      await fetchBackend({
+        method: 'GET',
+        url,
+      })
+    );
   },
 
   async post(url: string, data: object) {
-    return fetchBackend({
-      method: 'POST',
-      parsingStrategy: parseJson,
-      url,
-      data,
-    });
+    return parseJson(
+      await fetchBackend({
+        method: 'POST',
+        url,
+        data,
+      })
+    );
   },
 
   async put(url: string, data: object) {
-    return fetchBackend({
-      method: 'PUT',
-      parsingStrategy: parseJson,
-      url,
-      data,
-    });
+    return parseJson(
+      await fetchBackend({
+        method: 'PUT',
+        url,
+        data,
+      })
+    );
   },
 
   async patch(url: string, data: object) {
-    return fetchBackend({
-      method: 'PATCH',
-      parsingStrategy: parseJson,
-      url,
-      data,
-    });
+    return parseJson(
+      await fetchBackend({
+        method: 'PATCH',
+        url,
+        data,
+      })
+    );
   },
 
   async delete(url: string) {

@@ -1,44 +1,30 @@
-import React from 'react';
-import { useEffect } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import Root from './pages/Root/Root';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
+import LoginRequired from './components/loginRequired/loginRequired.tsx';
 
-import { UserInterface } from './contexts/userContext';
+import { useSocketContext } from './contexts/socketContext.tsx';
+import { useEffect } from 'react';
 
-import { useState } from 'react';
-
-export interface LoginRequiredProps {
-  children: React.ReactNode,
-}
-
-
-function LoginRequired({ children }: LoginRequiredProps){
-  const [user, setUser] = useState<null|UserInterface>(null)
-  const [wantSignUp, setWantSignUp] = useState(false)
-
-  console.log("current user : ", user)
+function HomePage() {
+  const socket = useSocketContext();
 
   useEffect(() => {
-    // Todo check if user have already a jwt token.
-    console.log("Check if jwt token is valid")
+    if (socket) {
+      socket.on('receive-message', (data) => {
+        console.log('Message received:', data);
+      });
 
-  }, [])
+      return () => {
+        socket.off('receive-message');
+      };
+    }
+  }, [socket]);
 
-  return (
-    <>
-      {!user && wantSignUp &&
-        <SignUp onRequireLogin={() => setWantSignUp(false)} />
-      }
-      {!user && !wantSignUp &&
-        <Login onRequireSignUp={() => setWantSignUp(true)} onConnection={(user: UserInterface) => {setUser(user)}}/>
-      }
-      {user && 
-        children
-      }
-    </>
-  )
+  if (socket) {
+    console.log('Socket id from home page', socket.id);
+  }
+
+  return <h1>Home page</h1>;
 }
 
 export const router = createBrowserRouter([
@@ -63,20 +49,21 @@ export const router = createBrowserRouter([
         path: '/',
         element: (
           <LoginRequired>
-            <h1>Home page</h1>
+            <HomePage />
           </LoginRequired>
         ),
       },
       {
         path: '/test',
-        element: 
-        <LoginRequired>
-          <h1>
-            <p>Bonjour</p>
-            <p>ok</p>
-          </h1>
-        </LoginRequired>,
-      }
+        element: (
+          <LoginRequired>
+            <h1>
+              <p>Bonjour</p>
+              <p>ok</p>
+            </h1>
+          </LoginRequired>
+        ),
+      },
     ],
   },
-]);
+]);

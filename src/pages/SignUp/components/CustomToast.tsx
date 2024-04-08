@@ -9,6 +9,7 @@ interface CustomToastProps {
 function CustomToast({ open, message, onClose }: CustomToastProps) {
   return (
     <Snackbar
+      sx={{ height: 'auto', lineHeight: '28px', padding: 24, whiteSpace: 'pre-wrap' }}
       anchorOrigin={{
         vertical: 'top',
         horizontal: 'right',

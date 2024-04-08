@@ -10,7 +10,7 @@ const Footer = () => {
         <li>Laurent</li>
         <li>Yoan</li>
       </ul>
-      <p>© 2021. All rights reserved.</p>
+      <p>© 2024. All rights reserved.</p>
     </div>
   );
 };

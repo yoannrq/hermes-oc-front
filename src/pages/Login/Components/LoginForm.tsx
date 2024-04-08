@@ -5,11 +5,19 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from '@mui/material';
-import { UserInterface } from '../../../contexts/userContext.tsx';
 
+//! test show/hide buttun
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useState } from 'react';
+//! test show/hide buttun
+
+import { UserInterface } from '../../../contexts/userContext.tsx';
 import backend from '../../../utils/backend.ts';
 
-import { fieldsConfig } from './FormFields.ts';
+// import { fieldsConfig } from './FormFields.ts';
 
 export interface LoginFormProps {
   onRequireSignUp: () => void;
@@ -17,23 +25,38 @@ export interface LoginFormProps {
 }
 
 function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
+
+
+  //! test show/hide buttun
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  //! test show/hide buttun
+
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
+    
     const form = event.target as HTMLFormElement;
     const data = Object.fromEntries(new FormData(form).entries()); // Utilise l'élément formulaire pour créer le FormData
-
+    
     console.log('Send this data to backend : ', data);
     const res = await backend.post('/api/auth/login', data);
-
+    
     console.log('Le serveur à répondu avec une réponse : ', res.status, res);
-
+    
     if (res.ok) {
       // User loggin
       onConnection(res.data as UserInterface);
     } else {
       // Todo feed back error
-
+      
       console.log('Les erreurs suivantes sont apparues :');
       if (res.data.error.errors) {
         res.data.error.errors.forEach((error: any) => {
@@ -49,6 +72,7 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
     }
   }
 
+
   return (
     <Container
       component="main"
@@ -57,7 +81,6 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        // height: '100%',
       }}
     >
       <Box
@@ -81,7 +104,7 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
           }}
           onSubmit={handleSubmit}
         >
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             {fieldsConfig.map((field, index) => (
               <Grid
                 item
@@ -101,14 +124,46 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
                 />
               </Grid>
             ))}
-          </Grid>
+          </Grid> */}
+
+          {/* //! test show/hide buttun */}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            sx={{ width: '100%' }} // Ajoutez cette ligne pour définir la largeur du champ d'email
+          />
+          <TextField
+            variant="outlined"
+            type={showPassword ? 'text' : 'password'}
+            label="Mot de passe"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+            sx={{ width: '100%' }} // Ajoutez cette ligne pour définir la largeur du champ de mot de passe
+          />
+          {/* //! test show/hide buttun */}
 
           <Grid sx={{ mt: 3 }}>
             <Button type="submit" variant="contained" fullWidth>
               Connexion
             </Button>
           </Grid>
-
           <Grid
             sx={{ mt: 2, display: 'flex', justifyContent: 'space-between' }}
           >
@@ -125,4 +180,4 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
   );
 }
 
-export default LoginForm;
+export default LoginForm;

@@ -7,6 +7,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
+import CustomToast from './CustomToast';
+import React, { useState } from 'react';
+
 import backend from './../../../utils/backend.ts';
 import { fieldsConfig } from './FormFields.ts';
 
@@ -15,6 +18,24 @@ export interface SignUpFromProps {
 }
 
 function SignUpForm({ onRequireLogin }: SignUpFromProps) {
+  //! test toast
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  // const [openToast, setOpenToast] = useState(false);
+
+  const handleOpenToast = () => {
+    setOpenToast(true);
+  };
+
+  // const handleCloseToast = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+
+  //   setOpenToast(false);
+  // };
+  //! test toast
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -36,18 +57,31 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
       onRequireLogin();
     } else {
       // Feed back user à propos de toutes ces erreurs.
+
+      // console.log('Les erreurs suivantes sont apparues :');
+      // if (res.data.error.errors) {
+      //   res.data.error.errors.forEach((error: any) => {
+      //     const fieldName = error.path[0];
+      //     const message = error.message;
+
+      //     console.log(
+      //       `Le champ {${fieldName}} [${message.code}] : ${message.value}\nVoir plus: `,
+      //       error
+      //     );
+      //   });
+      // }
+
+      //! test toast
       console.log('Les erreurs suivantes sont apparues :');
       if (res.data.error.errors) {
-        res.data.error.errors.forEach((error: any) => {
+        const errors = res.data.error.errors.map((error) => {
           const fieldName = error.path[0];
           const message = error.message;
-
-          console.log(
-            `Le champ {${fieldName}} [${message.code}] : ${message.value}\nVoir plus: `,
-            error
-          );
+          return `Le champ {${fieldName}} [${message.code}] : ${message.value}\nVoir plus: ${error}`;
         });
+        setErrorMessage(errors.join('\n'));
       }
+      //! test toast
     }
   }
 
@@ -103,12 +137,27 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
               </Grid>
             ))}
           </Grid>
-
           <Grid sx={{ mt: 3 }}>
-            <Button type="submit" variant="contained" fullWidth>
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              onClick={handleOpenToast} //! test toast
+
+            >
               Céer
             </Button>
           </Grid>
+
+
+          {/* //! test toast  */}
+          <CustomToast
+            open={errorMessage !== null}
+            message={errorMessage}
+            onClose={() => setErrorMessage(null)}
+          />
+           {/* //! test toast  */}
+
 
           <Grid sx={{ mt: 2, display: 'flex', justifyContent: 'end' }}>
             <Link href="#" variant="body2" onClick={onRequireLogin}>
@@ -121,4 +170,4 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
   );
 }
 
-export default SignUpForm;
+export default SignUpForm;

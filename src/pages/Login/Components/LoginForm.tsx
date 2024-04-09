@@ -7,15 +7,16 @@ import Container from '@mui/material/Container';
 import { Link } from '@mui/material';
 
 //! test show/hide buttun
-import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useState } from 'react';
+// import IconButton from '@mui/material/IconButton';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import Visibility from '@mui/icons-material/Visibility';
+// import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import { useState } from 'react';
 //! test show/hide buttun
 
 import { UserInterface } from '../../../contexts/userContext.tsx';
 import backend from '../../../utils/backend.ts';
+import PasswordField from '../../../components/PasswordField.tsx';
 
 // import { fieldsConfig } from './FormFields.ts';
 
@@ -28,15 +29,15 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
 
 
   //! test show/hide buttun
-  const [showPassword, setShowPassword] = useState(false);
+  // const [showPassword, setShowPassword] = useState(false);
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+  // const handleClickShowPassword = () => {
+  //   setShowPassword(!showPassword);
+  // };
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  // const handleMouseDownPassword = (event) => {
+  //   event.preventDefault();
+  // };
   //! test show/hide buttun
 
 
@@ -136,9 +137,9 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
             name="email"
             autoComplete="email"
             autoFocus
-            sx={{ width: '100%' }} // Ajoutez cette ligne pour définir la largeur du champ d'email
+            sx={{ width: '100%' }}
           />
-          <TextField
+          {/* <TextField
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
             label="Mot de passe"
@@ -155,7 +156,15 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
                 </InputAdornment>
               ),
             }}
-            sx={{ width: '100%' }} // Ajoutez cette ligne pour définir la largeur du champ de mot de passe
+            sx={{ width: '100%' }}
+          /> */}
+          <PasswordField
+            id="password" 
+            name="password"
+            variant="outlined"
+            label="Mot de passe"
+            required={true}
+            fullWidth={true}
           />
           {/* //! test show/hide buttun */}
 

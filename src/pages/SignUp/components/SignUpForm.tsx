@@ -9,8 +9,9 @@ import {
   Box,
 } from '@mui/material';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import backend from './../../../utils/backend.ts';
+import PasswordField from './../../../components/PasswordField.tsx';
 
 export interface SignUpFromProps {
   onRequireLogin: () => void;
@@ -173,30 +174,28 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
                 />
               </Grid> */}
             <Grid item xs={12}>
-              <TextField
-                type="password"
-                autoComplete="new-password"
+              <PasswordField
+                variant="outlined"
                 name="password"
                 label="Mot de passe"
                 id="password"
                 required={true}
                 fullWidth={true}
-                onChange={(e) => {
-                  setPassword(e.target.value);
+                onChange={(value) => {
+                  setPassword(value);
                 }}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                type="password"
-                autoComplete="new-password"
+              <PasswordField
+                variant="outlined"
                 name="confirmPassword"
                 label="Confirmez le mot de passe"
                 id="confirmPassword"
                 required={true}
                 fullWidth={true}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
+                onChange={(value) => {
+                  setConfirmPassword(value);
                 }}
               />
               {!passwordMatch && (

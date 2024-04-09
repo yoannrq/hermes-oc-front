@@ -51,9 +51,11 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
 
     if (res.ok) {
       onRequireLogin();
+    } else if (res.status === 500) {
+      setErrorMessage('Une erreur est survenue lors de la création du compte.');
     } else {
       const errorsByFieldName: { [key: string]: string[] } = {};
-
+      
       if (res.data.error.errors) {
         interface Error {
           path: string[];

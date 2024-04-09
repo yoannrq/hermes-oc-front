@@ -7,8 +7,8 @@ interface PasswordFieldProps {
   id: string,
   name: string,
   label: string,
-  required: boolean,
-  fullWidth: boolean,
+  required?: boolean,
+  fullWidth?: boolean,
   onChange?: (value: string) => void,
 }
 

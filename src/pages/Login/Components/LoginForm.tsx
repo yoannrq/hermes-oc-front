@@ -33,22 +33,14 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    // const form = event.target as HTMLFormElement;
-    // const data = Object.fromEntries(new FormData(form).entries()); //// Utilise l'élément formulaire pour créer le FormData
-
-    // console.log('Send this data to backend : ', data);
     const res = await backend.post('/api/auth/login', {
       email,
       password,
     });
 
-    // console.log('Le serveur à répondu avec une réponse : ', res.status, res);
-
     if (res.ok) {
-      // User loggin
       onConnection(res.data as UserInterface);
     } else {
-      // Todo feed back error
       if (res.data.error.errors) {
         const errorsByFieldName: { [key: string]: string[] } = {};
 
@@ -85,19 +77,6 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
         }
 
         setErrorMessage(recapError);
-
-        // console.log('Les erreurs suivantes sont apparues :');
-        // if (res.data.error.errors) {
-        //   res.data.error.errors.forEach((error: any) => {
-        //     const fieldName = error.path[0];
-        //     const message = error.message;
-
-        //     console.log(
-        //       `Le champ {${fieldName}} [${message.code}] : ${message.value}\nVoir plus: `,
-        //       error
-        //     );
-        //   });
-        // }
       }
     }
   }

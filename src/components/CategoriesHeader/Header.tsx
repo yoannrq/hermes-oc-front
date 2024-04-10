@@ -1,17 +1,17 @@
-import { Avatar, Box, TextField, Typography } from '@mui/material';
+import { Avatar, Box, TextField, Typography, Container } from '@mui/material';
 
 const Header = () => {
   return (
-    <Box
-    maxWidth="md"
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      margin: '1em',
-      width: '90%',
-    }}
+    <Container
+      component="header"
+      maxWidth="lg"
+      sx={{
+        marginTop: '1em',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
       <Box
         sx={{
@@ -37,7 +37,7 @@ const Header = () => {
         label="Rechercher..."
         variant="outlined"
       />
-    </Box>
+    </Container>
   );
 };
 

@@ -1,9 +1,9 @@
 import { Container } from '@mui/material';
 
 import Header from '../../components/CategoriesHeader/Header';
-import Footer from '../../components/CategoriesFooter/Footer';
-import FilterButtons from '../../components/FilterButtons/FilterButtons';
 import NotifsContainer from './FloatingCategories/NotifsContainer';
+import FilterButtons from '../../components/FilterButtons/FilterButtons';
+import Footer from '../../components/CategoriesFooter/Footer';
 
 function HomePageComponent() {
   return (

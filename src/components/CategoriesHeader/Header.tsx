@@ -7,6 +7,7 @@ const Header = () => {
       maxWidth="lg"
       sx={{
         marginTop: '1em',
+        marginBottom: '0.5em',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -31,7 +32,7 @@ const Header = () => {
       </Box>
 
       <TextField
-        sx={{ margin: '1em', width: '100%' }}
+        sx={{ margin: '1em 1em 0 1em', width: '100%' }}
         type="search"
         id="outlined-search"
         label="Rechercher..."

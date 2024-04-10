@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Root from './pages/Root/Root';
-import LoginRequired from './components/loginRequired/loginRequired.tsx';
+import { useEffect } from 'react';
 
 import { useSocketContext } from './contexts/socketContext.tsx';
-import { useEffect } from 'react';
+import Root from './pages/Root/Root';
+import LoginRequired from './components/loginRequired/loginRequired.tsx';
+import HomePageComponent from './pages/HomePage/index.tsx';
+
 
 function HomePage() {
   const socket = useSocketContext();
@@ -64,6 +66,15 @@ export const router = createBrowserRouter([
           </LoginRequired>
         ),
       },
+
+      // Fausse route, juste pour avoir un visuel
+      {
+        path: '/home',
+        element:(
+          <HomePageComponent />
+        )
+      },
     ],
   },
-]);
+]);
+

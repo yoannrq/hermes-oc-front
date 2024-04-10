@@ -1,30 +1,43 @@
-// import React from 'react'
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import './Header.scss';
+import { Avatar, Box, TextField, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <div className="header" style={{width: '100%'}}>
-      <div className="up">
-        <h1>Nom catégorie</h1> {/* à dynamiser en fonction de la catégorie selectionnée*/}
-        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-      </div>
+    <Box
+    maxWidth="md"
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: '1em',
+      width: '90%',
+    }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          width: '100%',
+        }}
+      >
+        <Typography variant="h5">
+          Accueil
+          {/* À dynamiser plus tard en fonction de la catégorie selectionnée */}
+        </Typography>
 
-      <div className="search-bar">
-        <Box
-          component="form"
-          sx={{
-            '& > :not(style)': { m: 1, width: "100%" },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <TextField id="outlined-search" label="Rechercher..." type="search" variant="outlined" />
-        </Box>
-      </div>
-    </div>
+        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+      </Box>
+
+      <TextField
+        sx={{ margin: '1em', width: '100%' }}
+        type="search"
+        id="outlined-search"
+        label="Rechercher..."
+        variant="outlined"
+      />
+    </Box>
   );
 };
 

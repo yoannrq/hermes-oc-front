@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useTheme } from '@mui/material/styles';
+import { NavLink } from 'react-router-dom';
 import { Box, Container, Fab } from '@mui/material';
 
-function FilterButtons() {
-  const items=['Notifs', 'Favoris', 'Tâches'];
+const items = [
+  { name: 'Notifs', path: 'notifications' },
+  { name: 'Favoris', path: 'bookmarks' },
+  { name: 'Tâches', path: 'tasks' },
+];
 
-  const [activeIdx, setActiveIdx] = useState<number>(-1);
-
-  const handleButtonClick = (idx: number) => {
-    setActiveIdx(idx);
-  };
+export default function FilterButtons() {
+  const theme = useTheme();
 
   return (
     <Container
@@ -21,34 +22,37 @@ function FilterButtons() {
         alignItems: 'center',
       }}
     >
-
-    <Box
-      sx={{
-        margin: '1em',
-        display: 'flex',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: 2,
-      }}
+      <Box
+        sx={{
+          margin: '1em',
+          display: 'flex',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 2,
+        }}
       >
-      {items.map((item, idx) => (
-        <Fab
-          key={idx}
-          variant="extended"
-          size={idx === activeIdx ? 'medium' : 'small'}
-          color={idx === activeIdx ? 'primary' : 'default'}
-          onClick={() => handleButtonClick(idx)}
-          sx={{
-            padding: '0.5em 1em',
-            transition: 'background-color 0.5s', 
-          }}
+        {items.map((item, idx) => (
+          <Fab
+            key={idx}
+            variant="extended"
+            component={NavLink}
+            to={item.path}
+            size="small"
+            color="default"
+            style={({ isActive }) => ({
+              backgroundColor: isActive
+                ? theme.palette.primary.main
+                : theme.palette.default,
+            })}
+            sx={{
+              padding: '0.5em 1em',
+              transition: 'background-color 0.5s',
+            }}
           >
-          {item}
-        </Fab>
-      ))}
-    </Box>
-      </Container>
+            {item.name}
+          </Fab>
+        ))}
+      </Box>
+    </Container>
   );
-}
-
-export default FilterButtons;
+}

@@ -2,10 +2,10 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress } from '@mui/material';
 
-import AuthPage from '../../pages/AuthPage';
-import { UserInterface } from '../../contexts/userContext';
+import AuthPage from '../../../pages/AuthPage';
+import { UserInterface } from '../../../contexts/userContext';
 
-import backend from '../../utils/backend';
+import backend from '../../../utils/backend';
 
 export interface LoginRequiredProps {
   children: React.ReactNode;

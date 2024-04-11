@@ -1,9 +1,9 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import Login from './../../pages/Login';
-import SignUp from './../../pages/SignUp';
+import Login from '../pages/Login';
+import SignUp from '../pages/SignUp';
 
-import { UserInterface } from './../../contexts/userContext';
+import { UserInterface } from '../contexts/userContext';
 
 export interface LoginRequiredProps {
   children: React.ReactNode;

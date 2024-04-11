@@ -1,5 +1,5 @@
-import Header from "../../components/AuthHeader/Header";
-import Footer from "../../components/AuthFooter/Footer";
+import Header from "../../components/AuthHeader";
+import Footer from "../../components/AuthFooter";
 import LoginForm from "./Components/LoginForm";
 
 import { UserInterface } from "../../contexts/userContext";

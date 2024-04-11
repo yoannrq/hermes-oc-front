@@ -25,10 +25,10 @@ const Header = () => {
       >
         <Typography variant="h5">
           Accueil
-          {/* À dynamiser plus tard en fonction de la catégorie selectionnée */}
+          {/*//* À dynamiser plus tard en fonction de la catégorie selectionnée */}
         </Typography>
 
-        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> {/*//* À dynamiser plus tard en fonction du user */}
       </Box>
 
       <TextField

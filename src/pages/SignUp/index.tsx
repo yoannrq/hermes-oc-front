@@ -1,5 +1,5 @@
-import Header from "../../components/AuthHeader/Header";
-import Footer from "../../components/AuthFooter/Footer";
+import Header from "../../components/AuthHeader";
+import Footer from "../../components/AuthFooter";
 import SignUpForm from "./components/SignUpForm";
 
 export interface SignUpProps {

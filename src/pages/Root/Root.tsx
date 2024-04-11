@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-import WebSocketProvider from './../../components/websocketProvider/websocketProvider.tsx';
+import WebSocketProvider from '../../components/websocketProvider.tsx';
 
 function Root() {
   return (

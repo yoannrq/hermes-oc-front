@@ -18,10 +18,7 @@ export default function NavigationHeader() {
       location.pathname.startsWith(key)
     )[1];
   }
-  // const title = titles[location.pathname];
-  // console.log(title, location.pathname);
 
-const Header = () => {
   return (
     <Container
       component="header"
@@ -73,4 +70,4 @@ const Header = () => {
       />
     </Container>
   );
-};
+}

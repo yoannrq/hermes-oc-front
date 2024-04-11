@@ -19,7 +19,7 @@ export default [
   },
   {
     path: 'private',
-    element: <h1>Conversations</h1>,
+    element: <h1>Privée</h1>,
   },
   {
     path: 'patients',

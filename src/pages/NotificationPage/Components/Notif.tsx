@@ -11,9 +11,9 @@ function Notif() {
         justifyContent: 'start',
         width: '95%',
         bgcolor: '#e5e5e5e5',
-        borderRadius: '5px',
-        padding: '1em 0.5em',
-        marginBottom: '0.5em',
+        borderRadius: '13px',
+        padding: '0.3em 0.3em',
+        marginBottom: '0.7em',
       }}
     >
       <MessageOutlinedIcon //* À dynamiser en fonction du type de notif reçue

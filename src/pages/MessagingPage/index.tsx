@@ -1,11 +1,12 @@
 import MessagingHeader from "../../components/MessagingHeader";
-import MessagingFooter from "../../components/MessagingFooter";
+import MessagingFooter from "../../components/MessagingTextArea";
+import MessagingContent from "../../components/MessagingContent";
 
 function Messaging() {
   return (
     <>
       <MessagingHeader />
-      <h1>Messaging Page</h1>
+      <MessagingContent />
       <MessagingFooter />
     </>
   );

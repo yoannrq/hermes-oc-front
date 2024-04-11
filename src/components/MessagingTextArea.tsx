@@ -1,7 +1,7 @@
 import { Box, TextField, Container, Button } from '@mui/material';
 import { Send } from '@mui/icons-material';
 
-function MessagingFooter() {
+function MessagingTextArea() {
   return (
     <Container
       // component="footer"
@@ -12,7 +12,8 @@ function MessagingFooter() {
         justifyContent: 'center',
         alignItems: 'center',
         gap: '1em',
-        margin: '1em',
+        marginTop: '.5em',
+        marginBottom: '.5em',
       }}
     >
       <Box
@@ -37,7 +38,7 @@ function MessagingFooter() {
             flexGrow: 1,
           }}
         />
-        <Button variant="contained" sx={{ flexShrink: 0, height: '4em' }}>
+        <Button variant="contained" sx={{ flexShrink: 0, height: '4em', boxShadow: "none" }}>
           {<Send />}
         </Button>
       </Box>
@@ -45,4 +46,4 @@ function MessagingFooter() {
   );
 }
 
-export default MessagingFooter;
+export default MessagingTextArea;

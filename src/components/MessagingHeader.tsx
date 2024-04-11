@@ -7,8 +7,8 @@ function MessagingHeader() {
       component="header"
       maxWidth="lg"
       sx={{
-        marginTop: '1em',
-        marginBottom: '0.5em',
+        marginTop: '.5em',
+        marginBottom: '.5em',
         display: 'flex',
         justifyContent: 'left',
         alignItems: 'center',

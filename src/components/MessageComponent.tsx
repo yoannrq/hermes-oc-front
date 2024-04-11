@@ -24,7 +24,7 @@ function MessageComponent() {
           position: 'relative',
         }}
       >
-        <Typography variant="caption" sx={{ fontSize: '.5em'}}>15 pers.</Typography> {/*//* À dynamiser en fonction du nombre de personnes aillant lu le message */}
+        <Typography variant="caption" sx={{ fontSize: '.7em'}}>15 pers.</Typography> {/*//* À dynamiser en fonction du nombre de personnes aillant lu le message */}
         <Box
           sx={{
             display: 'flex',
@@ -39,7 +39,7 @@ function MessageComponent() {
               width: '100%',
             }}
           >
-            {/* <AvatarComponent
+            <AvatarComponent
               src="https://mui.com/static/images/avatar/3.jpg"
               sx={{
                 border: '2px solid white',
@@ -70,8 +70,8 @@ function MessageComponent() {
                 left: 16,
                 zIndex: 1,
               }}
-            /> */}
-            <AvatarGroup
+            />
+            {/* <AvatarGroup
               max={4}
               spacing="small"
               sx={{
@@ -99,13 +99,13 @@ function MessageComponent() {
                 alt="Trevor Henderson"
                 src="/static/images/avatar/5.jpg"
               />
-            </AvatarGroup>
+            </AvatarGroup> */}
           </Box>
-          {/* <Box sx={{ height: '100%', display: 'flex', justifyContent: "end", alignItems: 'end' }}>
+          <Box sx={{ height: '100%', display: 'flex', justifyContent: "end", alignItems: 'end' }}>
             <Typography variant="caption" sx={{ padding: 0, margin: 0, lineHeight: '1em' }}>
               ...
             </Typography>
-          </Box> */}
+          </Box>
         </Box>
       </Box>
     </Box>

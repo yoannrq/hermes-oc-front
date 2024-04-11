@@ -5,6 +5,7 @@ import { useSocketContext } from './contexts/socketContext.tsx';
 import Root from './pages/Root/Root';
 import LoginRequired from './components/loginRequired.tsx';
 import HomePageComponent from './pages/HomePage/index.tsx';
+import Messaging from './pages/MessagingPage/index.tsx';
 
 function HomePage() {
   const socket = useSocketContext();
@@ -70,6 +71,10 @@ export const router = createBrowserRouter([
       {
         path: '/home',
         element: <HomePageComponent />,
+      },
+      {
+        path: '/messaging',
+        element: <Messaging />,
       },
     ],
   },

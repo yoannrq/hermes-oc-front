@@ -49,10 +49,12 @@ async function fetchBackend({ method, url, data }: fetchBackendProps) {
 
 export default {
   async get(url: string) {
-    return fetchBackend({
-      method: 'GET',
-      url,
-    });
+    return parseJson(
+      await fetchBackend({
+        method: 'GET',
+        url,
+      })
+    );
   },
 
   async getFile(url: string) {

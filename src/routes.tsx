@@ -7,28 +7,6 @@ import LoginRequired from './components/loginRequired.tsx';
 import HomePageComponent from './pages/HomePage/index.tsx';
 import Messaging from './pages/MessagingPage/index.tsx';
 
-function HomePage() {
-  const socket = useSocketContext();
-
-  useEffect(() => {
-    if (socket) {
-      socket.on('receive-message', (data) => {
-        console.log('Message received:', data);
-      });
-
-      return () => {
-        socket.off('receive-message');
-      };
-    }
-  }, [socket]);
-
-  if (socket) {
-    console.log('Socket id from home page', socket.id);
-  }
-
-  return <h1>Home page</h1>;
-}
-
 export const router = createBrowserRouter([
   {
     // path correspond à l'url de la page

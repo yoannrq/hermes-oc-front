@@ -34,7 +34,6 @@ const Footer = () => {
         onChange={handleChange}
       >
         <BottomNavigationAction
-          
           label="Accueil"
           value="recents"
           icon={<Home />}

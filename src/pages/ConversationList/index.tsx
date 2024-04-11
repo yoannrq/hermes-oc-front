@@ -1,23 +1,23 @@
 import Header from "../../components/AuthHeader/Header";
 import Footer from "../../components/AuthFooter/Footer";
-import Room from './components/Room';
-
-const groups = [
-  { id: 1, name: 'Groupe 1' },
-  { id: 2, name: 'Groupe 2' },
-  { id: 3, name: 'Groupe 3' }
-];
-
-
-
-
+import ConversationItem from './components/ConversationItem';
+import { data } from './data';
 
 
 function ConversastionList() {
   return (
     <div className="app">
       <Header />
-      <Room groups={groups} />
+      {data.map((conversation) => (
+        <ConversationItem
+          key={conversation.conversationid}
+          user={conversation.receiver}
+          title={`${conversation.receiver.firstname} ${conversation.receiver.lastname}`}
+          content={conversation.lastMessage.content}
+          unreadMessagesCount={conversation.unreadMessagesCount}
+          date={conversation.lastMessage.date}
+        />
+      ))}
       <Footer />
     </div>
   );

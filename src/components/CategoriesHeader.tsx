@@ -1,4 +1,11 @@
-import { Avatar, Box, TextField, Typography, Container } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  TextField,
+  Typography,
+  Container,
+  Button,
+} from '@mui/material';
 
 const Header = () => {
   return (
@@ -28,7 +35,19 @@ const Header = () => {
           {/*//* À dynamiser plus tard en fonction de la catégorie selectionnée */}
         </Typography>
 
-        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> {/*//* À dynamiser plus tard en fonction du user */}
+        <Button
+          href="#"
+          sx={{
+            padding: '.5em',
+            minWidth: 0,
+            display: 'flex',
+            justifyContent: 'start',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />{' '}
+          {/*//* À dynamiser plus tard en fonction du user */}
+        </Button>
       </Box>
 
       <TextField

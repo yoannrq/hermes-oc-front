@@ -16,6 +16,9 @@ export default function FilterButtons() {
       component="footer"
       maxWidth="md"
       sx={{
+        position: 'relative',
+        transform: 'translateY(-100%)',
+        bottom: 0,
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

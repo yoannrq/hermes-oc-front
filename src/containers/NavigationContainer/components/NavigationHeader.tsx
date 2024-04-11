@@ -1,11 +1,25 @@
-import {
-  Avatar,
-  Box,
-  TextField,
-  Typography,
-  Container,
-  Button,
-} from '@mui/material';
+import { Avatar, Box, TextField, Typography, Container } from '@mui/material';
+import { useLocation } from 'react-router-dom';
+
+const titles: { [key: string]: string } = {
+  '/home': 'Accueil',
+  '/patients': 'Patients',
+  '/teams': 'Equipe',
+  '/private': 'Conversations',
+};
+
+export default function NavigationHeader() {
+  const location = useLocation();
+
+  let title = 'Accueil';
+
+  if (location.pathname !== '/') {
+    title = Object.entries(titles).find(([key, _]) =>
+      location.pathname.startsWith(key)
+    )[1];
+  }
+  // const title = titles[location.pathname];
+  // console.log(title, location.pathname);
 
 const Header = () => {
   return (
@@ -60,5 +74,3 @@ const Header = () => {
     </Container>
   );
 };
-
-export default Header;

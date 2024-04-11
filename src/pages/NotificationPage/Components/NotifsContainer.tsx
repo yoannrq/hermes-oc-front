@@ -31,6 +31,7 @@ function NotifsContainer() {
           borderRadius: '5px',
           padding: '.5em .5em',
           overflowY: 'overlay',
+          paddingBottom: '15vh',
         }}
       >
         <Notif />
@@ -48,4 +49,4 @@ function NotifsContainer() {
   );
 }
 
-export default NotifsContainer;
+export default NotifsContainer;

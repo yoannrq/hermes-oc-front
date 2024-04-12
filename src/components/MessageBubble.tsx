@@ -4,12 +4,11 @@ function MessageBubble() {
   return (
     <Box
       sx={{
-        bgcolor: 'lightblue',
+        bgcolor: '#98c7ff',
         minWidth: '5em',
         maxWidth: '16em',
         borderRadius: '10px',
         padding: '.5em 1em',
-        // marginBottom: '.5em',
       }}
     >
       <Typography variant="body1" sx={{ paddingBottom: '.5em' }}>
@@ -30,3 +29,4 @@ export default MessageBubble;
 
 
 // Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam pariatur quibusdam, natus quasi facere harum nobis sapiente corporis, ipsam, ut dolorum quisquam veniam animi ea nam quod asperiores voluptatum assumenda.
+

@@ -1,9 +1,7 @@
 import { Container, Box } from '@mui/material';
 
-import MessageComponent from './MessageComponent';
-import MessageBubble from './MessageBubble';
-
 function MessagingContent() {
+
   return (
     <Container
       component="main"
@@ -15,7 +13,7 @@ function MessagingContent() {
         overflowY: 'auto',
       }}
     >
-      <MessageComponent />
+      {/* <MessageComponent />
       <Box sx={{ display: 'flex', justifyContent: 'end' }}>
         <MessageBubble />
       </Box>
@@ -45,7 +43,7 @@ function MessagingContent() {
       <MessageComponent />
       <MessageComponent />
       <MessageComponent />
-      <MessageComponent />
+      <MessageComponent /> */}
     </Container>
   );
 }

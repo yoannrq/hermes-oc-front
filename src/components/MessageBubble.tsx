@@ -1,6 +1,11 @@
 import { Typography, Box } from '@mui/material';
 
-function MessageBubble() {
+export interface MessageBubbleProps {
+  content: string;
+  time: string;
+}
+
+function MessageBubble({ content, time }: MessageBubbleProps) {
   return (
     <Box
       sx={{
@@ -12,13 +17,19 @@ function MessageBubble() {
       }}
     >
       <Typography variant="body1" sx={{ paddingBottom: '.5em' }}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam pariatur quibusdam, natus quasi facere harum nobis sapiente corporis, ipsam, ut dolorum quisquam veniam animi ea nam quod asperiores voluptatum assumenda.
+        {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam pariatur quibusdam, natus quasi facere harum nobis sapiente corporis, ipsam, ut dolorum quisquam veniam animi ea nam quod asperiores voluptatum assumenda. */}
+
+        {content}
+
       </Typography>
       <Typography
         variant="body1"
         sx={{ display: 'flex', justifyContent: 'end', alignItems: 'end' }}
       >
-        8:30 {/*//* À dynamiser en fonction de l'heure de l'envoi */}
+        {/* 8:30 //* À dynamiser en fonction de l'heure de l'envoi */}
+
+        {time}
+
       </Typography>
     </Box>
   );

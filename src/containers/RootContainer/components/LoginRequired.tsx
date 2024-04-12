@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Box, Typography, CircularProgress } from '@mui/material';
 
 import AuthPage from '../../../pages/AuthPage';
-import { UserInterface } from '../../../contexts/userContext';
+import { UserInterface, UserContext } from '../../../contexts/userContext';
 
 import backend from '../../../utils/backend';
 
@@ -38,27 +38,51 @@ function LoadingScreen() {
 }
 
 export default function LoginRequired({ children }: LoginRequiredProps) {
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<null | UserInterface>(null);
+  const [fetchingUser, setFetchingUser] = useState(true);
+  const [user, setUser] = useState<UserInterface>({
+    isLogged: false,
+    id: -1,
+    firstname: '',
+    lastname: '',
+    fullname: '',
+    initials: '',
+    email: '',
+    rppsCode: '',
+    profilePictureUrl: '',
+  });
 
   useEffect(() => {
-    // Todo check if user have already a jwt token.
-
     backend.get('/api/me').then((res) => {
-      console.log(res);
       if (res.ok) {
-        setUser(res.data.user);
+        const user = res.data.user;
+        setUser({
+          isLogged: true,
+          id: user.id,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          fullname: user.firstname + ' ' + user.lastname,
+          initials:
+            user.firstname[0].toUpperCase() + user.lastname[0].toUpperCase(),
+          email: user.email,
+          rppsCode: user.rppsCode,
+          profilePictureUrl: user.profilePictureUrl,
+        });
       }
-      setLoading(false);
+      setFetchingUser(false);
     });
-    console.log('Check if jwt token is valid');
-  }, []);
+  }, [fetchingUser]);
 
   return (
     <>
-      {loading && <LoadingScreen />}
-      {user && children}
-      {!loading && !user && <AuthPage onConnection={setUser} />}
+      {fetchingUser && <LoadingScreen />}
+
+      <UserContext.Provider value={user}>
+        {user.isLogged && children}
+      </UserContext.Provider>
+
+      {!fetchingUser && !user.isLogged && (
+        <AuthPage onConnection={() => setFetchingUser(true)} />
+      )}
     </>
   );
 }

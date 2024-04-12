@@ -1,12 +1,10 @@
 import { Container, Box } from '@mui/material';
 
-import Dashboard from './Components/Dashboard';
 import Notif from './Components/Notif';
 
 export default function NotificationPage() {
   return (
     <>
-      <Dashboard />
       <Box
         sx={{
           display: 'flex',
@@ -16,7 +14,6 @@ export default function NotificationPage() {
           width: '100%',
           height: '100%',
           borderRadius: '5px',
-          padding: '.5em .5em',
           overflowY: 'overlay',
           paddingBottom: '15vh',
         }}
@@ -34,15 +31,4 @@ export default function NotificationPage() {
       </Box>
     </>
   );
-}
-
-// <Container
-//   component="footer"
-//   sx={{
-//     display: 'flex',
-//     flexDirection: 'column',
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     width: '100%',
-//   }}
-// ></Container>
+}

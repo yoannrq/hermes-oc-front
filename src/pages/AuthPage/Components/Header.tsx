@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 
-function Header() {
+export default function Header() {
   return (
     <Box
       className="header"
@@ -17,11 +17,12 @@ function Header() {
         variant="h3"
         fontFamily="Arial, sans-serif"
         fontWeight="bold"
+        sx={{
+          marginTop: '0.8em',
+        }}
       >
         HERMES
       </Typography>
     </Box>
   );
-}
-
-export default Header;
+}

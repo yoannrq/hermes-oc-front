@@ -1,7 +1,5 @@
 import { Container, Box } from '@mui/material';
 
-import Dashboard from './Dashboard';
-
 import Notif from './Notif';
 
 function NotifsContainer() {
@@ -19,7 +17,6 @@ function NotifsContainer() {
         overflow: 'hidden',
       }}
     >
-      <Dashboard />
       <Box
         sx={{
           display: 'flex',
@@ -29,7 +26,6 @@ function NotifsContainer() {
           width: '100%',
           height: '100%',
           borderRadius: '5px',
-          padding: '.5em .5em',
           overflowY: 'overlay',
           paddingBottom: '15vh',
         }}

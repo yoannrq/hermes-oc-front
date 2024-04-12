@@ -1,5 +1,9 @@
 import { Avatar, Box, TextField, Typography, Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
+import { useUserContext } from '../../../contexts/userContext';
+import { useTheme } from '@mui/material/styles';
+
+import UserIcon from '../../../components/UserIcon';
 
 const titles: { [key: string]: string } = {
   '/home': 'Accueil',
@@ -10,7 +14,10 @@ const titles: { [key: string]: string } = {
 
 export default function NavigationHeader() {
   const location = useLocation();
+  const user = useUserContext();
+  const theme = useTheme();
 
+  console.log(user);
   let title = 'Accueil';
 
   if (location.pathname !== '/') {
@@ -21,7 +28,6 @@ export default function NavigationHeader() {
 
   return (
     <Container
-      component="header"
       maxWidth="lg"
       sx={{
         marginTop: '1em',
@@ -35,6 +41,7 @@ export default function NavigationHeader() {
       <Box
         sx={{
           display: 'flex',
+          marginBottom: '0.313em',
           justifyContent: 'space-between',
           alignItems: 'center',
           flexWrap: 'wrap',
@@ -62,11 +69,17 @@ export default function NavigationHeader() {
       </Box>
 
       <TextField
-        sx={{ margin: '1em 1em 0 1em', width: '100%' }}
+        sx={{
+          margin: '0.2em 0.2em 0',
+          width: '100%',
+          backgroundColor: theme.palette.grey[100],
+          borderRadius: '10',
+        }}
         type="search"
         id="outlined-search"
         label="Rechercher..."
         variant="outlined"
+        size="small"
       />
     </Container>
   );

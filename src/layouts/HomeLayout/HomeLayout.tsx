@@ -4,7 +4,7 @@ import { Box, Container } from '@mui/material';
 
 import FilterButtons from '../../components/FloatingButtons';
 
-export default function HomeContainer() {
+export default function HomeLayout() {
   const location = useLocation();
 
   console.log('location : ', location);

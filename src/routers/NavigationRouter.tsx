@@ -1,7 +1,7 @@
 import HomeRouter from '../routers/HomeRouter';
 
 import RedirectTo from './utils/RedirectTo';
-import HomeContainer from '../containers/HomeContainer/HomeContainer';
+import HomeLayout from '../layouts/HomeLayout/HomeLayout';
 
 export default [
   {
@@ -10,7 +10,7 @@ export default [
   },
   {
     path: 'home',
-    element: <HomeContainer />,
+    element: <HomeLayout />,
     children: HomeRouter,
   },
   {

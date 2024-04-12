@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-// [ Containers ]
-import RootContainer from '../containers/RootContainer/RootContainer';
-import NavigationContainer from '../containers/NavigationContainer/NavigationContainer';
+// [ Layouts ]
+import RootLayout from '../layouts/RootLayout/RootLayout';
+import NavigationLayout from '../layouts/NavigationLayout/NavigationLayout';
 
 // [ Routers ]
 import NavigationRouter from '../routers/NavigationRouter';
@@ -12,7 +12,7 @@ export default createBrowserRouter([
     // path correspond à l'url de la page
     path: '/',
     // element à l'élément à afficher sur la page
-    element: <RootContainer />,
+    element: <RootLayout />,
     // en cas d'erreur on afficher le composant NotFound
     //! errorElement: <NotFound />,
     // Quand ma page va être chargée, la fonction loader va être appelée
@@ -27,7 +27,7 @@ export default createBrowserRouter([
       // La propriété element va être placée dans le composant Outlet du parent
       {
         path: '/',
-        element: <NavigationContainer />,
+        element: <NavigationLayout />,
         children: NavigationRouter,
       },
     ],

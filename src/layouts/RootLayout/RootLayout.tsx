@@ -4,7 +4,7 @@ import { CssBaseline } from '@mui/material';
 import WebSocketProvider from './components/WebsocketProvider';
 import LoginRequired from './components/LoginRequired';
 
-export default function RootContainer() {
+export default function RootLayout() {
   return (
     <WebSocketProvider>
       <LoginRequired>

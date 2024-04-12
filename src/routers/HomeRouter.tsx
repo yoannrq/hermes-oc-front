@@ -1,4 +1,4 @@
-import HomeContainer from '../containers/HomeContainer/HomeContainer';
+import HomeLayout from '../Layouts/HomeLayout/HomeLayout';
 import NotificationPage from '../pages/NotificationPage';
 
 import RedirectTo from './utils/RedirectTo';

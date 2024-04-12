@@ -1,5 +1,5 @@
-import Header from "../../components/AuthHeader/Header";
-import Footer from "../../components/AuthFooter/Footer";
+import Header from "../../components/CategoriesHeader";
+import Footer from "../../components/CategoriesFooter";
 import ConversationItem from './components/ConversationItem';
 import { data } from './data';
 

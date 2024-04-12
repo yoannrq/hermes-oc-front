@@ -51,6 +51,7 @@ export default function UnreadNotif ({ unreadMessageCount, date }: UnreadNotifPr
       <Typography
       sx={{
         fontSize: '0.800rem',
+        fontWeight: '700',
       }}>
         {timeElapsed}</Typography>
       <Typography

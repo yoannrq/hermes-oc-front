@@ -28,32 +28,61 @@ function ConversationRecapItem({ user, title, content, unreadMessagesCount, date
       justifyContent: 'space-between',
       p: 1,
       m: 1,
-      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#fff'),
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#ebebeb'),
       color: (theme) =>
         theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
       border: '5px solid',
       borderColor: (theme) =>
         theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
       borderRadius: 10,
-      fontSize: '0.875rem',
+      fontSize: '1',
       fontWeight: '700',
     }}
   >
+  <Box
+  width={'15%'}>
     <UserIcon user={user}/>
+    </Box>
         <Box
+        width={'70%'}
         display="flex"
         sx={{ flexDirection: 'column' }}
         >
           
-          <Typography>{title}</Typography>
-          <Typography>{content}</Typography>
+          <Typography
+           sx={{
+            justifyContent: 'space-between',
+ 
+            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#ebebeb'),
+            color: (theme) =>
+              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+            fontSize: '1',
+            fontWeight: '700',
+          }}>{title}</Typography>
+          <Typography
+           sx={{
+            justifyContent: 'space-between',
+            p: 1,
+            bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#d4d4d4'),
+            color: (theme) =>
+              theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+            border: '5px solid',
+            borderColor: (theme) =>
+              theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+            borderRadius: 10,
+            fontSize: '1',
+            fontWeight: '700',
+          }}
+          >{content}</Typography>
           
         </Box>
         <Box
         display="flex"
         alignItems="center"
+        width={'15%'}
+        justifyContent={'center'}
         sx={{ 
-          flexDirection: 'column' }}>
+          flexDirection: 'row' }}>
         <UnreadNotif 
         unreadMessageCount={unreadMessagesCount}date={date} />
         </Box>

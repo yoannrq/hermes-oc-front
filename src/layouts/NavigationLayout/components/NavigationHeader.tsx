@@ -1,4 +1,4 @@
-import { Avatar, Box, TextField, Typography, Container } from '@mui/material';
+import { Box, TextField, Typography, Container, Button } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import { useUserContext } from '../../../contexts/userContext';
 import { useTheme } from '@mui/material/styles';
@@ -62,7 +62,7 @@ export default function NavigationHeader() {
             alignItems: 'center',
           }}
         >
-          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />{' '}
+          <UserIcon user={user} />
           {/*//* À dynamiser plus tard en fonction du user */}
         </Button>
       </Box>
@@ -82,4 +82,4 @@ export default function NavigationHeader() {
       />
     </Container>
   );
-}
+}

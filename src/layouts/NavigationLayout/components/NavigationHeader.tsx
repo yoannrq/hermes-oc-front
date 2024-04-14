@@ -17,7 +17,6 @@ export default function NavigationHeader() {
   const user = useUserContext();
   const theme = useTheme();
 
-  console.log(user);
   let title = 'Accueil';
 
   if (location.pathname !== '/') {

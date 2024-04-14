@@ -113,7 +113,7 @@ function SignUpForm({ onRequireLogin }: SignUpFromProps) {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h6">
+        <Typography component="h1" variant="h6" fontSize="1em">
           Créez un compte
         </Typography>
 

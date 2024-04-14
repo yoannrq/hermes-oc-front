@@ -13,12 +13,13 @@ export default function FilterButtons() {
 
   return (
     <Container
-      component="footer"
+      component="nav"
       maxWidth="md"
       sx={{
+        padding: 0,
         position: 'relative',
         transform: 'translateY(-100%)',
-        bottom: 0,
+        bottom: '0.73em',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -27,11 +28,10 @@ export default function FilterButtons() {
     >
       <Box
         sx={{
-          margin: '1em',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-end',
           flexWrap: 'wrap',
-          gap: 2,
+          gap: '0.73em',
         }}
       >
         {items.map((item, idx) => (
@@ -43,9 +43,12 @@ export default function FilterButtons() {
             size="small"
             color="default"
             style={({ isActive }) => ({
-              backgroundColor: isActive
-                ? theme.palette.primary.main
-                : theme.palette.default,
+              textTransform: 'none',
+              fontFamily: 'Inter, sans-serif',
+              fontSize: '0.95em',
+              padding: isActive ? '1.2em 1.7em' : '0.5em 0.9em',
+              transition: 'padding 0.3s',
+              backgroundColor: theme.palette.background.default,
             })}
             sx={{
               padding: '0.5em 1em',

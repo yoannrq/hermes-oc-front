@@ -100,7 +100,7 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h6">
+        <Typography component="h1" variant="h6" fontSize="1em">
           Entrez vos informations de connexion
         </Typography>
 
@@ -188,4 +188,4 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
   );
 }
 
-export default LoginForm;
+export default LoginForm;

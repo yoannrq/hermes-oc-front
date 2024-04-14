@@ -54,7 +54,7 @@ export default function LoginRequired({ children }: LoginRequiredProps) {
   useEffect(() => {
     backend.get('/api/me').then((res) => {
       if (res.ok) {
-        const user = res.data.user;
+        const user = res.data;
         setUser({
           isLogged: true,
           id: user.id,

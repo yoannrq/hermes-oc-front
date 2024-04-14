@@ -1,14 +1,10 @@
-import { Outlet, useLocation, useOutletContext } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import { Box, Container } from '@mui/material';
 
 import FilterButtons from '../../components/FloatingButtons';
 
 export default function HomeLayout() {
-  const location = useLocation();
-
-  console.log('location : ', location);
-  console.log('outletContext: ', useOutletContext());
   return (
     <>
       <Box
@@ -28,7 +24,9 @@ export default function HomeLayout() {
             justifyContent: 'start',
             alignItems: 'center',
             height: '100%',
-            width: '95%',
+            width: '100%',
+            padding: 0,
+            margin: 0,
             overflow: 'hidden',
           }}
         >

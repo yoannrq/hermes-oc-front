@@ -1,13 +1,9 @@
 import HomeRouter from '../routers/HomeRouter';
 
-import RedirectTo from './utils/RedirectTo';
+// import RedirectTo from './utils/RedirectTo';
 import HomeLayout from '../layouts/HomeLayout/HomeLayout';
 
 export default [
-  {
-    path: '/',
-    element: <RedirectTo url="/home" />,
-  },
   {
     path: 'home',
     element: <HomeLayout />,
@@ -25,4 +21,5 @@ export default [
     path: 'patients',
     element: <h1>Patients</h1>,
   },
-];
+];
+

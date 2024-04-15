@@ -6,10 +6,10 @@ import { useTheme } from '@mui/material/styles';
 import UserIcon from '../../../components/UserIcon';
 
 const titles: { [key: string]: string } = {
-  '/home': 'Accueil',
-  '/patients': 'Patients',
-  '/teams': 'Equipe',
-  '/private': 'Conversations',
+  '/nav/home': 'Accueil',
+  '/nav/patients': 'Patients',
+  '/nav/teams': 'Equipe',
+  '/nav/private': 'Conversations',
 };
 
 export default function NavigationHeader() {
@@ -19,7 +19,8 @@ export default function NavigationHeader() {
 
   let title = 'Accueil';
 
-  if (location.pathname !== '/') {
+  console.log(location.pathname)
+  if (location.pathname !== '/nav') {
     title = Object.entries(titles).find(([key, _]) =>
       location.pathname.startsWith(key)
     )[1];
@@ -82,4 +83,5 @@ export default function NavigationHeader() {
       />
     </Container>
   );
-}
+}
+

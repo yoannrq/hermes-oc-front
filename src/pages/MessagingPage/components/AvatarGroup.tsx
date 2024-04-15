@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material';
 
-import AvatarComponent from './AvatarComponent';
+import AvatarComponent from '../../../components/AvatarComponent';
 
 function AvatarGroup() {
   return (
@@ -9,7 +9,6 @@ function AvatarGroup() {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'end',
-        width: '100%',
       }}
     >
       <Typography variant="caption" sx={{ fontSize: '.7em' }}>

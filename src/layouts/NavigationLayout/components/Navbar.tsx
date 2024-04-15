@@ -8,10 +8,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, Forum, Diversity3, MedicalServices } from '@mui/icons-material';
 
 const navItems = [
-  { label: 'Accueil', url: '/home', icon: <Home /> },
-  { label: 'Patients', url: '/patients', icon: <MedicalServices /> },
-  { label: 'Equipes', url: '/teams', icon: <Diversity3 /> },
-  { label: 'Privées', url: '/private', icon: <Forum /> },
+  { label: 'Accueil', url: '/nav/home', icon: <Home /> },
+  { label: 'Patients', url: '/nav/patients', icon: <MedicalServices /> },
+  { label: 'Equipes', url: '/nav/teams', icon: <Diversity3 /> },
+  { label: 'Privées', url: '/nav/private', icon: <Forum /> },
 ];
 
 export default function Navbar() {
@@ -59,4 +59,5 @@ export default function Navbar() {
       </BottomNavigation>
     </Container>
   );
-}
+}
+

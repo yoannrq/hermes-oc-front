@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { useUserContext } from '../../../contexts/userContext';
 import AvatarComponent from '../../../components/AvatarComponent';
 import MessageBubble from './MessageBubble';
-import AvatarGroup from './AvatarGroup';
+// import AvatarGroup from './AvatarGroup';
 
 export interface MessageComponentProps {
   message: {
@@ -14,7 +14,7 @@ export interface MessageComponentProps {
     date: string,
     deleted: boolean,
   }
-  style: object,
+  style?: object,
 }
 
 function MessageComponent({ message }: MessageComponentProps) {

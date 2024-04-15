@@ -6,17 +6,47 @@ function MessagingTextArea() {
 
   const [inputValue, setInputValue] = useState('');
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    // const newMessage = {
+    //   content: inputValue,
+    // };
+
+    // console.log(newMessage);
+    
+    // setInputValue('');
+
+
     const newMessage = {
+      roomType: "conversation",
+      roomId: 1,
       content: inputValue,
     };
 
     console.log(newMessage);
 
-    setInputValue('');
-  }
+    try {
+      const response = await fetch('/api/me/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMessage),
+      });
+
+      if (response.ok) {
+        console.log('Message envoyé avec succès au backend !');
+        
+        setInputValue('');
+      } else {
+        console.error("Erreur lors de l'envoi du message au backend test :", response.status);
+      }
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message au backend :", error);
+    }
+  };
+  
 
   return (
     <Container

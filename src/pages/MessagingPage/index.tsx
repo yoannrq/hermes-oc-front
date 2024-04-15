@@ -24,42 +24,48 @@ function Messaging() {
     }
 
     //! idée pour envoyer un message
-    // setTimeout(() => {
-    //   setMessages([
-    //     ...messages,
-    //     {
-    //       id: 'testid' + Date.now(),
-    //       content: 'Bonjour à tous je suis un faux message',
-    //       authorId: 13,
-    //       date: "djT20:30",
-    //       deleted: false,
-    //     },
-    //   ]);
-    // }, 10000);
-  } );
+    //   setTimeout(() => {
+    //     setMessages([
+    //       ...messages,
+    //       {
+    //         id: 'testid' + Date.now(),
+    //         content: 'Bonjour à tous je suis un faux message',
+    //         authorId: 13,
+    //         date: "djT20:30",
+    //         deleted: false,
+    //       },
+    //     ]);
+    //   }, 10000);
+  });
 
   if (!res.ok) {
     console.error(res);
     return <h1>Fetch error !</h1>;
   }
 
-
   return (
-    <Container
-      component="main"
-      maxWidth="lg"
-      ref={(ref) => (containerRef.current = ref)}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        overflowY: ' auto',
-      }}
-    >
-      {messages.map((message) => {
-        return <MessageComponent key={message.id} message={message} />;
-      })}
-    </Container>
+    <>
+      <Container
+        component="main"
+        maxWidth="lg"
+        ref={(ref) => (containerRef.current = ref)}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100%',
+          overflowY: ' auto',
+        }}
+      >
+        {messages.map((message) => {
+          return (
+            <MessageComponent
+              key={message.id}
+              message={message}
+            />
+          );
+        })}
+      </Container>
+    </>
   );
 }
 

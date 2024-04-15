@@ -1,4 +1,4 @@
-import HomeLayout from '../Layouts/HomeLayout/HomeLayout';
+// import HomeLayout from '../Layouts/HomeLayout/HomeLayout';
 import NotificationPage from '../pages/NotificationPage';
 
 import RedirectTo from './utils/RedirectTo';
@@ -20,4 +20,5 @@ export default [
     path: 'tasks',
     element: <h1>Tâches</h1>,
   },
-];
+];
+

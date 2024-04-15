@@ -40,10 +40,10 @@ function MessagingTextArea() {
         
         setInputValue('');
       } else {
-        console.error("Erreur lors de l'envoi du message au backend test :", response.status);
+        console.error("Erreur lors de l'envoi du message au backend (else):", response.status);
       }
     } catch (error) {
-      console.error("Erreur lors de l'envoi du message au backend :", error);
+      console.error("Erreur lors de l'envoi du message au backend (catch) :", error);
     }
   };
   

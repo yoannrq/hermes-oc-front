@@ -1,4 +1,5 @@
 import { Typography, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export interface MessageBubbleProps {
   message: {
@@ -9,14 +10,32 @@ export interface MessageBubbleProps {
     date: string;
     deleted: boolean;
   };
+  onClick?: () => void;
+  style?: object;
 }
 
-function MessageBubble({ message }: MessageBubbleProps) {
-  const date = new Date(message.date);
+function MessageBubble({ message, onClick, style }: MessageBubbleProps) {
+  // const date = new Date(message.date);
 
-  // Change this date parsing logic with moment.js 
-  const start = message.date.search(/T/g) + 1
-  const time = message.date.substring(start, start + 5)
+  // // Change this date parsing logic with moment.js 
+  // const start = message.date.search(/T/g) + 1
+  // const time = message.date.substring(start, start + 5)
+
+  const [messageTime, setMessageTime] = useState('');
+
+  useEffect(() => {
+    const storedTime = localStorage.getItem(`messageTime_${message.id}`);
+    if (storedTime) {
+      setMessageTime(storedTime);
+    } else {
+      const date = new Date(message.date);
+      const hours = date.getHours().toString().padStart(2, '0');
+      const minutes = date.getMinutes().toString().padStart(2, '0');
+      const time = `${hours}:${minutes}`;
+      setMessageTime(time);
+      localStorage.setItem(`messageTime_${message.id}`, time);
+    }
+  }, [message.date, message.id]);
 
   return (
     <Box
@@ -26,7 +45,9 @@ function MessageBubble({ message }: MessageBubbleProps) {
         maxWidth: '65vw',
         borderRadius: '10px',
         padding: '.5em 1em',
+        ...style,
       }}
+      onClick={onClick}
     >
       <Typography 
         variant="body1" 
@@ -46,7 +67,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
           fontSize: '0.67em',
         }}
       >
-        {time}
+        {messageTime}
       </Typography>
     </Box>
   );

@@ -1,4 +1,3 @@
-
 import { Box, Button, Snackbar } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -25,7 +24,7 @@ function MessageComponent({ message }: MessageComponentProps) {
   const user = useUserContext();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [showButton, setShowButton] = useState(false);
-  
+
   const isAuthorMessage = user.id === message.authorId;
 
   const handleClick = async (event) => {
@@ -83,7 +82,6 @@ function MessageComponent({ message }: MessageComponentProps) {
       onMouseLeave={() => setShowButton(false)}
       // style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
     >
-
       <Snackbar
         open={openSnackbar}
         message="Voulez-vous vraiment supprimer ce message ?"
@@ -104,20 +102,21 @@ function MessageComponent({ message }: MessageComponentProps) {
       />
 
       {showButton && (
-        <Box sx={{
-           display: 'flex',
-           flexDirection: 'column', 
-           justifyContent: 'center',
-           gap: '.5em',
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: '.5em',
           }}
-          >
+        >
           <Button
             onClick={handleModifyClick}
             variant="text"
-            sx={{ 
+            sx={{
               minWidth: 0,
               padding: 0,
-              // fontSize: '.7em' 
+              // fontSize: '.7em'
             }}
           >
             <EditIcon />
@@ -125,10 +124,10 @@ function MessageComponent({ message }: MessageComponentProps) {
           <Button
             onClick={handleDeleteClick}
             variant="text"
-            sx={{ 
+            sx={{
               minWidth: 0,
               padding: 0,
-              // fontSize: '.7em' 
+              // fontSize: '.7em'
             }}
           >
             <DeleteIcon />
@@ -140,4 +139,4 @@ function MessageComponent({ message }: MessageComponentProps) {
   );
 }
 
-export default MessageComponent;
+export default MessageComponent;

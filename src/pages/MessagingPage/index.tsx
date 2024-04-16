@@ -1,71 +1,77 @@
 import { Container } from '@mui/material';
-import { useLoaderData } from 'react-router-dom';
-
+import { useLoaderData, useParams } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
-import MessageComponent from './components/MessageComponent';
+import { useCache } from '../../contexts/cacheContext';
+import MessagePage from './components/MessagePage';
+
+const ONE_HOUR = 3600;
 
 function Messaging() {
-  const [messages, setMessages] = useState([]);
-  const res = useLoaderData();
+  const { roomId, roomType } = useParams() as { [key: string]: string };
+
   const containerRef = useRef<HTMLElement | null>(null);
+  const [pageCount, setPageCount] = useState({
+    [`${roomType}-${roomId}`]: 1,
+  });
+  const currentPageCount = pageCount[`${roomType}-${roomId}`] || 1;
+  const { getCache, setCache, deleteCache, keyify } = useCache();
 
-  useEffect(() => {
-    if (res && res.ok) {
-      setMessages(res.data.messages);
-    }
-  }, [res, res.ok]);
-
-  // Auto scroll to the bottom
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current;
       container.scrollTop = container.scrollHeight;
     }
-
-    //! idée pour envoyer un message
-    //   setTimeout(() => {
-    //     setMessages([
-    //       ...messages,
-    //       {
-    //         id: 'testid' + Date.now(),
-    //         content: 'Bonjour à tous je suis un faux message',
-    //         authorId: 13,
-    //         date: "djT20:30",
-    //         deleted: false,
-    //       },
-    //     ]);
-    //   }, 10000);
   });
 
-  if (!res.ok) {
-    console.error(res);
-    return <h1>Fetch error !</h1>;
+  const { originTimestamp, pageSize, ttl } = getCache(
+    keyify(['messages', 'cacheInfo', roomType, roomId]),
+    {
+      pageSize: 2,
+      originTimestamp: Date.now(),
+      ttl: ONE_HOUR,
+    },
+    ONE_HOUR
+  );
+
+  function fetchOneMorePage() {
+    setPageCount({
+      ...pageCount,
+      [`${roomType}-${roomId}`]: currentPageCount + 1,
+    });
+  }
+
+  const messagePages = [];
+  for (let i = currentPageCount; i > 0; i--) {
+    messagePages.push(
+      <MessagePage
+        key={`${roomType}-${roomId}-${i}`}
+        roomType={roomType}
+        roomId={parseInt(roomId, 10)}
+        page={i}
+        pageSize={pageSize}
+        ttl={ttl}
+        originTimestamp={originTimestamp}
+        onRequireMorePages={fetchOneMorePage}
+        isLastDisplayedPage={i === currentPageCount}
+      />
+    );
   }
 
   return (
-    <>
-      <Container
-        component="main"
-        maxWidth="lg"
-        ref={(ref) => (containerRef.current = ref)}
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-          overflowY: ' auto',
-        }}
-      >
-        {messages.map((message) => {
-          return (
-            <MessageComponent
-              key={message.id}
-              message={message}
-            />
-          );
-        })}
-      </Container>
-    </>
+    <Container
+      component="main"
+      maxWidth="lg"
+      ref={(ref) => (containerRef.current = ref)}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        overflowY: ' auto',
+      }}
+    >
+      {messagePages}
+    </Container>
   );
 }
 

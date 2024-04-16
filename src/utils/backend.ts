@@ -1,21 +1,32 @@
-export type ResponseData = {
-  data: { [key: string]: any };
+export type ResponseData<T = unknown> = {
+  data: { [key: string]: T };
   status: number;
-  ok: boolean;
   statusText: string;
   error: string;
+  ok: boolean;
 };
 
 async function parseJson(res: Response): Promise<ResponseData> {
-  return res.json().then((json) => {
-    return {
-      data: json,
-      status: res.status,
-      ok: res.ok,
-      statusText: res.statusText,
-      error: json?.error || '',
-    };
-  });
+  return res
+    .json()
+    .then((json) => {
+      return {
+        data: json,
+        status: res.status,
+        ok: res.ok,
+        statusText: res.statusText,
+        error: json?.error || '',
+      };
+    })
+    .catch((err) => {
+      return {
+        data: {},
+        status: res.status,
+        ok: res.ok,
+        statusText: res.statusText,
+        error: err || '',
+      };
+    });
 }
 
 async function parseFile(res: Response): Promise<Blob> {

@@ -5,16 +5,11 @@ import backend from '../utils/backend';
 
 export default [
   {
-      path: "",
-      element: <RedirectTo url="./private"/>,
+    path: '',
+    element: <RedirectTo url="./private" />,
   },
   {
-    path: 'private/:conversationId',
+    path: ':roomType/:roomId',
     element: <Messaging />,
-    loading: <h1>Loading messages...</h1>,
-    loader: async ({ params }) => { 
-        return backend.get(`/api/me/messages/conversation/${params.conversationId}`)
-    },
   },
-];
-
+];

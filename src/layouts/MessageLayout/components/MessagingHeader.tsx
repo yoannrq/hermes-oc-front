@@ -1,7 +1,10 @@
 import { ArrowBackIosNewRounded, Diversity3Rounded } from '@mui/icons-material';
 import { Button, Typography, Container } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 function MessagingHeader() {
+  const navigateTo = useNavigate();
+
   return (
     <Container
       component="header"
@@ -26,7 +29,7 @@ function MessagingHeader() {
           alignItems: 'center',
         }}
       >
-        <ArrowBackIosNewRounded />
+        <ArrowBackIosNewRounded onClick={() => navigateTo('/nav/private')} />
       </Button>
       <Button
         href="#"
@@ -47,4 +50,4 @@ function MessagingHeader() {
   );
 }
 
-export default MessagingHeader;
+export default MessagingHeader;

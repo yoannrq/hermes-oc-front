@@ -3,13 +3,16 @@ import { CssBaseline } from '@mui/material';
 
 import WebSocketProvider from './components/WebsocketProvider';
 import LoginRequired from './components/LoginRequired';
+import CacheProvider from './components/CacheProvider';
 
 export default function RootLayout() {
   return (
     <WebSocketProvider>
       <LoginRequired>
-        <CssBaseline />
-        <Outlet />
+        <CacheProvider>
+          <CssBaseline />
+          <Outlet />
+        </CacheProvider>
       </LoginRequired>
     </WebSocketProvider>
   );

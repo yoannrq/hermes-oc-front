@@ -11,7 +11,7 @@ export interface LoginRequiredProps {
   children: React.ReactNode;
 }
 
-function LoadingScreen() {
+function LoadingScreen({ loadingState = '', isLoading = true }) {
   return (
     <Box
       sx={{
@@ -32,13 +32,31 @@ function LoadingScreen() {
       >
         HERMES
       </Typography>
-      <CircularProgress color="inherit" />
+      <Box
+        sx={{
+          textAlign: 'center',
+        }}
+      >
+        {isLoading && <CircularProgress color="inherit" />}
+        {loadingState && (
+          <Typography
+            fontFamily="Iter, sans-serif"
+            fontStyle="italic"
+            sx={{
+              marginTop: '0.8em',
+            }}
+          >
+            {loadingState}
+          </Typography>
+        )}
+      </Box>
     </Box>
   );
 }
 
 export default function LoginRequired({ children }: LoginRequiredProps) {
   const [fetchingUser, setFetchingUser] = useState(true);
+  const [loadingState, setLoadingState] = useState('');
   const [user, setUser] = useState<UserInterface>({
     isLogged: false,
     id: -1,
@@ -52,35 +70,71 @@ export default function LoginRequired({ children }: LoginRequiredProps) {
   });
 
   useEffect(() => {
-    backend.get('/api/me').then((res) => {
-      if (res.ok) {
-        const user = res.data;
-        setUser({
-          isLogged: true,
-          id: user.id,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          fullname: user.firstname + ' ' + user.lastname,
-          initials:
-            user.firstname[0].toUpperCase() + user.lastname[0].toUpperCase(),
-          email: user.email,
-          rppsCode: user.rppsCode,
-          profilePictureUrl: user.profilePictureUrl,
-        });
+    if (fetchingUser) {
+      tryConnect(0);
+    }
+
+    function tryConnect(delay: number) {
+      const connectionStates: { [key: number]: string } = {
+        500: 'Connexion en cours...',
+        1500: 'La connexion prend plus de temps que prévu...',
+        2500: "C'est un peu long, non ?",
+      };
+
+      if (delay in connectionStates) {
+        setLoadingState(connectionStates[delay]);
       }
-      setFetchingUser(false);
-    });
+
+      console.log('tryConnect', delay, 'ms');
+      setTimeout(() => {
+        backend.get('/api/me').then((res) => {
+          console.log(res);
+          if (res.ok) {
+            const user = res.data;
+            setUser({
+              isLogged: true,
+              id: user.id,
+              firstname: user.firstname,
+              lastname: user.lastname,
+              fullname: user.firstname + ' ' + user.lastname,
+              initials:
+                user.firstname[0].toUpperCase() +
+                user.lastname[0].toUpperCase(),
+              email: user.email,
+              rppsCode: user.rppsCode,
+              profilePictureUrl: user.profilePictureUrl,
+            });
+            setFetchingUser(false);
+          } else if (res.status === 401) {
+            setFetchingUser(false);
+            setLoadingState('');
+          } else {
+            const nextDelay = delay + 500;
+            if (nextDelay < 4000) {
+              tryConnect(nextDelay);
+            } else {
+              setLoadingState(
+                'Vérifiez votre connexion internet et réessayez.'
+              );
+              setFetchingUser(false);
+            }
+          }
+        });
+      }, delay);
+    }
   }, [fetchingUser]);
 
   return (
     <>
-      {fetchingUser && <LoadingScreen />}
+      {loadingState && (
+        <LoadingScreen loadingState={loadingState} isLoading={fetchingUser} />
+      )}
 
-      <UserContext.Provider value={user}>
-        {user.isLogged && children}
-      </UserContext.Provider>
+      {user.isLogged && (
+        <UserContext.Provider value={user}>{children}</UserContext.Provider>
+      )}
 
-      {!fetchingUser && !user.isLogged && (
+      {!loadingState && !user.isLogged && (
         <AuthPage onConnection={() => setFetchingUser(true)} />
       )}
     </>

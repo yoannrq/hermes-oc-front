@@ -84,9 +84,14 @@ function MessageComponent({ message }: MessageComponentProps) {
         open={openSnackbar}
         message="Voulez-vous vraiment supprimer ce message ?"
         action={
+          <>
           <Button color="secondary" size="small" onClick={handleCloseSnackbar}>
+            Annuler
+          </Button>
+          <Button color="secondary" size="small" onClick={handleDeleteClick}>
             Supprimer
           </Button>
+          </>
         }
       ></Snackbar>
 
@@ -122,7 +127,7 @@ function MessageComponent({ message }: MessageComponentProps) {
             <EditIcon />
           </Button>
           <Button
-            onClick={handleDeleteClick}
+            onClick={handleOpenSnackbar}
             variant="text"
             sx={{
               minWidth: 0,
@@ -139,4 +144,5 @@ function MessageComponent({ message }: MessageComponentProps) {
   );
 }
 
-export default MessageComponent;
+export default MessageComponent;
+

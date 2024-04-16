@@ -1,12 +1,11 @@
 import { Box, Button, Snackbar } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { useUserContext } from '../../../contexts/userContext';
 import AvatarComponent from '../../../components/AvatarComponent';
 import MessageBubble from './MessageBubble';
-// import AvatarGroup from './AvatarGroup';
 
 export interface MessageComponentProps {
   message: {
@@ -27,7 +26,24 @@ function MessageComponent({ message }: MessageComponentProps) {
 
   const isAuthorMessage = user.id === message.authorId;
 
-  const handleClick = () => {
+
+  const boxRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+        setShowButton(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+
+  const handleClick = async () => {
     setShowButton(true);
   };
 
@@ -35,7 +51,6 @@ function MessageComponent({ message }: MessageComponentProps) {
     console.log('Le bouton "Modifier" a été cliqué !');
   };
 
-  //!
   const handleOpenSnackbar = () => {
     setOpenSnackbar(true);
   };
@@ -69,16 +84,13 @@ function MessageComponent({ message }: MessageComponentProps) {
 
   return (
     <Box
+      ref={boxRef}
       sx={{
         display: 'flex',
         gap: '.5em',
         padding: '0.5em 0em',
         alignSelf: isAuthorMessage ? 'flex-end' : 'flex-start',
-        // bgcolor: isAuthorMessage ? 'primary.main' : 'secondary.main', // à améliorer
       }}
-      // onClick={isAuthorMessage ? handleClick : undefined}
-      onMouseLeave={() => setShowButton(false)}
-      // style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
     >
       <Snackbar
         open={openSnackbar}
@@ -121,7 +133,6 @@ function MessageComponent({ message }: MessageComponentProps) {
             sx={{
               minWidth: 0,
               padding: 0,
-              // fontSize: '.7em'
             }}
           >
             <EditIcon />
@@ -132,14 +143,12 @@ function MessageComponent({ message }: MessageComponentProps) {
             sx={{
               minWidth: 0,
               padding: 0,
-              // fontSize: '.7em'
             }}
           >
             <DeleteIcon />
           </Button>
         </Box>
       )}
-      {/* <AvatarGroup /> */}
     </Box>
   );
 }

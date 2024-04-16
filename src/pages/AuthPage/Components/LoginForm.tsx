@@ -11,7 +11,7 @@ import {
 import { useState } from 'react';
 
 import { UserInterface } from '../../../contexts/userContext.tsx';
-import backend from '../../../utils/backend.ts';
+import axios from 'axios';
 import PasswordField from '../../../components/PasswordField.tsx';
 
 export interface LoginFormProps {
@@ -33,52 +33,54 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const res = await backend.post('/api/auth/login', {
-      email,
-      password,
-    });
+    axios
+      .post('/api/auth/login', {
+        email,
+        password,
+      })
+      .then((res) => {
+        onConnection(res.data as UserInterface);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.data.error.errors) {
+          const errorsByFieldName: { [key: string]: string[] } = {};
 
-    if (res.ok) {
-      onConnection(res.data as UserInterface);
-    } else {
-      if (res.data.error.errors) {
-        const errorsByFieldName: { [key: string]: string[] } = {};
+          interface Error {
+            path: string[];
+            message: { value: string };
+          }
 
-        interface Error {
-          path: string[];
-          message: { value: string };
-        }
+          err.response.data.error.errors.map((error: Error) => {
+            const fieldName = error.path[0]; // "password" | "email" | ...
+            const errorMessage = error.message.value as string;
 
-        res.data.error.errors.map((error: Error) => {
-          const fieldName = error.path[0]; // "password" | "email" | ...
-          const errorMessage = error.message.value as string;
+            const fieldErrors = errorsByFieldName[fieldName] || [];
 
-          const fieldErrors = errorsByFieldName[fieldName] || [];
-
-          fieldErrors.push(
-            errorMessage.replace(`The field '${fieldName}'`, '')
-          );
-          errorsByFieldName[fieldName] = fieldErrors;
-        });
-
-        let recapError = '';
-
-        for (const fieldName of Object.keys(errorsByFieldName)) {
-          const fieldErros = errorsByFieldName[fieldName];
-          recapError += `The field '${fieldName}' contains : ${
-            fieldErros.length
-          } error${fieldErros.length > 1 ? 's' : ''}.`;
-
-          fieldErros.forEach((msg) => {
-            recapError += `\n\t${msg}`;
+            fieldErrors.push(
+              errorMessage.replace(`The field '${fieldName}'`, '')
+            );
+            errorsByFieldName[fieldName] = fieldErrors;
           });
 
-          recapError += '\n\n';
-        }
+          let recapError = '';
 
-        setErrorMessage(recapError);
-      }
-    }
+          for (const fieldName of Object.keys(errorsByFieldName)) {
+            const fieldErros = errorsByFieldName[fieldName];
+            recapError += `The field '${fieldName}' contains : ${
+              fieldErros.length
+            } error${fieldErros.length > 1 ? 's' : ''}.`;
+
+            fieldErros.forEach((msg) => {
+              recapError += `\n\t${msg}`;
+            });
+
+            recapError += '\n\n';
+          }
+
+          setErrorMessage(recapError);
+        }
+      });
   }
 
   return (

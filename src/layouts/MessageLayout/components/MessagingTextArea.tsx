@@ -1,52 +1,31 @@
 import { Box, TextField, Container, Button } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { FormEvent, useState } from 'react';
+import axios from 'axios';
 
 function MessagingTextArea() {
-
   const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    // const newMessage = {
-    //   content: inputValue,
-    // };
-
-    // console.log(newMessage);
-    
-    // setInputValue('');
-
-
-    const newMessage = {
-      roomType: "conversation",
-      roomId: 1,
-      content: inputValue,
-    };
-
-    console.log(newMessage);
-
-    try {
-      const response = await fetch('/api/me/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMessage),
-      });
-
-      if (response.ok) {
+    axios
+      .post('/api/me/messages', {
+        roomType: 'conversation',
+        roomId: 1,
+        content: inputValue,
+      })
+      .then((_) => {
         console.log('Message envoyé avec succès au backend !');
-        
         setInputValue('');
-      } else {
-        console.error("Erreur lors de l'envoi du message au backend (else):", response.status);
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du message au backend (catch) :", error);
-    }
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de l'envoi du message au backend (else):",
+          error.response.status
+        );
+      });
   };
-  
 
   return (
     <Container
@@ -87,7 +66,11 @@ function MessagingTextArea() {
             flexGrow: 1,
           }}
         />
-        <Button variant="contained" type='submit' sx={{ flexShrink: 0, height: '4em', boxShadow: "none" }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{ flexShrink: 0, height: '4em', boxShadow: 'none' }}
+        >
           <Send />
         </Button>
       </Box>
@@ -95,6 +78,4 @@ function MessagingTextArea() {
   );
 }
 
-export default MessagingTextArea;
-
-
+export default MessagingTextArea;

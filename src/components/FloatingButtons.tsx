@@ -42,7 +42,8 @@ export default function FilterButtons() {
             to={item.path}
             size="small"
             color="default"
-            style={({ isActive }) => ({
+            // @ts-ignore
+            style={({ isActive }: { isActive: any }) => ({
               textTransform: 'none',
               fontFamily: 'Inter, sans-serif',
               fontSize: '0.95em',

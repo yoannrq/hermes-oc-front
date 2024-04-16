@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
 import { useCache } from '../../contexts/cacheContext';
@@ -15,7 +15,7 @@ function Messaging() {
     [`${roomType}-${roomId}`]: 1,
   });
   const currentPageCount = pageCount[`${roomType}-${roomId}`] || 1;
-  const { getCache, setCache, deleteCache, keyify } = useCache();
+  const { getCache, keyify } = useCache();
 
   useEffect(() => {
     if (containerRef.current) {

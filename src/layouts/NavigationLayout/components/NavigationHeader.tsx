@@ -19,11 +19,12 @@ export default function NavigationHeader() {
 
   let title = 'Accueil';
 
-  console.log(location.pathname)
+  console.log(location.pathname);
   if (location.pathname !== '/nav') {
-    title = Object.entries(titles).find(([key, _]) =>
-      location.pathname.startsWith(key)
-    )[1];
+    title =
+      Object.entries(titles)?.find(([key, _]) =>
+        location.pathname.startsWith(key)
+      )?.[1] || 'Accueil';
   }
 
   return (
@@ -48,10 +49,7 @@ export default function NavigationHeader() {
           width: '100%',
         }}
       >
-        <Typography variant="h5">
-          Accueil
-          {/*//* À dynamiser plus tard en fonction de la catégorie selectionnée */}
-        </Typography>
+        <Typography variant="h5">{title}</Typography>
 
         <Button
           href="#"
@@ -83,5 +81,4 @@ export default function NavigationHeader() {
       />
     </Container>
   );
-}
-
+}

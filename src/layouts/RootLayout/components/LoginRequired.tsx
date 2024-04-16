@@ -5,7 +5,7 @@ import { Box, Typography, CircularProgress } from '@mui/material';
 import AuthPage from '../../../pages/AuthPage';
 import { UserInterface, UserContext } from '../../../contexts/userContext';
 
-import backend from '../../../utils/backend';
+import axios from 'axios';
 
 export interface LoginRequiredProps {
   children: React.ReactNode;
@@ -87,9 +87,10 @@ export default function LoginRequired({ children }: LoginRequiredProps) {
 
       console.log('tryConnect', delay, 'ms');
       setTimeout(() => {
-        backend.get('/api/me').then((res) => {
-          console.log(res);
-          if (res.ok) {
+        axios
+          .get('/api/me')
+          .then((res) => {
+            console.log(res);
             const user = res.data;
             setUser({
               isLogged: true,
@@ -105,21 +106,24 @@ export default function LoginRequired({ children }: LoginRequiredProps) {
               profilePictureUrl: user.profilePictureUrl,
             });
             setFetchingUser(false);
-          } else if (res.status === 401) {
-            setFetchingUser(false);
-            setLoadingState('');
-          } else {
-            const nextDelay = delay + 500;
-            if (nextDelay < 4000) {
-              tryConnect(nextDelay);
-            } else {
-              setLoadingState(
-                'Vérifiez votre connexion internet et réessayez.'
-              );
+          })
+          .catch((error) => {
+            console.log(error);
+            if (error.response.status === 401) {
               setFetchingUser(false);
+              setLoadingState('');
+            } else {
+              const nextDelay = delay + 500;
+              if (nextDelay < 4000) {
+                tryConnect(nextDelay);
+              } else {
+                setLoadingState(
+                  'Vérifiez votre connexion internet et réessayez.'
+                );
+                setFetchingUser(false);
+              }
             }
-          }
-        });
+          });
       }, delay);
     }
   }, [fetchingUser]);

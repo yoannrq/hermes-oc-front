@@ -3,7 +3,7 @@ import HomeRouter from '../routers/HomeRouter';
 // import RedirectTo from './utils/RedirectTo';
 import HomeLayout from '../layouts/HomeLayout/HomeLayout';
 import { Button } from '@mui/material';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Conversation({ i }: { i: number }) {
   const navigate = useNavigate();

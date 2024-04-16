@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   BottomNavigation,
   BottomNavigationAction,
@@ -21,7 +21,7 @@ export default function Navbar() {
   );
   const navigate = useNavigate();
 
-  const handleChange = (event: React.SyntheticEvent, nextIdx: number) => {
+  const handleChange = (_: React.SyntheticEvent, nextIdx: number) => {
     const nextItem = navItems[nextIdx];
     setCurIdx(nextIdx);
     navigate(nextItem.url);
@@ -59,5 +59,4 @@ export default function Navbar() {
       </BottomNavigation>
     </Container>
   );
-}
-
+}

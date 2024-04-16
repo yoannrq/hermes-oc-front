@@ -27,9 +27,7 @@ function MessageComponent({ message }: MessageComponentProps) {
 
   const isAuthorMessage = user.id === message.authorId;
 
-  const handleClick = async (event) => {
-    // console.log('Message clicked:', message.id);
-
+  const handleClick = () => {
     setShowButton(true);
   };
 
@@ -97,7 +95,9 @@ function MessageComponent({ message }: MessageComponentProps) {
       )}
       <MessageBubble
         message={message}
-        onClick={isAuthorMessage ? handleClick : null}
+        onClick={() => {
+          if (isAuthorMessage) handleClick();
+        }}
         style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
       />
 

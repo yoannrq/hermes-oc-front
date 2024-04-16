@@ -1,4 +1,4 @@
-import { Box, Button, Container, CircularProgress } from '@mui/material';
+import { Button, Container, CircularProgress } from '@mui/material';
 
 import MessageComponent from './MessageComponent';
 import useFetch from '../../../hooks/useFetch';
@@ -19,12 +19,11 @@ export default function MessagePage({
   roomType,
   page,
   pageSize,
-  ttl,
   originTimestamp,
   isLastDisplayedPage,
   onRequireMorePages,
 }: MessagePageProps) {
-  const { loading, error, data, refetch } = useFetch({
+  const { loading, error, data } = useFetch({
     key: ['messages', roomType, roomId, page, pageSize, originTimestamp],
     url: `/api/me/messages/${roomType}/${roomId}`,
     params: {
@@ -38,11 +37,11 @@ export default function MessagePage({
       ttl: 600,
     },
 
-    onSuccess: (data, key) => {
+    onSuccess: (_, key) => {
       console.log('data fetched for key', key);
     },
 
-    onCacheHit: (data, key) => {
+    onCacheHit: (_, key) => {
       console.log('cache hit ', key);
     },
   });
@@ -79,7 +78,7 @@ export default function MessagePage({
           Fetch more
         </Button>
       )}
-      {data?.data?.messages.map((message) => (
+      {data?.data?.messages.map((message: any) => (
         <MessageComponent key={message.id} message={message} />
       ))}
     </Container>

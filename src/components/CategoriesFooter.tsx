@@ -9,7 +9,7 @@ import { Home, Forum, Diversity3, MedicalServices } from '@mui/icons-material';
 const Footer = () => {
   const [value, setValue] = useState('recents');
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
   return (
@@ -58,4 +58,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default Footer;

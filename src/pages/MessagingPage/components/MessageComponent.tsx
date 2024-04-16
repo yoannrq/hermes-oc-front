@@ -1,4 +1,4 @@
-import { Box, Button, Snackbar, TextField } from '@mui/material';
+import { Box, Button, Snackbar } from '@mui/material';
 import { Delete, Edit, Check, Clear } from '@mui/icons-material';
 import { useState, useEffect, useRef } from 'react';
 
@@ -24,7 +24,6 @@ function MessageComponent({ message }: MessageComponentProps) {
   const [showButton, setShowButton] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(message.content);
-
   const [isDeleted, setIsDeleted] = useState(message.deleted);
 
   const isAuthorMessage = user.id === message.authorId;
@@ -52,10 +51,6 @@ function MessageComponent({ message }: MessageComponentProps) {
     console.log('Le bouton "Modifier" a été cliqué !');
 
     setIsEditing(true);
-  };
-
-  const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedContent(event.target.value);
   };
 
   const handleSaveEdit = async () => {
@@ -162,28 +157,29 @@ function MessageComponent({ message }: MessageComponentProps) {
       {!isAuthorMessage && (
         <AvatarComponent src="https://mui.com/static/images/avatar/3.jpg" />
       )}
-      {isDeleted ? (
-        <Box
-          sx={{
-            border: '1px solid #ccc',
-            borderRadius: '10px',
-            padding: '10px',
-            fontStyle: 'italic',
-            color: '#aaa',
-          }}
-        >
-          Message supprimé. Et ouais tu peux pas lire mouahahahaha!!!
-        </Box>
-      ) : (
-        <MessageBubble
-          message={message}
-          onClick={() => {
-          if (isAuthorMessage) handleClick();
-        }}
-          style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
-        />
-      )}
-
+      <Box sx={{ flex: 1 }}>
+        {isDeleted ? (
+          <Box
+            sx={{
+              border: '1px solid #ccc',
+              borderRadius: '10px',
+              padding: '10px',
+              fontStyle: 'italic',
+              color: '#aaa',
+            }}
+          >
+            Message supprimé.
+          </Box>
+        ) : (
+          <MessageBubble
+            message={message}
+            onClick={isAuthorMessage ? handleClick : undefined}
+            style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
+            isEditing={isEditing}
+            updateMessageContent={setEditedContent}
+          />
+        )}
+      </Box>
       {showButton && (
         
         <Box
@@ -204,6 +200,7 @@ function MessageComponent({ message }: MessageComponentProps) {
           >
             <Edit />
           </Button>
+
           <Button
             onClick={handleOpenSnackbar}
             variant="text"
@@ -217,18 +214,26 @@ function MessageComponent({ message }: MessageComponentProps) {
         </Box>
       )}
       {isEditing && (
-        <Box sx={{ marginLeft: '0.5em' }}>
-          <TextField
-            value={editedContent}
-            onChange={handleContentChange}
-            fullWidth
-            multiline
-            variant="outlined"
-          />
-          <Button onClick={handleSaveEdit}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: '.5em',
+          }}
+        >
+          <Button onClick={handleSaveEdit} variant="text"
+            sx={{
+              minWidth: 0,
+              padding: 0,
+            }}>
             <Check />
           </Button>
-          <Button onClick={handleCloseEdit}>
+          <Button onClick={handleCloseEdit} variant="text"
+            sx={{
+              minWidth: 0,
+              padding: 0,
+            }}>
             <Clear />
           </Button>
         </Box>

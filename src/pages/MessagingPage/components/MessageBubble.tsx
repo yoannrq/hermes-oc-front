@@ -1,4 +1,4 @@
-import { Typography, Box } from '@mui/material';
+import { Typography, Box, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 
 export interface MessageBubbleProps {
@@ -10,14 +10,22 @@ export interface MessageBubbleProps {
     date: string;
     deleted: boolean;
   };
-  onClick?: () => void;
   style?: object;
+  isEditing?: boolean;
+  onClick?: () => void;
+  updateMessageContent: (content: string) => void;
 }
 
-function MessageBubble({ message, onClick, style }: MessageBubbleProps) {
+function MessageBubble({
+  message,
+  style,
+  isEditing,
+  onClick,
+  updateMessageContent,
+}: MessageBubbleProps) {
   // const date = new Date(message.date);
 
-  // // Change this date parsing logic with moment.js 
+  // // Change this date parsing logic with moment.js
   // const start = message.date.search(/T/g) + 1
   // const time = message.date.substring(start, start + 5)
 
@@ -49,15 +57,29 @@ function MessageBubble({ message, onClick, style }: MessageBubbleProps) {
       }}
       onClick={onClick}
     >
-      <Typography 
-        variant="body1" 
-        sx={{
-           paddingBottom: '.5em',
-           fontSize: '1em',
-        }}
+      {isEditing ? (
+        <TextField
+        id="standard-multiline-static"
+        defaultValue={message.content}
+        onChange={(e) => updateMessageContent(e.target.value)}
+        multiline
+        autoFocus
+        variant="standard"
+        sx={{ border: 0, wordWrap: 'break-word'}}
+        />
+      ) : (
+        <Typography
+          variant="body1"
+          sx={{
+            paddingBottom: '.5em',
+            fontSize: '1em',
+            wordWrap: 'break-word',
+            whiteSpace: 'break-spaces',
+          }}
         >
-        {message.content}
-      </Typography>
+          {message.content}
+        </Typography>
+      )}
       <Typography
         variant="body1"
         sx={{

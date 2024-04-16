@@ -22,9 +22,10 @@ function MessageComponent({ message }: MessageComponentProps) {
   const user = useUserContext();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [showButton, setShowButton] = useState(false);
-
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(message.content);
+
+  const [isDeleted, setIsDeleted] = useState(message.deleted);
 
   const isAuthorMessage = user.id === message.authorId;
 
@@ -102,21 +103,30 @@ function MessageComponent({ message }: MessageComponentProps) {
   const handleDeleteClick = async () => {
     console.log('Le bouton "Supprimer" a été cliqué !');
 
-    try {
-      const response = await fetch(`/api/me/messages/${message.id}`, {
-        method: 'DELETE',
-      });
+    if (isDeleted) {
+      setIsDeleted(false);
+    } else {
+      setIsDeleted(true);
 
-      if (response.ok) {
-        console.log(`Le message ${message.id} a été supprimé avec succès !`);
-      } else {
+      try {
+        const response = await fetch(`/api/me/messages/${message.id}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          console.log(`Le message ${message.id} a été supprimé avec succès !`);
+        } else {
+          console.error(
+            'Erreur lors de la suppression du message (else):',
+            response.status
+          );
+        }
+      } catch (error) {
         console.error(
-          'Erreur lors de la suppression du message (else):',
-          response.status
+          'Erreur lors de la suppression du message (catch):',
+          error
         );
       }
-    } catch (error) {
-      console.error('Erreur lors de la suppression du message (catch):', error);
     }
   };
 
@@ -152,7 +162,19 @@ function MessageComponent({ message }: MessageComponentProps) {
       {!isAuthorMessage && (
         <AvatarComponent src="https://mui.com/static/images/avatar/3.jpg" />
       )}
-      <Box sx={{ position: 'relative' }}>
+      {isDeleted ? (
+        <Box
+          sx={{
+            border: '1px solid #ccc',
+            borderRadius: '10px',
+            padding: '10px',
+            fontStyle: 'italic',
+            color: '#aaa',
+          }}
+        >
+          Message supprimé. Et ouais tu peux pas lire mouahahahaha!!!
+        </Box>
+      ) : (
         <MessageBubble
           message={message}
           onClick={() => {
@@ -160,7 +182,7 @@ function MessageComponent({ message }: MessageComponentProps) {
         }}
           style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
         />
-      </Box>
+      )}
 
       {showButton && (
         

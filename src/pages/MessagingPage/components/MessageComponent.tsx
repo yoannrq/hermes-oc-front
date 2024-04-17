@@ -44,13 +44,17 @@ function MessageComponent({ message }: MessageComponentProps) {
   }, []);
 
   const handleClick = async () => {
-    setShowButton(true);
+    if (!isEditing) {
+      setShowButton(true);
+    }
   };
 
   const handleModifyClick = () => {
     console.log('Le bouton "Modifier" a été cliqué !');
 
-    setIsEditing(true);
+    setIsEditing((prevIsEditing) => !prevIsEditing);
+
+    setShowButton(false);
   };
 
   const handleSaveEdit = async () => {
@@ -123,6 +127,9 @@ function MessageComponent({ message }: MessageComponentProps) {
         );
       }
     }
+
+    handleCloseSnackbar();
+    setShowButton(false);
   };
 
   return (
@@ -161,9 +168,9 @@ function MessageComponent({ message }: MessageComponentProps) {
         {isDeleted ? (
           <Box
             sx={{
-              border: '1px solid #ccc',
+              // border: '1px solid #ccc',
               borderRadius: '10px',
-              padding: '10px',
+              // padding: '10px',
               fontStyle: 'italic',
               color: '#aaa',
             }}
@@ -222,18 +229,24 @@ function MessageComponent({ message }: MessageComponentProps) {
             gap: '.5em',
           }}
         >
-          <Button onClick={handleSaveEdit} variant="text"
+          <Button
+            onClick={handleSaveEdit}
+            variant="text"
             sx={{
               minWidth: 0,
               padding: 0,
-            }}>
+            }}
+          >
             <Check />
           </Button>
-          <Button onClick={handleCloseEdit} variant="text"
+          <Button
+            onClick={handleCloseEdit}
+            variant="text"
             sx={{
               minWidth: 0,
               padding: 0,
-            }}>
+            }}
+          >
             <Clear />
           </Button>
         </Box>

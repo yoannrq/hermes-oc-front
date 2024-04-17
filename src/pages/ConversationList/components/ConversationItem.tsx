@@ -24,30 +24,15 @@ function ConversationRecapItem({
     <Box
       sx={{
         display: 'flex',
-        // gap: '0.7em',
+        gap: '0.7em',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        // bgcolor: '#e5e5e5e5',
         borderRadius: '13px',
         paddingY: '0.7em ',
-        // marginBottom: '2em',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '0.7em',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'start',
-          maxWidth: '75%',
-          // width: '100%',
-          // bgcolor: '#e5e5e5e5',
-          borderRadius: '13px',
-        }}
-      >
         <UserIcon user={user} />
         <Box
           sx={{
@@ -56,6 +41,7 @@ function ConversationRecapItem({
             alignItems: 'center',
             justifyContent: 'center',
             minWidth: '0',
+            width: '100%',
           }}
         >
           <Typography
@@ -82,13 +68,13 @@ function ConversationRecapItem({
           >
             {content}
           </Typography>
-        </Box>
       </Box>
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'end',
+          width: '100%',
         }}
       >
         <UnreadNotif unreadMessageCount={unreadMessagesCount} date={date} />

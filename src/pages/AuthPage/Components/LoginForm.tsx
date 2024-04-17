@@ -33,12 +33,18 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    axios
-      .post('/api/auth/login', {
+    axios({
+      method: 'post',
+      url: '/api/auth/login',
+      withCredentials: true,
+      data: {
         email,
         password,
-      })
+      },
+    })
       .then((res) => {
+        console.log(res);
+        window.res = res;
         onConnection(res.data as UserInterface);
       })
       .catch((err) => {

@@ -11,6 +11,7 @@ import MessageRouter from '../routers/MessageRouter';
 
 // [ Elements ]
 import RedirectTo from './utils/RedirectTo';
+import ConversastionList from '../pages/ConversationList';
 
 const BrowserRouter = createBrowserRouter([
   {
@@ -56,6 +57,11 @@ const BrowserRouter = createBrowserRouter([
         path: 'conversations',
         element: <MessageLayout />,
         children: MessageRouter,
+      },
+
+      {
+        path: 'list',
+        element: <ConversastionList />,
       },
     ],
   },

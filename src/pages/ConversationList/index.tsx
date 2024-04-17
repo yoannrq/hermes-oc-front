@@ -1,13 +1,9 @@
-import Header from "../../components/CategoriesHeader";
-import Footer from "../../components/CategoriesFooter";
 import ConversationItem from './components/ConversationItem';
 import { data } from './data';
-
 
 function ConversastionList() {
   return (
     <div className="app">
-      <Header />
       {data.map((conversation) => (
         <ConversationItem
           key={conversation.conversationid}
@@ -18,9 +14,8 @@ function ConversastionList() {
           date={conversation.lastMessage.date}
         />
       ))}
-      <Footer />
     </div>
   );
 }
 
-export default ConversastionList;
+export default ConversastionList;

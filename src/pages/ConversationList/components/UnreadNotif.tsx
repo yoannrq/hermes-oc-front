@@ -1,11 +1,14 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material';
 
 export interface UnreadNotifProps {
-  unreadMessageCount: number,
-  date: string,
+  unreadMessageCount: number;
+  date: string;
 }
 
-export default function UnreadNotif ({ unreadMessageCount, date }: UnreadNotifProps){
+export default function UnreadNotif({
+  unreadMessageCount,
+  date,
+}: UnreadNotifProps) {
   // Calcul de la différence de temps entre l'heure actuelle et l'heure du message
   const messageTime = new Date(date).getTime();
   const now = Date.now();
@@ -29,9 +32,9 @@ export default function UnreadNotif ({ unreadMessageCount, date }: UnreadNotifPr
   const years = Math.floor(timeDiff / oneYear);
   const months = Math.floor((timeDiff % oneYear) / oneMonth);
   // Construction de la chaîne de temps écoulé
-  let timeElapsed = "";
+  let timeElapsed = '';
   if (years > 0) {
-    timeElapsed = `il y a ${years} an${years > 1 ? 's' : ''} `;
+    timeElapsed = `${years} an${years > 1 ? 's' : ''} `;
   } else if (months > 0) {
     timeElapsed = `${months} mois `;
   } else if (weeks > 0) {
@@ -47,24 +50,45 @@ export default function UnreadNotif ({ unreadMessageCount, date }: UnreadNotifPr
   }
 
   return (
-    <Box>
-      <Typography
+    <Box
       sx={{
-        fontSize: '0.800rem',
-        fontWeight: '700',
-      }}>
-        {timeElapsed}</Typography>
+        display: 'flex',
+        gap: '0.7em',
+        flexDirection: 'column',
+        alignItems: 'end',
+        width: '100%',
+        // bgcolor: '#e5e5e5e5',
+        // bgcolor: 'green',
+        // borderRadius: '13px',
+        // padding: '0.55em 0.75em',
+      }}
+    >
       <Typography
-      sx={{
-        width: 22,
-        height: 22,
-        borderRadius: 25,
-        bgcolor: 'primary.main',
-        '&:hover': {
-          bgcolor: 'primary.dark',
-        },
-      }}>
-      {unreadMessageCount}
+        sx={{
+          fontSize: '0.7em',
+          fontWeight: '700',
+        }}
+      >
+        {timeElapsed}
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: '0.7em',
+          fontWeight: '700',
+          color: '#fafafa',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: "1.5em",
+          height: "1.5em",
+          borderRadius: 50,
+          bgcolor: 'primary.main',
+          '&:hover': {
+            bgcolor: 'primary.dark',
+          },
+        }}
+      >
+        {unreadMessageCount}
       </Typography>
     </Box>
   );

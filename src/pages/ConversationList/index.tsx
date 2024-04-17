@@ -1,9 +1,14 @@
+import { Box } from '@mui/material';
+
 import ConversationItem from './components/ConversationItem';
 import { data } from './data';
 
 function ConversastionList() {
   return (
-    <div className="app">
+    <Box sx={{ 
+      overflowY: 'auto', 
+      padding: '0.4em 1.25em', 
+      }}>
       {data.map((conversation) => (
         <ConversationItem
           key={conversation.conversationid}
@@ -14,8 +19,9 @@ function ConversastionList() {
           date={conversation.lastMessage.date}
         />
       ))}
-    </div>
+    </Box>
   );
 }
 
-export default ConversastionList;
+export default ConversastionList;
+

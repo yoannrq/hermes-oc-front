@@ -12,11 +12,13 @@ export default function HomeLayout() {
           display: 'block',
           position: 'relative',
           height: 0,
+          width: '100%',
           flexGrow: 1,
         }}
       >
         <Container
           component="main"
+          className="TEST"
           maxWidth="lg"
           sx={{
             display: 'flex',
@@ -36,4 +38,5 @@ export default function HomeLayout() {
       </Box>
     </>
   );
-}
+}
+

@@ -2,17 +2,8 @@ import HomeRouter from '../routers/HomeRouter';
 
 // import RedirectTo from './utils/RedirectTo';
 import HomeLayout from '../layouts/HomeLayout/HomeLayout';
-import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import ConversastionList from '../pages/ConversationList';
 
-function Conversation({ i }: { i: number }) {
-  const navigate = useNavigate();
-  return (
-    <Button onClick={() => navigate(`/conversations/private/${i}`)}>
-      Conversation {i}
-    </Button>
-  );
-}
 
 export default [
   {
@@ -26,17 +17,11 @@ export default [
   },
   {
     path: 'private',
-    element: (
-      <>
-        <Conversation i={1} />
-        <Conversation i={2} />
-        <Conversation i={3} />
-        <Conversation i={4} />
-      </>
-    ),
+    element: <ConversastionList />,
   },
   {
     path: 'patients',
     element: <h1>Patients</h1>,
   },
-];
+];
+

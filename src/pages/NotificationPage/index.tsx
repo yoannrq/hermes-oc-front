@@ -13,7 +13,6 @@ export default function NotificationPage() {
         width: '100%',
         height: '100%',
         overflowY: 'auto',
-        gap: '0.7em',
         padding: '0.4em 1.25em',
         paddingBottom: '15vh',
       }}
@@ -30,4 +29,5 @@ export default function NotificationPage() {
       <Notif />
     </Box>
   );
-}
+}
+

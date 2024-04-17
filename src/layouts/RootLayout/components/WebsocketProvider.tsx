@@ -14,13 +14,28 @@ export default function WebSocketProvider({
 
   useEffect(() => {
     const URL = import.meta.env.DEV ? 'http://localhost:3000' : '';
-    const socket = io(URL);
+    const socket = io(URL, {
+      auth: {
+        token: 'my-token' + Date.now(),
+      },
+    });
 
     socket.on('connect', () => {
       console.log('Connected to server with socket id:', socket.id);
       setSocket(socket);
       console.log(socket.id);
+
+      socket.emit('hello', 'world');
+      setTimeout(() => {
+        socket.emit('hello', 'world');
+      }, 2000);
     });
+
+    socket.on('connect_error', (error) => {
+      console.log(error);
+      socket.emit('hello', 'world');
+    });
+
     return () => {
       socket.close();
     };

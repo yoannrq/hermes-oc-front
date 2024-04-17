@@ -9,14 +9,14 @@ import { StrictMode } from 'react';
 export default function RootLayout() {
   return (
     <StrictMode>
-      <WebSocketProvider>
-        <LoginRequired>
+      <LoginRequired>
+        <WebSocketProvider>
           <CacheProvider>
             <CssBaseline />
             <Outlet />
           </CacheProvider>
-        </LoginRequired>
-      </WebSocketProvider>
+        </WebSocketProvider>
+      </LoginRequired>
     </StrictMode>
   );
 }

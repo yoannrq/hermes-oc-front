@@ -85,12 +85,10 @@ export default function LoginRequired({ children }: LoginRequiredProps) {
         setLoadingState(connectionStates[delay]);
       }
 
-      console.log('tryConnect', delay, 'ms');
       setTimeout(() => {
         axios
           .get('/api/me')
           .then((res) => {
-            console.log(res);
             const user = res.data;
             setUser({
               isLogged: true,

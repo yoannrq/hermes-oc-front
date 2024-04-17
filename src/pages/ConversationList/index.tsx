@@ -8,6 +8,9 @@ function ConversastionList() {
     <Box sx={{ 
       overflowY: 'auto', 
       padding: '0.4em 1.25em', 
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '0.95em',
       }}>
       {data.map((conversation) => (
         <ConversationItem

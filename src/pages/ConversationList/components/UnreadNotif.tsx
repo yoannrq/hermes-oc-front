@@ -53,7 +53,7 @@ export default function UnreadNotif({
     <Box
       sx={{
         display: 'flex',
-        gap: '0.7em',
+        // gap: '0.7em',
         flexDirection: 'column',
         alignItems: 'end',
         width: '100%',

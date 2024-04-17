@@ -24,15 +24,15 @@ function ConversationRecapItem({
     <Box
       sx={{
         display: 'flex',
-        gap: '0.7em',
+        // gap: '0.7em',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        bgcolor: '#e5e5e5e5',
+        // bgcolor: '#e5e5e5e5',
         borderRadius: '13px',
-        padding: '0.55em 0.75em',
-        marginBottom: '0.7em',
+        paddingY: '0.7em ',
+        // marginBottom: '2em',
       }}
     >
       <Box
@@ -44,7 +44,7 @@ function ConversationRecapItem({
           justifyContent: 'start',
           maxWidth: '75%',
           // width: '100%',
-          bgcolor: '#e5e5e5e5',
+          // bgcolor: '#e5e5e5e5',
           borderRadius: '13px',
         }}
       >

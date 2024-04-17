@@ -9,85 +9,71 @@ function Notif() {
         gap: '0.7em',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'start',
         width: '100%',
         bgcolor: '#e5e5e5e5',
         borderRadius: '13px',
         padding: '0.55em 0.75em',
-        marginBottom: '0.7em',
       }}
     >
       <Box
         sx={{
-          display: 'flex',
-          gap: '0.7em',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'start',
-          maxWidth: '75%',
-          bgcolor: '#e5e5e5e5',
-          borderRadius: '13px',
-          // padding: '0.55em 0.75em',
-        
+          position: 'relative',
+          backgroundColor: (t) => t.palette.background.paper,
+          borderRadius: '50%',
+          height: '2.5em',
+          width: '2.5em',
+          minWidth: '2.5em',
+          minHeight: '2.5em',
         }}
       >
-        <Box
+        <MessageOutlinedIcon //* À dynamiser en fonction du type de notif reçue
           sx={{
-            // position: 'relative',
-            backgroundColor: (t) => t.palette.background.paper,
-            borderRadius: '50%',
-            height: '2.5em',
-            width: '2.5em',
-            minWidth: '2.5em',
-            minHeight: '2.5em',
+            position: 'relative',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            fontSize: '1.3em',
+            color: '#686868',
+          }}
+        />
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: '0',
+          width: '100%',
+        }}
+      >
+        <Typography
+          variant="h2"
+          fontWeight="600"
+          fontSize="1em"
+          sx={{
+            textAlign: 'left',
+            width: '100%',
           }}
         >
-          <MessageOutlinedIcon //* À dynamiser en fonction du type de notif reçue
-            sx={{
-              position: 'relative',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              fontSize: '1.3em',
-              color: '#686868',
-            }}
-          />
-        </Box>
-        <Box
+          Notifications {/*//* À dynamiser en fonction des notifs reçues */}
+        </Typography>
+        <Typography
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minWidth: '0',
+            width: '100%',
+            textAlign: 'left',
+            fontSize: '0.75em',
+            fontWeight: '700',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
           }}
         >
-          <Typography
-            variant="h2"
-            fontWeight="600"
-            fontSize="1em"
-            sx={{
-              textAlign: 'left',
-              width: '100%',
-            }}
-          >
-            Notifications {/*//* À dynamiser en fonction des notifs reçues */}
-          </Typography>
-          <Typography
-            sx={{
-              width: '100%',
-              textAlign: 'left',
-              fontSize: '0.75em',
-              fontWeight: '700',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam enim quibusdam rerum. Esse pariatur, nobis saepe adipisci quos commodi maiores minima aliquid ducimus debitis odit impedit mollitia quasi! Tempora, explicabo!
-            {/*//* À dynamiser en fonction des notifs reçues */}
-          </Typography>
-        </Box>
+          {Date.now() % 2 === 0 && "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam possimus suscipit necessitatibus minima numquam consequatur molestiae tenetur corporis nulla illo, reprehenderit iste enim libero cupiditate quos perspiciatis eveniet tempore sapiente."}
+          
+          {/*//* À dynamiser en fonction des notifs reçues */}
+        </Typography>
       </Box>
       <Typography
         fontWeight="800"

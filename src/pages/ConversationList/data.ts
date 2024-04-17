@@ -69,7 +69,7 @@ export const data = [
         profilePictureUrl: "https://example.com/image1.jpg",
       },
       lastMessage: {
-        content: "Team Baptist ou rien perso",
+        content: "Team Baptiste ou rien perso",
         date: "2024-04-09T20:04:26.000Z",
       },
       unreadMessagesCount: 5,

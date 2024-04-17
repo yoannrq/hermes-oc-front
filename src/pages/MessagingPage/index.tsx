@@ -27,7 +27,7 @@ function Messaging() {
   const { originTimestamp, pageSize, ttl } = getCache(
     keyify(['messages', 'cacheInfo', roomType, roomId]),
     {
-      pageSize: 2,
+      pageSize: 50,
       originTimestamp: Date.now(),
       ttl: ONE_HOUR,
     },

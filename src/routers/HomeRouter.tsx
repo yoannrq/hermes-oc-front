@@ -6,7 +6,7 @@ import RedirectTo from './utils/RedirectTo';
 export default [
   {
     path: '',
-    element: <RedirectTo url="./notifications" />,
+    element: <RedirectTo url="/nav/home/notifications" />,
   },
   {
     path: 'notifications',
@@ -20,5 +20,4 @@ export default [
     path: 'tasks',
     element: <h1>Tâches</h1>,
   },
-];
-
+];

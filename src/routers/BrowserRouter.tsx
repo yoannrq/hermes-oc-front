@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 // [ Layouts ]
 import RootLayout from '../layouts/RootLayout/RootLayout';
 import NavigationLayout from '../layouts/NavigationLayout/NavigationLayout';
-import MessageLayout from '../layouts/MessageLayout/MessageLayout'
+import MessageLayout from '../layouts/MessageLayout/MessageLayout';
 
 // [ Routers ]
 import NavigationRouter from '../routers/NavigationRouter';
@@ -56,9 +56,9 @@ const BrowserRouter = createBrowserRouter([
         path: 'conversations',
         element: <MessageLayout />,
         children: MessageRouter,
-      }
+      },
     ],
   },
 ]);
 
-export default BrowserRouter;
+export default BrowserRouter;

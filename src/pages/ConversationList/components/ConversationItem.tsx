@@ -34,30 +34,8 @@ function ConversationRecapItem({
         padding: '0.55em 0.75em',
         marginBottom: '0.7em',
       }}
-      // height={'10%'}
-      // width={'90%'}
-      // my={8}
-      // display="flex"
-      // alignItems="center"
-
-      // gap={4}
-      // p={2}
-      // sx={{
-      //   justifyContent: 'space-between',
-      //   p: 1,
-      //   m: 1,
-      //   bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : '#ebebeb'),
-      //   color: (theme) =>
-      //     theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-      //   border: '5px solid',
-      //   borderColor: (theme) =>
-      //     theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-      //   borderRadius: 10,
-      //   fontSize: '1',
-      //   fontWeight: '700',
-      // }}
     >
-      <Box 
+      <Box
         sx={{
           display: 'flex',
           gap: '0.7em',
@@ -65,25 +43,12 @@ function ConversationRecapItem({
           alignItems: 'center',
           justifyContent: 'start',
           maxWidth: '75%',
+          // width: '100%',
           bgcolor: '#e5e5e5e5',
           borderRadius: '13px',
-          // padding: '0.55em 0.75em',
-        
         }}
       >
-        {/* <Box
-          sx={{
-            // position: 'relative',
-            backgroundColor: (t) => t.palette.background.paper,
-            borderRadius: '50%',
-            height: '2.5em',
-            width: '2.5em',
-            minWidth: '2.5em',
-            minHeight: '2.5em',
-          }}
-        > */}
-          <UserIcon user={user} />
-        {/* </Box> */}
+        <UserIcon user={user} />
         <Box
           sx={{
             display: 'flex',
@@ -94,17 +59,6 @@ function ConversationRecapItem({
           }}
         >
           <Typography
-            // sx={{
-            //   justifyContent: 'space-between',
-
-            //   bgcolor: (theme) =>
-            //     theme.palette.mode === 'dark' ? '#101010' : '#ebebeb',
-            //   color: (theme) =>
-            //     theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-            //   fontSize: '1',
-            //   fontWeight: '700',
-            // }}
-
             variant="h2"
             fontWeight="600"
             fontSize="1em"
@@ -116,21 +70,6 @@ function ConversationRecapItem({
             {title}
           </Typography>
           <Typography
-            // sx={{
-            //   justifyContent: 'space-between',
-            //   p: 1,
-            //   bgcolor: (theme) =>
-            //     theme.palette.mode === 'dark' ? '#101010' : '#d4d4d4',
-            //   color: (theme) =>
-            //     theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-            //   border: '5px solid',
-            //   borderColor: (theme) =>
-            //     theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-            //   borderRadius: 10,
-            //   fontSize: '1',
-            //   fontWeight: '700',
-            // }}
-
             sx={{
               width: '100%',
               textAlign: 'left',
@@ -146,22 +85,10 @@ function ConversationRecapItem({
         </Box>
       </Box>
       <Box
-        // display="flex"
-        // alignItems="center"
-        // width={'15%'}
-        // justifyContent={'center'}
-        // sx={{
-        //   flexDirection: 'row',
-        // }}
-
-        // fontWeight="800"
-        // fontFamily="Iter-Bold, sans-serif"
-        // color={(t) => t.palette.text.secondary}
-
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'end',        
+          alignItems: 'end',
         }}
       >
         <UnreadNotif unreadMessageCount={unreadMessagesCount} date={date} />

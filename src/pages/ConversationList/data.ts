@@ -24,7 +24,7 @@ export const data = [
         profilePictureUrl: "https://example.com/image5.jpg",
       },
       lastMessage: {
-        content: "Jerom il est trop beau",
+        content: "Jérôme il est trop beau",
         date: "2023-04-09T14:44:32.000Z",
       },
       unreadMessagesCount: 3,

@@ -43,8 +43,8 @@ export default function useFetch<T = any>({
 
     axios(axiosConfig)
       .then((data) => {
-        setData(data as T);
-        if (cache?.enabled) setCache(cacheKey, data, cache.ttl);
+        setData(data.data as T);
+        if (cache?.enabled) setCache(cacheKey, data.data, cache.ttl);
         if (onSuccess) onSuccess(data, cacheKey);
       })
       .catch((err) => {
@@ -65,4 +65,5 @@ export default function useFetch<T = any>({
   }, []);
 
   return { loading, data, error, refetch, inValidate } as const;
-}
+}
+

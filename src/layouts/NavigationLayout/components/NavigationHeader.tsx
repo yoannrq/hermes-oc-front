@@ -29,6 +29,7 @@ export default function NavigationHeader() {
 
   return (
     <Container
+      component="header"
       maxWidth="lg"
       sx={{
         marginTop: '1em',
@@ -81,4 +82,5 @@ export default function NavigationHeader() {
       />
     </Container>
   );
-}
+}
+

@@ -24,43 +24,38 @@ export default function UnreadNotif({
   const oneYear = 365 * oneDay;
 
   // Calcul du temps écoulé en jours, heures, minutes, secondes
+  const years = Math.floor(timeDiff / oneYear);
+  const months = Math.floor((timeDiff % oneYear) / oneMonth);
   const weeks = Math.floor(timeDiff / oneWeek);
   const days = Math.floor((timeDiff % oneWeek) / oneDay);
   const hours = Math.floor((timeDiff % oneDay) / oneHour);
   const minutes = Math.floor((timeDiff % oneHour) / oneMinute);
-  const seconds = Math.floor((timeDiff % oneMinute) / oneSecond);
-  const years = Math.floor(timeDiff / oneYear);
-  const months = Math.floor((timeDiff % oneYear) / oneMonth);
+
   // Construction de la chaîne de temps écoulé
   let timeElapsed = '';
   if (years > 0) {
-    timeElapsed = `${years} an${years > 1 ? 's' : ''} `;
+    timeElapsed = `${years} an${years > 1 ? 's' : ''}`;
   } else if (months > 0) {
-    timeElapsed = `${months} mois `;
+    timeElapsed = `${months} m`;
   } else if (weeks > 0) {
-    timeElapsed = `${weeks} semaine${weeks > 1 ? 's' : ''} `;
+    timeElapsed = `${weeks} sem`;
   } else if (days > 0) {
-    timeElapsed = `${days} jour${days > 1 ? 's' : ''} `;
+    timeElapsed = `${days} j`;
   } else if (hours > 0) {
-    timeElapsed = `${hours} heure${hours > 1 ? 's' : ''} `;
+    timeElapsed = `${hours} h`;
   } else if (minutes > 0) {
-    timeElapsed = `${minutes} minute${minutes > 1 ? 's' : ''} `;
+    timeElapsed = `Il y a ${minutes} min`;
   } else {
-    timeElapsed = `${seconds} seconde${seconds > 1 ? 's' : ''} `;
+    timeElapsed = "À l'instant";
   }
 
   return (
     <Box
       sx={{
         display: 'flex',
-        // gap: '0.7em',
         flexDirection: 'column',
         alignItems: 'end',
         width: '100%',
-        // bgcolor: '#e5e5e5e5',
-        // bgcolor: 'green',
-        // borderRadius: '13px',
-        // padding: '0.55em 0.75em',
       }}
     >
       <Typography
@@ -79,8 +74,8 @@ export default function UnreadNotif({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: "1.5em",
-          height: "1.5em",
+          width: '1.5em',
+          height: '1.5em',
           borderRadius: 50,
           bgcolor: 'primary.main',
           '&:hover': {

@@ -58,13 +58,9 @@ const BrowserRouter = createBrowserRouter([
         element: <MessageLayout />,
         children: MessageRouter,
       },
-
-      {
-        path: 'list',
-        element: <ConversastionList />,
-      },
     ],
   },
 ]);
 
-export default BrowserRouter;
+export default BrowserRouter;
+

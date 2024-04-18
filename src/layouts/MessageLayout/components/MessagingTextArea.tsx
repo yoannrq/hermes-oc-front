@@ -11,7 +11,7 @@ function MessagingTextArea() {
 
     axios
       .post('/api/me/messages', {
-        roomType: 'conversation',
+        roomType: 'private',
         roomId: 1,
         content: inputValue,
       })
@@ -78,4 +78,5 @@ function MessagingTextArea() {
   );
 }
 
-export default MessagingTextArea;
+export default MessagingTextArea;
+

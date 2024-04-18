@@ -41,8 +41,8 @@ export default function MessagePage({
       console.log('data fetched for key', key);
     },
 
-    onCacheHit: (_, key) => {
-      console.log('cache hit ', key);
+    onCacheHit: (res, key) => {
+      console.log('cache hit ', key, res);
     },
   });
 
@@ -51,15 +51,8 @@ export default function MessagePage({
   }
   if (error) return <div>Error</div>;
 
-  const totalPages = data?.data?.pagination.totalPages;
+  const totalPages = data?.pagination?.totalPages;
   const canFetchMore = page !== totalPages;
-  console.log(
-    'total pages: ',
-    totalPages,
-    page,
-    isLastDisplayedPage,
-    canFetchMore
-  );
 
   return (
     <Container
@@ -78,9 +71,10 @@ export default function MessagePage({
           Fetch more
         </Button>
       )}
-      {data?.data?.messages.map((message: any) => (
+      {data?.messages?.map((message: any) => (
         <MessageComponent key={message.id} message={message} />
       ))}
     </Container>
   );
-}
+}
+

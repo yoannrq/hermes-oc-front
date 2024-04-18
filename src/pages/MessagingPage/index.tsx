@@ -5,9 +5,12 @@ import { useState, useEffect, useRef } from 'react';
 import { useCache } from '../../contexts/cacheContext';
 import MessagePage from './components/MessagePage';
 
+import { useSocketContext } from '../../contexts/socketContext';
+
 const ONE_HOUR = 3600;
 
 function Messaging() {
+  const socket = useSocketContext();
   const { roomId, roomType } = useParams() as { [key: string]: string };
 
   const containerRef = useRef<HTMLElement | null>(null);
@@ -33,6 +36,10 @@ function Messaging() {
     },
     ONE_HOUR
   );
+
+  if (socket) {
+    socket.on;
+  }
 
   function fetchOneMorePage() {
     setPageCount({

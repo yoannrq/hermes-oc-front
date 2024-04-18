@@ -6,9 +6,7 @@ import axios from 'axios';
 function MessagingTextArea() {
   const [inputValue, setInputValue] = useState('');
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
+  function sendMessage() {
     axios
       .post('/api/me/messages', {
         roomType: 'private',
@@ -25,11 +23,21 @@ function MessagingTextArea() {
           error.response.status
         );
       });
+  }
+
+  function handleKeyDown(e: KeyboardEvent) {
+    if (e.ctrlKey && e.key === 'Enter') {
+      sendMessage();
+    }
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    sendMessage();
   };
 
   return (
     <Container
-      // component="footer"
       className="textarea"
       maxWidth="lg"
       sx={{
@@ -60,6 +68,7 @@ function MessagingTextArea() {
           multiline
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
           maxRows={4}
           sx={{
             width: '100%',
@@ -79,4 +88,3 @@ function MessagingTextArea() {
 }
 
 export default MessagingTextArea;
-

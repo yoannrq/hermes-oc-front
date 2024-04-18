@@ -14,16 +14,7 @@ export default function WebSocketProvider({
   const [socket, setSocket] = useState<null | Socket>(null);
 
   async function declareSocketId(socketId: string) {
-    axios
-      .post('/api/me/socketIds', { socketId })
-      .then((res: AxiosResponse) => {
-        console.log(
-          `SocketId ${res.data.socketId} is bind on the UserId ${res.data.userId} on the backend.`
-        );
-      })
-      .catch((err: AxiosError) => {
-        console.log('Authentication websocket fail.', err);
-      });
+    return axios.post('/api/me/socketIds', { socketId });
   }
 
   useEffect(() => {
@@ -41,14 +32,22 @@ export default function WebSocketProvider({
         console.log('Socket is not connected. Please check your connection.');
         return;
       } else {
-        await declareSocketId(socket.id);
-        socket.emit('authenticate');
-        socket.on('authenticated', ({ socketId, user }) => {
-          console.log(
-            `Socket authenticates this socketId: ${socketId} with user: ${user}`
-          );
-          setSocket(socket);
-        });
+        declareSocketId(socket.id)
+          .then((res: AxiosResponse) => {
+            console.log(
+              `SocketId ${res.data.socketId} is bind on the UserId ${res.data.userId} on the backend.`
+            );
+            socket.emit('authenticate');
+            socket.on('authenticated', ({ socketId, user }) => {
+              console.log(
+                `Socket authenticates this socketId: ${socketId} with user: ${user}`
+              );
+              setSocket(socket);
+            });
+          })
+          .catch((err: AxiosError) => {
+            console.log('Authentication websocket fail.', err);
+          });
       }
     });
 

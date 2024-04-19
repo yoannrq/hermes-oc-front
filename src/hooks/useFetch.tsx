@@ -23,7 +23,7 @@ export default function useFetch<T = any>({
   onError,
   ...axiosConfig
 }: FetchConfig) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [data, setData] = useState<T | undefined>();
   const [error, setError] = useState<any>();
   const { getCache, setCache, deleteCache, keyify } = useCache();

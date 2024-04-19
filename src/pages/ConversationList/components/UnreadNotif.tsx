@@ -34,15 +34,15 @@ export default function UnreadNotif({
   // Construction de la chaîne de temps écoulé
   let timeElapsed = '';
   if (years > 0) {
-    timeElapsed = `${years} an${years > 1 ? 's' : ''}`;
+    timeElapsed = `Il y a ${years} an${years > 1 ? 's' : ''}`;
   } else if (months > 0) {
-    timeElapsed = `${months} m`;
+    timeElapsed = `Il y a ${months} m`;
   } else if (weeks > 0) {
-    timeElapsed = `${weeks} sem`;
+    timeElapsed = `Il y a ${weeks} sem`;
   } else if (days > 0) {
-    timeElapsed = `${days} j`;
+    timeElapsed = `Il y a ${days} j`;
   } else if (hours > 0) {
-    timeElapsed = `${hours} h`;
+    timeElapsed = `Il y a ${hours} h`;
   } else if (minutes > 0) {
     timeElapsed = `Il y a ${minutes} min`;
   } else {

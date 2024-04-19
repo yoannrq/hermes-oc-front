@@ -3,23 +3,19 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
 import { useCache } from '../../contexts/cacheContext';
-import MessagePage from './components/MessagePage';
-
-import useSocketEvent from '../../hooks/useSocketEvent';
 import useSocketRoom from '../../hooks/useSocketRoom';
+
+import MessagePage from './components/MessagePage';
+import IncomingMessagePage from './components/IncomingMessagePage'
 
 const ONE_HOUR = 3600;
 
 function Messaging() {
   const { roomId, roomType } = useParams() as { [key: string]: string };
-  useSocketRoom('message', { roomId, roomType });
-  useSocketEvent('newMessage', handleNewMessage);
+  useSocketRoom('message', { roomId: parseInt(roomId, 10), roomType });
 
   const containerRef = useRef<HTMLElement | null>(null);
-  const [pageCount, setPageCount] = useState({
-    [`${roomType}-${roomId}`]: 1,
-  });
-  const currentPageCount = pageCount[`${roomType}-${roomId}`] || 1;
+  const [pageCount, setPageCount] = useState(1);
   const { getCache, keyify } = useCache();
 
   useEffect(() => {
@@ -39,22 +35,15 @@ function Messaging() {
     ONE_HOUR
   );
 
-  function handleNewMessage(args: any) {
-    console.log('new message : ', args);
-  }
-
   function fetchOneMorePage() {
-    setPageCount({
-      ...pageCount,
-      [`${roomType}-${roomId}`]: currentPageCount + 1,
-    });
+    setPageCount(pageCount + 1);
   }
 
   const messagePages = [];
-  for (let i = currentPageCount; i > 0; i--) {
+  for (let i = pageCount; i > 0; i--) {
     messagePages.push(
       <MessagePage
-        key={`${roomType}-${roomId}-${i}`}
+        key={`${roomType}-${roomId}-older-${i}`}
         roomType={roomType}
         roomId={parseInt(roomId, 10)}
         page={i}
@@ -62,10 +51,29 @@ function Messaging() {
         ttl={ttl}
         originTimestamp={originTimestamp}
         onRequireMorePages={fetchOneMorePage}
-        isLastDisplayedPage={i === currentPageCount}
+        showFetchMore={i === pageCount}
+        timelineDirection="older"
       />
     );
   }
+
+  messagePages.push(
+    <MessagePage
+      key={`${roomType}-${roomId}-newer-${1}`}
+      roomType={roomType}
+      roomId={parseInt(roomId, 10)}
+      page={1}
+      pageSize={500000}
+      ttl={ttl}
+      originTimestamp={originTimestamp}
+      onRequireMorePages={fetchOneMorePage}
+      showFetchMore={false}
+      timelineDirection="newer"
+    />
+  )
+
+  
+  messagePages.push(<IncomingMessagePage key={`${roomType}-${roomId}-incoming`} roomId={parseInt(roomId, 10)} roomType={roomType} />)
 
   return (
     <Container

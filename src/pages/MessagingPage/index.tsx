@@ -5,13 +5,15 @@ import { useState, useEffect, useRef } from 'react';
 import { useCache } from '../../contexts/cacheContext';
 import MessagePage from './components/MessagePage';
 
-import { useSocketContext } from '../../contexts/socketContext';
+import useSocketEvent from '../../hooks/useSocketEvent';
+import useSocketRoom from '../../hooks/useSocketRoom';
 
 const ONE_HOUR = 3600;
 
 function Messaging() {
-  const socket = useSocketContext();
   const { roomId, roomType } = useParams() as { [key: string]: string };
+  useSocketRoom('message', { roomId, roomType });
+  useSocketEvent('newMessage', handleNewMessage);
 
   const containerRef = useRef<HTMLElement | null>(null);
   const [pageCount, setPageCount] = useState({
@@ -37,8 +39,8 @@ function Messaging() {
     ONE_HOUR
   );
 
-  if (socket) {
-    socket.on;
+  function handleNewMessage(args: any) {
+    console.log('new message : ', args);
   }
 
   function fetchOneMorePage() {

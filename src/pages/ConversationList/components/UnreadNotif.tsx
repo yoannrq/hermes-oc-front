@@ -1,12 +1,12 @@
 import { Box, Typography } from '@mui/material';
 
 export interface UnreadNotifProps {
-  unreadMessageCount: number;
+  unreadMessagesCount: number;
   date: string;
 }
 
 export default function UnreadNotif({
-  unreadMessageCount,
+  unreadMessagesCount,
   date,
 }: UnreadNotifProps) {
   // Calcul de la différence de temps entre l'heure actuelle et l'heure du message
@@ -66,24 +66,26 @@ export default function UnreadNotif({
       >
         {timeElapsed}
       </Typography>
-      
-      {unreadMessageCount > 0 && (
-      <Typography
-        sx={{
-          fontSize: '0.7em',
-          fontWeight: '700',
-          color: '#fafafa',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '1.5em',
-          height: '1.5em',
-          borderRadius: 50,
-          bgcolor: '#1976D2',
-        }}
-      >
-        {unreadMessageCount}
-      </Typography>
+
+      {unreadMessagesCount > 0 && (
+        <Typography
+          sx={{
+            fontSize: '0.7em',
+            fontWeight: '700',
+            color: '#fafafa',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 'fit-content',
+            minWidth: '1.5em',
+            height: '1.5em',
+            padding: '0.5em',
+            borderRadius: 50,
+            bgcolor: '#4983ff',
+          }}
+        >
+          {unreadMessagesCount}
+        </Typography>
       )}
     </Box>
   );

@@ -24,6 +24,7 @@ function ConversastionList() {
   }
 
   return (
+    console.log(data),
     <Container
       component="main"
       className="TEST"
@@ -58,7 +59,7 @@ function ConversastionList() {
             privateConversationid,
             receiver,
             // totalMessage,
-            unreadMessageCount,
+            unreadMessagesCount,
             lastMessage,
           } = conversation;
 
@@ -72,7 +73,7 @@ function ConversastionList() {
                 user={receiver}
                 title={`${receiver.firstname} ${receiver.lastname}`}
                 content={lastMessage.content}
-                unreadMessagesCount={unreadMessageCount}
+                unreadMessagesCount={unreadMessagesCount}
                 date={lastMessage.date}
               />
             )

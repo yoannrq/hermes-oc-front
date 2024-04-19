@@ -2,15 +2,17 @@ import { Box, TextField, Container, Button } from '@mui/material';
 import { Send } from '@mui/icons-material';
 import { FormEvent, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 function MessagingTextArea() {
   const [inputValue, setInputValue] = useState('');
+  const { roomId, roomType } = useParams() as { [key: string]: string };
 
   function sendMessage() {
     axios
       .post('/api/me/messages', {
-        roomType: 'private',
-        roomId: 1,
+        roomType,
+        roomId: parseInt(roomId, 10),
         content: inputValue,
       })
       .then((_) => {

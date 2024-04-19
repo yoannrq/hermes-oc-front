@@ -90,7 +90,7 @@ function ConversationRecapItem({
         }}
       >
         <UnreadNotif
-          unreadMessageCount={unreadMessagesCount}
+          unreadMessagesCount={unreadMessagesCount}
           date={date}
         />
       </Box>

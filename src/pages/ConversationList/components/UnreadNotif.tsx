@@ -66,6 +66,8 @@ export default function UnreadNotif({
       >
         {timeElapsed}
       </Typography>
+      
+      {unreadMessageCount > 0 && (
       <Typography
         sx={{
           fontSize: '0.7em',
@@ -77,14 +79,12 @@ export default function UnreadNotif({
           width: '1.5em',
           height: '1.5em',
           borderRadius: 50,
-          bgcolor: 'primary.main',
-          '&:hover': {
-            bgcolor: 'primary.dark',
-          },
+          bgcolor: '#1976D2',
         }}
       >
         {unreadMessageCount}
       </Typography>
+      )}
     </Box>
   );
 }

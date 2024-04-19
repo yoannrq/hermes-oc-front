@@ -1,17 +1,9 @@
 import { Box, Container } from '@mui/material';
-import { useEffect, useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import useFetch from '../../hooks/useFetch';
 
-import ConversationItem, {
-  ConversationProps,
-} from './components/ConversationItem';
-
-import axios from 'axios';
-// import ConversationItem from './components/ConversationItem';
-// import { data } from './data';
+import ConversationItem from './components/ConversationItem';
 
 function ConversastionList() {
   const navigate = useNavigate();
@@ -32,15 +24,6 @@ function ConversastionList() {
   }
 
   return (
-    // <Box sx={{
-    //   overflowY: 'auto',
-    //   padding: '0.4em 1.25em',
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   gap: '0.95em',
-    //   bgcolor: '#f0f'
-    //   }}>
-
     <Container
       component="main"
       className="TEST"
@@ -53,7 +36,6 @@ function ConversastionList() {
         height: '100%',
         width: '100%',
         padding: 0,
-        // margin: 0,
         margin: 'auto',
         overflow: 'hidden',
       }}
@@ -75,7 +57,7 @@ function ConversastionList() {
           const {
             privateConversationid,
             receiver,
-            totalMessage,
+            // totalMessage,
             unreadMessageCount,
             lastMessage,
           } = conversation;
@@ -98,7 +80,6 @@ function ConversastionList() {
         })}
       </Box>
     </Container>
-    // </Box>
   );
 }
 

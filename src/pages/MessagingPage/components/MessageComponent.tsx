@@ -50,10 +50,7 @@ function MessageComponent({ message }: MessageComponentProps) {
   };
 
   const handleModifyClick = () => {
-    console.log('Le bouton "Modifier" a été cliqué !');
-
     setIsEditing((prevIsEditing) => !prevIsEditing);
-
     setShowButton(false);
   };
 
@@ -188,7 +185,6 @@ function MessageComponent({ message }: MessageComponentProps) {
         )}
       </Box>
       {showButton && (
-        
         <Box
           sx={{
             display: 'flex',
@@ -255,5 +251,4 @@ function MessageComponent({ message }: MessageComponentProps) {
   );
 }
 
-export default MessageComponent;
-
+export default MessageComponent;

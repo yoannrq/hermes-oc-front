@@ -24,10 +24,19 @@ export default function MessagePage({
   timelineDirection,
   originTimestamp,
   showFetchMore,
+  ttl,
   onRequireMorePages,
 }: MessagePageProps) {
-  const { loading, error, data} = useFetch({
-    key: ['messages', roomType, roomId, timelineDirection, page, pageSize, originTimestamp],
+  const { loading, error, data, setData } = useFetch({
+    key: [
+      'messages',
+      roomType,
+      roomId,
+      timelineDirection,
+      page,
+      pageSize,
+      originTimestamp,
+    ],
     url: `/api/me/messages/${roomType}/${roomId}`,
     params: {
       page,
@@ -37,12 +46,12 @@ export default function MessagePage({
     },
     method: 'get',
     cache: {
-      enabled: timelineDirection === "older",
-      ttl: 600,
+      enabled: timelineDirection === 'older',
+      ttl,
     },
 
-    onSuccess: (_, key) => {
-      console.log('data fetched for key', key);
+    onSuccess: (data, key) => {
+      console.log('data fetched for key', key, data);
     },
 
     onCacheHit: (res, key) => {
@@ -51,16 +60,19 @@ export default function MessagePage({
   });
   useSocketEvent('updatedMessage', handleUpdatedMessage);
 
-  function handleUpdatedMessage() {
-    // const updatedMessage = data.updatedMessage;
-    // setMessages((messages) =>
-    //   messages.map((message) => {
-    //     if (updatedMessage.id === message.id) {
-    //       return updatedMessage;
-    //     }
-    //     return message;
-    //   })
-    // );
+  function handleUpdatedMessage(data: any) {
+    console.log(data);
+    const updatedMessage = data.updatedMessage;
+    setData((oldData) => {
+      const newData = JSON.parse(JSON.stringify(oldData));
+      newData.messages = newData.messages.map((message) => {
+        if (updatedMessage.id === message.id) {
+          return updatedMessage;
+        }
+        return message;
+      });
+      return newData;
+    });
   }
 
   if (loading) {
@@ -93,5 +105,4 @@ export default function MessagePage({
       ))}
     </Container>
   );
-}
-
+}

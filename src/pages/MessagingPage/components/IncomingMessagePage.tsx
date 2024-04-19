@@ -15,22 +15,27 @@ export default function MessagePage({ roomId, roomType }: MessagePageProps) {
 
   useSocketEvent('newMessage', handleNewMessage);
   useSocketEvent('updatedMessage', handleUpdatedMessage);
+  // useSocketEvent('deletedMessage', handleDeletedMessage);
 
   function handleNewMessage(data: any) {
+    console.log(data);
     setMessages((oldMessages) => [...oldMessages, data.message]);
   }
 
   function handleUpdatedMessage(data: any) {
     const updatedMessage = data.updatedMessage;
-    setMessages((messages) =>
-      messages.map((message) => {
+    console.log('updated message: ', data.updatedMessage);
+    setMessages((oldMessages) => {
+      return oldMessages.map((message) => {
         if (updatedMessage.id === message.id) {
           return updatedMessage;
         }
         return message;
-      })
-    );
+      });
+    });
   }
+
+  // function handleDeletedMessage(data: any) {}
 
   return (
     <Container
@@ -45,4 +50,4 @@ export default function MessagePage({ roomId, roomType }: MessagePageProps) {
       })}
     </Container>
   );
-}
+}

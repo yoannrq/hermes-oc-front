@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, SetStateAction } from 'react';
 import { useCache } from '../contexts/cacheContext';
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 
@@ -27,6 +27,19 @@ export default function useFetch<T = any>({
   const [data, setData] = useState<T | undefined>();
   const [error, setError] = useState<any>();
   const { getCache, setCache, deleteCache, keyify } = useCache();
+
+  const overrideData = (setter: SetStateAction<T>) => {
+    if (typeof setter === 'function') {
+      setData((prevData) => {
+        const newData = setter(prevData);
+        if (cache?.enabled) setCache(keyify(key), newData, cache.ttl);
+        return newData;
+      });
+    } else {
+      if (cache?.enabled) setCache(keyify(key), setter, cache.ttl);
+      setData(setter);
+    }
+  };
 
   const refetch = (hard: boolean = false) => {
     setLoading(true);
@@ -64,6 +77,12 @@ export default function useFetch<T = any>({
     if (initialEnabled) refetch();
   }, []);
 
-  return { loading, data, error, refetch, inValidate } as const;
-}
-
+  return {
+    loading,
+    data,
+    setData: overrideData,
+    error,
+    refetch,
+    inValidate,
+  } as const;
+}

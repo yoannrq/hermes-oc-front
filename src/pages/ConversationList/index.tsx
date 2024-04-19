@@ -25,63 +25,65 @@ function ConversastionList() {
 
   return (
     console.log(data),
-    <Container
-      component="main"
-      className="TEST"
-      maxWidth="lg"
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'start',
-        alignItems: 'center',
-        height: '100%',
-        width: '100%',
-        padding: 0,
-        margin: 'auto',
-        overflow: 'hidden',
-      }}
-    >
-      <Box
+    (
+      <Container
+        component="main"
+        className="TEST"
+        maxWidth="lg"
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
           justifyContent: 'start',
-          width: '100%',
+          alignItems: 'center',
           height: '100%',
-          overflowY: 'auto',
-          gap: '0.7em',
-          padding: '0.4em 1.25em',
+          width: '100%',
+          padding: 0,
+          margin: 'auto',
+          overflow: 'hidden',
         }}
       >
-        {data.map((conversation) => {
-          const {
-            privateConversationid,
-            receiver,
-            // totalMessage,
-            unreadMessagesCount,
-            lastMessage,
-          } = conversation;
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'start',
+            width: '100%',
+            height: '100%',
+            overflowY: 'auto',
+            gap: '0.7em',
+            padding: '0.4em 1.25em',
+          }}
+        >
+          {data.map((conversation) => {
+            const {
+              privateConversationid,
+              receiver,
+              // totalMessage,
+              unreadMessagesCount,
+              lastMessage,
+            } = conversation;
 
-          return (
-            lastMessage && (
-              <ConversationItem
-                key={privateConversationid}
-                onClick={() => {
-                  navigate(`/conversations/private/${privateConversationid}`);
-                }}
-                user={receiver}
-                title={`${receiver.firstname} ${receiver.lastname}`}
-                content={lastMessage.content}
-                unreadMessagesCount={unreadMessagesCount}
-                date={lastMessage.date}
-              />
-            )
-          );
-        })}
-      </Box>
-    </Container>
+            return (
+              lastMessage && (
+                <ConversationItem
+                  key={privateConversationid}
+                  onClick={() => {
+                    navigate(`/conversations/private/${privateConversationid}`);
+                  }}
+                  user={receiver}
+                  title={`${receiver.firstname} ${receiver.lastname}`}
+                  content={lastMessage.content}
+                  unreadMessagesCount={unreadMessagesCount}
+                  date={lastMessage.date}
+                />
+              )
+            );
+          })}
+        </Box>
+      </Container>
+    )
   );
 }
 
-export default ConversastionList;
+export default ConversastionList;

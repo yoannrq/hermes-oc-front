@@ -6,8 +6,9 @@ export interface MessageBubbleProps {
     conversationId: number;
     authorId: number;
     content: string;
-    date: string;
     deleted: boolean;
+    date: string;
+    updatedAt: string | null;
   };
   style?: object;
   isEditing?: boolean;
@@ -22,6 +23,7 @@ function MessageBubble({
   onClick,
   updateMessageContent,
 }: MessageBubbleProps) {
+  const isUpdated = message.updatedAt !== null;
   const date = new Date(message.date);
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -41,13 +43,13 @@ function MessageBubble({
     >
       {isEditing ? (
         <TextField
-        id="standard-multiline-static"
-        defaultValue={message.content}
-        onChange={(e) => updateMessageContent(e.target.value)}
-        multiline
-        autoFocus
-        variant="standard"
-        sx={{ border: 0, wordWrap: 'break-word'}}
+          id="standard-multiline-static"
+          defaultValue={message.content}
+          onChange={(e) => updateMessageContent(e.target.value)}
+          multiline
+          autoFocus
+          variant="standard"
+          sx={{ border: 0, wordWrap: 'break-word' }}
         />
       ) : (
         <Typography
@@ -62,6 +64,7 @@ function MessageBubble({
           {message.content}
         </Typography>
       )}
+
       <Typography
         variant="body1"
         sx={{
@@ -71,10 +74,25 @@ function MessageBubble({
           fontSize: '0.67em',
         }}
       >
+        {isUpdated && (
+          <Typography
+            variant="body1"
+            sx={{
+              color: (theme) => theme.palette.text.secondary,
+              display: 'flex',
+              justifyContent: 'end',
+              alignItems: 'end',
+              fontSize: '1em',
+              marginRight: '.5em',
+            }}
+          >
+            (Modifé)
+          </Typography>
+        )}
         {time}
       </Typography>
     </Box>
   );
 }
 
-export default MessageBubble;
+export default MessageBubble;

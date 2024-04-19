@@ -4,6 +4,8 @@ import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+import { useParams } from 'react-router-dom';
+
 function MessagingTextArea() {
   const [inputValue, setInputValue] = useState('');
   const { roomId, roomType } = useParams() as { [key: string]: string };

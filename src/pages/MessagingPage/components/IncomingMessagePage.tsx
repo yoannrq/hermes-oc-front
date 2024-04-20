@@ -1,4 +1,4 @@
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { useState } from 'react';
 
 import useSocketEvent from '../../../hooks/useSocketEvent';
@@ -6,12 +6,7 @@ import useSocketEvent from '../../../hooks/useSocketEvent';
 import MessageComponent from './MessageComponent';
 import { MessageInterface } from './MessageBubble';
 
-interface MessagePageProps {
-  roomId: number;
-  roomType: string;
-}
-
-export default function MessagePage({ roomId, roomType }: MessagePageProps) {
+export default function IncomingMessagePage() {
   const [messages, setMessages] = useState([] as MessageInterface[]);
 
   useSocketEvent('newMessage', handleNewMessage);

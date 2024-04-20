@@ -1,4 +1,6 @@
-import { Button, Container, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
+import { useIntersectionObserver } from '@uidotdev/usehooks';
+import { Container } from '@mui/material';
 
 import MessageComponent from './MessageComponent';
 import useFetch from '../../../hooks/useFetch';
@@ -13,7 +15,7 @@ interface MessagePageProps {
   ttl: number;
   originTimestamp: number;
   onRequireMorePages?: () => void;
-  showFetchMore?: boolean;
+  onSuccessfulLoadData?: () => void;
 }
 
 export default function MessagePage({
@@ -23,10 +25,13 @@ export default function MessagePage({
   pageSize,
   timelineDirection,
   originTimestamp,
-  showFetchMore,
   ttl,
   onRequireMorePages,
+  onSuccessfulLoadData,
 }: MessagePageProps) {
+  useSocketEvent('updatedMessage', handleUpdatedMessage);
+  useSocketEvent('deletedMessage', handleDeletedMessage);
+
   const { loading, error, data, setData } = useFetch({
     key: [
       'messages',
@@ -49,15 +54,37 @@ export default function MessagePage({
       enabled: timelineDirection === 'older',
       ttl,
     },
+
+    onSuccess: () => {
+      if (onSuccessfulLoadData) {
+        onSuccessfulLoadData();
+      }
+    },
+
+    onCacheHit: () => {
+      if (onSuccessfulLoadData) {
+        onSuccessfulLoadData();
+      }
+    },
   });
-  useSocketEvent('updatedMessage', handleUpdatedMessage);
-  useSocketEvent('deletedMessage', handleDeletedMessage);
+
+  const [pageRef, entry] = useIntersectionObserver({
+    threshold: 0.5,
+  });
+  const pageIsVisible = entry?.isIntersecting;
+
+  useEffect(() => {
+    if (pageIsVisible && canFetchMore && onRequireMorePages && !loading) {
+      console.log('fetching more pages...', page);
+      onRequireMorePages();
+    }
+  }, [pageIsVisible, loading]);
 
   function handleUpdatedMessage(data: any) {
     const updatedMessage = data.updatedMessage;
-    setData((oldData) => {
+    setData((oldData: any) => {
       const newData = JSON.parse(JSON.stringify(oldData));
-      newData.messages = newData.messages.map((message) => {
+      newData.messages = newData.messages.map((message: any) => {
         if (updatedMessage.id === message.id) {
           return updatedMessage;
         }
@@ -69,9 +96,9 @@ export default function MessagePage({
 
   function handleDeletedMessage(data: any) {
     const deletedMessage = data.deletedMessage;
-    setData((oldData) => {
+    setData((oldData: any) => {
       const newData = JSON.parse(JSON.stringify(oldData));
-      newData.messages = newData.messages.map((message) => {
+      newData.messages = newData.messages.map((message: any) => {
         if (deletedMessage.id === message.id) {
           return deletedMessage;
         }
@@ -82,7 +109,8 @@ export default function MessagePage({
   }
 
   if (loading) {
-    return <CircularProgress color="inherit" sx={{ alignSelf: 'center' }} />;
+    // return <CircularProgress color="inherit" sx={{ alignSelf: 'center' }} />;
+    return <></>;
   }
   if (error) return <div>Error</div>;
 
@@ -91,21 +119,12 @@ export default function MessagePage({
 
   return (
     <Container
+      ref={pageRef}
       sx={{
         display: 'flex',
         flexDirection: 'column',
       }}
     >
-      {showFetchMore && canFetchMore && (
-        <Button
-          onClick={onRequireMorePages}
-          variant="outlined"
-          size="small"
-          sx={{ alignSelf: 'center' }}
-        >
-          Fetch more
-        </Button>
-      )}
       {data.messages.map((message: any) => (
         <MessageComponent key={message.id} message={message} />
       ))}

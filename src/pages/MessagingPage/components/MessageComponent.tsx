@@ -1,5 +1,5 @@
 import { Box, Button, Snackbar } from '@mui/material';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 
 import { useUserContext } from '../../../contexts/userContext';

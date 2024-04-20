@@ -33,7 +33,7 @@ export default function WebSocketProvider({
         return;
       } else {
         declareSocketId(socket.id)
-          .then((res: AxiosResponse) => {
+          .then((_: AxiosResponse) => {
             socket.emit('authenticate');
             socket.on('authenticated', ({ socketId, user }) => {
               console.log(

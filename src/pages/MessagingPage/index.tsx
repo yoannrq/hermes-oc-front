@@ -6,13 +6,16 @@ import { useCache } from '../../contexts/cacheContext';
 import useSocketRoom from '../../hooks/useSocketRoom';
 
 import MessagePage from './components/MessagePage';
-import IncomingMessagePage from './components/IncomingMessagePage'
+import IncomingMessagePage from './components/IncomingMessagePage';
 
 const ONE_HOUR = 3600;
 
 function Messaging() {
   const { roomId, roomType } = useParams() as { [key: string]: string };
   useSocketRoom('message', { roomId: parseInt(roomId, 10), roomType });
+  const [scrollIsRestored, setScrollIsRestored] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [previousScrollHeight, setPreviousScrollHeight] = useState(0);
 
   const containerRef = useRef<HTMLElement | null>(null);
   const [pageCount, setPageCount] = useState(1);
@@ -21,9 +24,21 @@ function Messaging() {
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current;
-      container.scrollTop = container.scrollHeight;
+
+      const scrollHeight = container.scrollHeight;
+      const nextScrollPosition =
+        scrollPosition + scrollHeight - previousScrollHeight;
+
+      container.scrollTop = nextScrollPosition;
+      setScrollPosition(nextScrollPosition);
+      setPreviousScrollHeight(containerRef?.current?.scrollHeight || 0);
+      setScrollIsRestored(true);
     }
-  });
+  }, [
+    scrollIsRestored,
+    previousScrollHeight,
+    containerRef?.current?.scrollHeight,
+  ]);
 
   const { originTimestamp, pageSize, ttl } = getCache(
     keyify(['messages', 'cacheInfo', roomType, roomId]),
@@ -35,8 +50,22 @@ function Messaging() {
     ONE_HOUR
   );
 
+  function handleScroll(e: React.UIEvent<HTMLElement>) {
+    const { scrollTop } = e.target as HTMLElement;
+    setScrollPosition(scrollTop);
+  }
+
   function fetchOneMorePage() {
-    setPageCount(pageCount + 1);
+    if (scrollIsRestored) {
+      setPageCount(pageCount + 1);
+    }
+  }
+
+  function handleSuccessfulLoadData() {
+    if (scrollIsRestored) {
+      setScrollIsRestored(false);
+      setPreviousScrollHeight(containerRef.current?.scrollHeight || 0);
+    }
   }
 
   const messagePages = [];
@@ -50,8 +79,8 @@ function Messaging() {
         pageSize={pageSize}
         ttl={ttl}
         originTimestamp={originTimestamp}
-        onRequireMorePages={fetchOneMorePage}
-        showFetchMore={i === pageCount}
+        onRequireMorePages={i === pageCount ? fetchOneMorePage : undefined}
+        onSuccessfulLoadData={handleSuccessfulLoadData}
         timelineDirection="older"
       />
     );
@@ -66,20 +95,20 @@ function Messaging() {
       pageSize={500000}
       ttl={ttl}
       originTimestamp={originTimestamp}
-      onRequireMorePages={fetchOneMorePage}
-      showFetchMore={false}
       timelineDirection="newer"
     />
-  )
+  );
 
-  
-  messagePages.push(<IncomingMessagePage key={`${roomType}-${roomId}-incoming`} roomId={parseInt(roomId, 10)} roomType={roomType} />)
+  messagePages.push(
+    <IncomingMessagePage key={`${roomType}-${roomId}-incoming`} />
+  );
 
   return (
     <Container
       component="main"
       maxWidth="lg"
-      ref={(ref) => (containerRef.current = ref)}
+      ref={containerRef}
+      onScroll={handleScroll}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -92,4 +121,4 @@ function Messaging() {
   );
 }
 
-export default Messaging;
+export default Messaging;

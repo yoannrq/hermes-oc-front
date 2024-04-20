@@ -23,7 +23,7 @@ function MessagingTextArea() {
       });
   }
 
-  function handleKeyDown(e: KeyboardEvent) {
+  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
     if (e.ctrlKey && e.key === 'Enter') {
       sendMessage();
     }

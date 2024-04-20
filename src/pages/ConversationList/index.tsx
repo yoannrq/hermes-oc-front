@@ -53,7 +53,7 @@ function ConversastionList() {
           padding: '0.4em 1.25em',
         }}
       >
-        {data.map((conversation) => {
+        {data.map((conversation: any) => {
           const { privateId, receiver, unreadMessagesCount, lastMessage } =
             conversation;
 

@@ -29,9 +29,9 @@ export default function useFetch<T = any>({
   const { getCache, setCache, deleteCache, keyify } = useCache();
 
   const overrideData = (setter: SetStateAction<T>) => {
-    if (typeof setter === 'function') {
+    if (setter instanceof Function) {
       setData((prevData) => {
-        const newData = setter(prevData);
+        const newData = setter(prevData as T);
         if (cache?.enabled) setCache(keyify(key), newData, cache.ttl);
         return newData;
       });

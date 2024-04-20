@@ -4,6 +4,7 @@ import { useState } from 'react';
 import useSocketEvent from '../../../hooks/useSocketEvent';
 
 import MessageComponent from './MessageComponent';
+import { MessageInterface } from './MessageBubble';
 
 interface MessagePageProps {
   roomId: number;
@@ -11,20 +12,18 @@ interface MessagePageProps {
 }
 
 export default function MessagePage({ roomId, roomType }: MessagePageProps) {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([] as MessageInterface[]);
 
   useSocketEvent('newMessage', handleNewMessage);
   useSocketEvent('updatedMessage', handleUpdatedMessage);
-  // useSocketEvent('deletedMessage', handleDeletedMessage);
+  useSocketEvent('deletedMessage', handleDeletedMessage);
 
   function handleNewMessage(data: any) {
-    console.log(data);
     setMessages((oldMessages) => [...oldMessages, data.message]);
   }
 
   function handleUpdatedMessage(data: any) {
     const updatedMessage = data.updatedMessage;
-    console.log('updated message: ', data.updatedMessage);
     setMessages((oldMessages) => {
       return oldMessages.map((message) => {
         if (updatedMessage.id === message.id) {
@@ -35,7 +34,18 @@ export default function MessagePage({ roomId, roomType }: MessagePageProps) {
     });
   }
 
-  // function handleDeletedMessage(data: any) {}
+  function handleDeletedMessage(data: any) {
+    console.log('deleted message: ', data.deletedMessage);
+    const deletedMessage = data.deletedMessage;
+    setMessages((oldMessages) => {
+      return oldMessages.map((message) => {
+        if (message.id === deletedMessage.id) {
+          return deletedMessage;
+        }
+        return message;
+      });
+    });
+  }
 
   return (
     <Container

@@ -1,10 +1,13 @@
 import { Box, Button, Snackbar } from '@mui/material';
-import { Delete, Edit, Check, Clear } from '@mui/icons-material';
 import { useState, useEffect, useRef } from 'react';
+import { useOnClickOutside } from 'usehooks-ts';
 
 import { useUserContext } from '../../../contexts/userContext';
+
+import Toolbar, { EditState } from './Toolbar';
 import AvatarComponent from '../../../components/AvatarComponent';
 import MessageBubble from './MessageBubble';
+import axios from 'axios';
 
 export interface MessageComponentProps {
   message: {
@@ -14,133 +17,75 @@ export interface MessageComponentProps {
     content: string;
     date: string;
     deleted: boolean;
+    updatedAt: string | null;
   };
-  style?: object;
 }
 
 function MessageComponent({ message }: MessageComponentProps) {
   const user = useUserContext();
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [showButton, setShowButton] = useState(false);
+  const [snackbarIsDisplayed, setSnackbarIsDisplayed] = useState(false);
+  const [toolbarIsDisplayed, setToolbarIsDisplayed] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(message.content);
-  const [isDeleted, setIsDeleted] = useState(message.deleted);
+
+  const boxRef = useRef<HTMLElement>(null);
+  useOnClickOutside(boxRef, handleMessageClickOutside);
 
   const isAuthorMessage = user.id === message.authorId;
 
-  const boxRef = useRef<HTMLElement>(null);
+  function handleMessageClickOutside() {
+    setToolbarIsDisplayed(false);
+    setIsEditing(false);
+  }
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
-        setShowButton(false);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-
-  const handleClick = async () => {
+  function handleMessageClick() {
     if (!isEditing) {
-      setShowButton(true);
+      setToolbarIsDisplayed(true);
     }
-  };
+  }
 
-  const handleModifyClick = () => {
-    setIsEditing((prevIsEditing) => !prevIsEditing);
-    setShowButton(false);
-  };
-
-  const handleSaveEdit = async () => {
+  function handleValidateModification() {
     setIsEditing(false);
-
-    try {
-      const response = await fetch(`/api/me/messages/${message.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: editedContent,
-        }),
+    axios
+      .patch(`/api/me/messages/${message.id}`, {
+        content: editedContent,
+      })
+      .catch((err) => {
+        console.error('Erreur lors de la modification du message (else):', err);
       });
+  }
 
-      if (response.ok) {
-        console.log(`Le message ${message.id} a été modifié avec succès !`);
-      } else {
-        console.error(
-          'Erreur lors de la modification du message (else):',
-          response.status
-        );
-      }
-    } catch (error) {
-      console.error(
-        'Erreur lors de la modification du message (catch):',
-        error
-      );
-    }
-  };
+  function handleConfirmDeleteMessage() {
+    setSnackbarIsDisplayed(true);
+  }
 
-  const handleCloseEdit = () => {
-    setIsEditing(false);
-  };
+  function handleCloseSnackbar() {
+    setSnackbarIsDisplayed(false);
+  }
 
-  const handleOpenSnackbar = () => {
-    setOpenSnackbar(true);
-  };
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-  };
-
-  const handleDeleteClick = async () => {
-    console.log('Le bouton "Supprimer" a été cliqué !');
-
-    if (isDeleted) {
-      setIsDeleted(false);
-    } else {
-      setIsDeleted(true);
-
-      try {
-        const response = await fetch(`/api/me/messages/${message.id}`, {
-          method: 'DELETE',
-        });
-
-        if (response.ok) {
-          console.log(`Le message ${message.id} a été supprimé avec succès !`);
-        } else {
-          console.error(
-            'Erreur lors de la suppression du message (else):',
-            response.status
-          );
-        }
-      } catch (error) {
-        console.error(
-          'Erreur lors de la suppression du message (catch):',
-          error
-        );
-      }
-    }
-
+  function handleDeleteClick() {
+    axios.delete(`/api/me/messages/${message.id}`).catch((err) => {
+      console.error('Erreur lors de la suppression du message (else):', err);
+    });
     handleCloseSnackbar();
-    setShowButton(false);
-  };
+    setToolbarIsDisplayed(false);
+  }
 
   return (
     <Box
       ref={boxRef}
+      onClick={handleMessageClick}
       sx={{
         display: 'flex',
         gap: '.5em',
-        padding: '0.5em 0em',
+        padding: '0',
+        margin: '0.5em 0',
+        borderRadius: '0.6em',
         alignSelf: isAuthorMessage ? 'flex-end' : 'flex-start',
       }}
     >
       <Snackbar
-        open={openSnackbar}
+        open={snackbarIsDisplayed}
         message="Voulez-vous vraiment supprimer ce message ?"
         action={
           <>
@@ -156,97 +101,30 @@ function MessageComponent({ message }: MessageComponentProps) {
             </Button>
           </>
         }
-      ></Snackbar>
+      />
 
       {!isAuthorMessage && (
         <AvatarComponent src="https://mui.com/static/images/avatar/3.jpg" />
       )}
-      <Box sx={{ flex: 1 }}>
-        {isDeleted ? (
-          <Box
-            sx={{
-              // border: '1px solid #ccc',
-              borderRadius: '10px',
-              // padding: '10px',
-              fontStyle: 'italic',
-              color: '#aaa',
-            }}
-          >
-            Message supprimé.
-          </Box>
-        ) : (
-          <MessageBubble
-            message={message}
-            onClick={isAuthorMessage ? handleClick : undefined}
-            style={{ cursor: isAuthorMessage ? 'pointer' : 'default' }}
-            isEditing={isEditing}
-            updateMessageContent={setEditedContent}
-          />
-        )}
-      </Box>
-      {showButton && (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '.5em',
-          }}
-        >
-          <Button
-            onClick={handleModifyClick}
-            variant="text"
-            sx={{
-              minWidth: 0,
-              padding: 0,
-            }}
-          >
-            <Edit />
-          </Button>
 
-          <Button
-            onClick={handleOpenSnackbar}
-            variant="text"
-            sx={{
-              minWidth: 0,
-              padding: 0,
-            }}
-          >
-            <Delete />
-          </Button>
-        </Box>
-      )}
-      {isEditing && (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: '.5em',
-          }}
-        >
-          <Button
-            onClick={handleSaveEdit}
-            variant="text"
-            sx={{
-              minWidth: 0,
-              padding: 0,
-            }}
-          >
-            <Check />
-          </Button>
-          <Button
-            onClick={handleCloseEdit}
-            variant="text"
-            sx={{
-              minWidth: 0,
-              padding: 0,
-            }}
-          >
-            <Clear />
-          </Button>
-        </Box>
-      )}
+      <MessageBubble
+        message={message}
+        editedContent={editedContent}
+        onEditedContentChanged={setEditedContent}
+        isEditing={isEditing}
+      />
+
+      <Toolbar
+        isDisplayed={toolbarIsDisplayed}
+        editState={isEditing ? EditState.Editing : EditState.Default}
+        onModifyButtonClick={() => setIsEditing(true)}
+        onCancelModification={() => {
+          setIsEditing(false);
+          setEditedContent(message.content);
+        }}
+        onDeleteButtonClick={handleConfirmDeleteMessage}
+        onValidateModification={handleValidateModification}
+      />
     </Box>
   );
 }

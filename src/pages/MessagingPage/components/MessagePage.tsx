@@ -59,6 +59,7 @@ export default function MessagePage({
     },
   });
   useSocketEvent('updatedMessage', handleUpdatedMessage);
+  useSocketEvent('deletedMessage', handleDeletedMessage);
 
   function handleUpdatedMessage(data: any) {
     console.log(data);
@@ -68,6 +69,21 @@ export default function MessagePage({
       newData.messages = newData.messages.map((message) => {
         if (updatedMessage.id === message.id) {
           return updatedMessage;
+        }
+        return message;
+      });
+      return newData;
+    });
+  }
+
+  function handleDeletedMessage(data: any) {
+    console.log(data);
+    const deletedMessage = data.deletedMessage;
+    setData((oldData) => {
+      const newData = JSON.parse(JSON.stringify(oldData));
+      newData.messages = newData.messages.map((message) => {
+        if (deletedMessage.id === message.id) {
+          return deletedMessage;
         }
         return message;
       });

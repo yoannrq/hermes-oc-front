@@ -19,7 +19,6 @@ export default function NavigationHeader() {
 
   let title = 'Accueil';
 
-  console.log(location.pathname);
   if (location.pathname !== '/nav') {
     title =
       Object.entries(titles)?.find(([key, _]) =>
@@ -82,5 +81,4 @@ export default function NavigationHeader() {
       />
     </Container>
   );
-}
-
+}

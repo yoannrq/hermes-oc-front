@@ -8,7 +8,7 @@ import UserIcon from '../../../components/UserIcon';
 const titles: { [key: string]: string } = {
   '/nav/home': 'Accueil',
   '/nav/patients': 'Patients',
-  '/nav/teams': 'Equipe',
+  '/nav/teams': 'Équipes',
   '/nav/private': 'Conversations',
 };
 
@@ -81,4 +81,5 @@ export default function NavigationHeader() {
       />
     </Container>
   );
-}
+}
+

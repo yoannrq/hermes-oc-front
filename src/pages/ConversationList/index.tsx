@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import useFetch from '../../hooks/useFetch';
@@ -17,10 +17,34 @@ function ConversastionList() {
   });
 
   if (loading) {
-    return <h1>Loading ...</h1>;
+    return (
+      <Typography
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        Loading ...
+      </Typography>
+    );
   }
   if (error) {
-    return <h1>error ...</h1>;
+    return (
+      <Typography
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          width: '100%',
+        }}
+      >
+        error ...
+      </Typography>
+    );
   }
 
   return (
@@ -78,4 +102,5 @@ function ConversastionList() {
   );
 }
 
-export default ConversastionList;
+export default ConversastionList;
+

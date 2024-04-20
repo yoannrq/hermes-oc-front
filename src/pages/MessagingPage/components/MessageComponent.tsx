@@ -51,7 +51,7 @@ function MessageComponent({ message }: MessageComponentProps) {
         content: editedContent,
       })
       .catch((err) => {
-        console.error('Erreur lors de la modification du message (else):', err);
+        console.error('Error editing message :', err);
       });
   }
 
@@ -65,7 +65,7 @@ function MessageComponent({ message }: MessageComponentProps) {
 
   function handleDeleteClick() {
     axios.delete(`/api/me/messages/${message.id}`).catch((err) => {
-      console.error('Erreur lors de la suppression du message (else):', err);
+      console.error('Error deleting message :', err);
     });
     handleCloseSnackbar();
     setToolbarIsDisplayed(false);

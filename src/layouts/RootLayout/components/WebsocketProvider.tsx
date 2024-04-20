@@ -34,9 +34,6 @@ export default function WebSocketProvider({
       } else {
         declareSocketId(socket.id)
           .then((res: AxiosResponse) => {
-            console.log(
-              `SocketId ${res.data.socketId} is bind on the UserId ${res.data.userId} on the backend.`
-            );
             socket.emit('authenticate');
             socket.on('authenticated', ({ socketId, user }) => {
               console.log(
@@ -52,8 +49,7 @@ export default function WebSocketProvider({
     });
 
     socket.on('connect_error', (error) => {
-      console.log(error);
-      socket.emit('hello', 'world');
+      console.log('Websocket error :', error);
     });
 
     return () => {

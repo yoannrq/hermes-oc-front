@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Login from './../../pages/Login';
 import SignUp from './../../pages/SignUp';
 
@@ -12,11 +12,6 @@ export interface LoginRequiredProps {
 export default function LoginRequired({ children }: LoginRequiredProps) {
   const [user, setUser] = useState<null | UserInterface>(null);
   const [wantSignUp, setWantSignUp] = useState(false);
-
-  useEffect(() => {
-    // Todo check if user have already a jwt token.
-    console.log('Check if jwt token is valid');
-  }, []);
 
   return (
     <>
@@ -34,4 +29,4 @@ export default function LoginRequired({ children }: LoginRequiredProps) {
       {user && children}
     </>
   );
-}
+}

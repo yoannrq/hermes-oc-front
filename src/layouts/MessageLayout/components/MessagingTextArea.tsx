@@ -4,8 +4,6 @@ import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-import { useParams } from 'react-router-dom';
-
 function MessagingTextArea() {
   const [inputValue, setInputValue] = useState('');
   const { roomId, roomType } = useParams() as { [key: string]: string };
@@ -17,13 +15,9 @@ function MessagingTextArea() {
         roomId: parseInt(roomId, 10),
         content: inputValue,
       })
-      .then((_) => {
-        console.log('Message envoyé avec succès au backend !');
-        setInputValue('');
-      })
       .catch((error) => {
         console.error(
-          "Erreur lors de l'envoi du message au backend (else):",
+          "Erreur lors de l'envoi du message au backend :",
           error.response.status
         );
       });
@@ -91,4 +85,4 @@ function MessagingTextArea() {
   );
 }
 
-export default MessagingTextArea;
+export default MessagingTextArea;

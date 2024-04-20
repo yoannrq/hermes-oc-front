@@ -35,7 +35,6 @@ export default function MessagePage({ roomId, roomType }: MessagePageProps) {
   }
 
   function handleDeletedMessage(data: any) {
-    console.log('deleted message: ', data.deletedMessage);
     const deletedMessage = data.deletedMessage;
     setMessages((oldMessages) => {
       return oldMessages.map((message) => {
@@ -55,7 +54,6 @@ export default function MessagePage({ roomId, roomType }: MessagePageProps) {
       }}
     >
       {messages.map((message: any) => {
-        console.log(message);
         return <MessageComponent key={message.id} message={message} />;
       })}
     </Container>

@@ -43,12 +43,9 @@ function LoginForm({ onRequireSignUp, onConnection }: LoginFormProps) {
       },
     })
       .then((res) => {
-        console.log(res);
-        window.res = res;
         onConnection(res.data as UserInterface);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.data.error.errors) {
           const errorsByFieldName: { [key: string]: string[] } = {};
 

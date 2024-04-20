@@ -49,20 +49,11 @@ export default function MessagePage({
       enabled: timelineDirection === 'older',
       ttl,
     },
-
-    onSuccess: (data, key) => {
-      console.log('data fetched for key', key, data);
-    },
-
-    onCacheHit: (res, key) => {
-      console.log('cache hit ', key, res);
-    },
   });
   useSocketEvent('updatedMessage', handleUpdatedMessage);
   useSocketEvent('deletedMessage', handleDeletedMessage);
 
   function handleUpdatedMessage(data: any) {
-    console.log(data);
     const updatedMessage = data.updatedMessage;
     setData((oldData) => {
       const newData = JSON.parse(JSON.stringify(oldData));
@@ -77,7 +68,6 @@ export default function MessagePage({
   }
 
   function handleDeletedMessage(data: any) {
-    console.log(data);
     const deletedMessage = data.deletedMessage;
     setData((oldData) => {
       const newData = JSON.parse(JSON.stringify(oldData));

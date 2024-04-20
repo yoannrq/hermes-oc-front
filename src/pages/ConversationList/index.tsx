@@ -8,7 +8,7 @@ import ConversationItem from './components/ConversationItem';
 function ConversastionList() {
   const navigate = useNavigate();
   const { data, error, loading } = useFetch({
-    key: ['conversations', 'list'],
+    key: ['conversations', 'all'],
     url: '/api/me/privates',
     method: 'get',
     cache: {
@@ -24,65 +24,57 @@ function ConversastionList() {
   }
 
   return (
-    console.log(data),
-    (
-      <Container
-        component="main"
-        className="TEST"
-        maxWidth="lg"
+    <Container
+      component="main"
+      className="TEST"
+      maxWidth="lg"
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'start',
+        alignItems: 'center',
+        height: '100%',
+        width: '100%',
+        padding: 0,
+        margin: 'auto',
+        overflow: 'hidden',
+      }}
+    >
+      <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'start',
           alignItems: 'center',
-          height: '100%',
+          justifyContent: 'start',
           width: '100%',
-          padding: 0,
-          margin: 'auto',
-          overflow: 'hidden',
+          height: '100%',
+          overflowY: 'auto',
+          gap: '0.7em',
+          padding: '0.4em 1.25em',
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'start',
-            width: '100%',
-            height: '100%',
-            overflowY: 'auto',
-            gap: '0.7em',
-            padding: '0.4em 1.25em',
-          }}
-        >
-          {data.map((conversation) => {
-            const {
-              privateConversationid,
-              receiver,
-              // totalMessage,
-              unreadMessagesCount,
-              lastMessage,
-            } = conversation;
+        {data.map((conversation) => {
+          const { privateId, receiver, unreadMessagesCount, lastMessage } =
+            conversation;
 
-            return (
-              lastMessage && (
-                <ConversationItem
-                  key={privateConversationid}
-                  onClick={() => {
-                    navigate(`/conversations/private/${privateConversationid}`);
-                  }}
-                  user={receiver}
-                  title={`${receiver.firstname} ${receiver.lastname}`}
-                  content={lastMessage.content}
-                  unreadMessagesCount={unreadMessagesCount}
-                  date={lastMessage.date}
-                />
-              )
-            );
-          })}
-        </Box>
-      </Container>
-    )
+          return (
+            lastMessage && (
+              <ConversationItem
+                key={privateId}
+                onClick={() => {
+                  navigate(`/conversations/private/${privateId}`);
+                }}
+                user={receiver}
+                title={`${receiver.firstname} ${receiver.lastname}`}
+                content={lastMessage.content}
+                unreadMessagesCount={unreadMessagesCount}
+                date={lastMessage.date}
+              />
+            )
+          );
+        })}
+      </Box>
+    </Container>
   );
 }
 

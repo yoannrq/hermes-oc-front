@@ -1,9 +1,35 @@
 import { ArrowBackIosNewRounded, Diversity3Rounded } from '@mui/icons-material';
 import { Button, Typography, Container } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import useFetch from '../../../hooks/useFetch';
+import UserIcon from '../../../components/UserIcon';
 
 function MessagingHeader() {
   const navigateTo = useNavigate();
+  const { roomId, roomType } = useParams();
+
+  const { data, loading, error } = useFetch({
+    key: ['conversation', roomType, roomId],
+    url: `/api/me/${roomType}s/${roomId}`,
+    method: 'get',
+    cache: {
+      enabled: true,
+      ttl: 60,
+    },
+  });
+
+  let title = '...';
+
+  if (error) {
+    return 'Error loading conversation...';
+  }
+
+  if (!loading) {
+    if (roomType === 'private') {
+      title = `${data.receiver.firstname} ${data.receiver.lastname}`;
+    }
+  }
 
   return (
     <Container
@@ -13,7 +39,7 @@ function MessagingHeader() {
         marginTop: '.5em',
         marginBottom: '.5em',
         display: 'flex',
-        justifyContent: 'left',
+        justifyContent: 'space-between',
         alignItems: 'center',
         gap: '1em',
       }}
@@ -30,6 +56,7 @@ function MessagingHeader() {
       >
         <ArrowBackIosNewRounded onClick={() => navigateTo('/nav/private')} />
       </Button>
+      <Typography variant="h6">{title}</Typography>
       <Button
         href="#"
         sx={{
@@ -40,10 +67,9 @@ function MessagingHeader() {
           alignItems: 'center',
         }}
       >
-        <Diversity3Rounded />
+        {loading && <Diversity3Rounded />}
+        {!loading && <UserIcon user={data.receiver} />}
       </Button>
-      <Typography variant="h6">Nom du groupe</Typography>
-      {/*//* À dynamiser plus tard en fonction du groupe */}
     </Container>
   );
 }

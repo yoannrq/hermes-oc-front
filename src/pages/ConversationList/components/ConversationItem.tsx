@@ -5,20 +5,11 @@ import { UserInterface } from '../../../contexts/userContext';
 import UnreadNotif from './UnreadNotif';
 
 export interface ConversationProps {
-  // privateConversationid: number;
   user: UserInterface;
   title: string;
   content: string;
-  // unreadMessageCount: number;
   unreadMessagesCount: number;
   date: string;
-  // lastMessage: {
-  //   id: number;
-  //   conversationid: number;
-  //   content: string;
-  //   date: string;
-  //   authorId: number;
-  // };
   onClick: () => void;
 }
 
@@ -29,7 +20,6 @@ function ConversationRecapItem({
   unreadMessagesCount,
   date,
   onClick,
-
 }: ConversationProps) {
   return (
     <Box
@@ -89,13 +79,10 @@ function ConversationRecapItem({
           width: '100%',
         }}
       >
-        <UnreadNotif
-          unreadMessagesCount={unreadMessagesCount}
-          date={date}
-        />
+        <UnreadNotif unreadMessagesCount={unreadMessagesCount} date={date} />
       </Box>
     </Box>
   );
 }
 
-export default ConversationRecapItem;
+export default ConversationRecapItem;

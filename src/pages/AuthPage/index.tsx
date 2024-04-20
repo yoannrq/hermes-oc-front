@@ -12,6 +12,7 @@ export interface AuthPageProps {
 }
 
 export default function AuthPage({ onConnection }: AuthPageProps) {
+  console.log('render auth page');
   const [wantSignUp, setWantSignUp] = useState(false);
 
   return (

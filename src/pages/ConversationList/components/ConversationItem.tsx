@@ -5,7 +5,7 @@ import { UserInterface } from '../../../contexts/userContext';
 import UnreadNotif from './UnreadNotif';
 
 export interface ConversationProps {
-  user: UserInterface;
+  user?: UserInterface;
   title: string;
   content: string;
   unreadMessagesCount: number;
@@ -35,7 +35,9 @@ function ConversationRecapItem({
       }}
       onClick={onClick}
     >
-      <UserIcon user={user} />
+      {user && 
+        <UserIcon user={user} />
+      }
       <Box
         sx={{
           display: 'flex',

@@ -11,17 +11,7 @@ export interface UserIconProps {
 }
 
 export default function UserIcon({ user }: UserIconProps) {
-
-
-  //! à vérifier
-  if (!user) {
-    return null;
-  }
-
-
-
-
-  const initials = user.initials || `${user.firstname[0]}${user.lastname[0]}`;
+  const initials = `${user.firstname[0].toLocaleUpperCase()}${user.lastname[0].toLocaleUpperCase()}`;
 
   return (
     <Avatar

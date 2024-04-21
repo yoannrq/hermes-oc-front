@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import useFetch from '../../hooks/useFetch';
@@ -48,68 +48,30 @@ function TeamsList() {
   }
 
   return (
-    console.log(data),
-    (
-      <Container
-        component="main"
-        className="TEST"
-        maxWidth="lg"
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'start',
-          alignItems: 'center',
-          height: '100%',
-          width: '100%',
-          padding: 0,
-          margin: 'auto',
-          overflow: 'hidden',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'start',
-            width: '100%',
-            height: '100%',
-            overflowY: 'auto',
-            gap: '0.7em',
-            padding: '0.4em 1.25em',
-          }}
-        >
-          {data.map((team: any) => {
-            const {
-              id,
-              name,
-              profilePictureUrl,
-              unreadMessagesCount,
-              lastMessage,
-            } = team;
+    <>
+      {data.map((team: any) => {
+        const {
+          id,
+          name,
+          unreadMessagesCount,
+          lastMessage,
+        } = team;
 
-            return (
-              // lastMessage && (
-              <ConversationItem
-                key={id}
-                onClick={() => {
-                  navigate(`/conversations/team/${id}`);
-                }}
-                user={profilePictureUrl}
-                title={name}
-                content={lastMessage ? lastMessage.content : ''}
-                unreadMessagesCount={unreadMessagesCount}
-                date={lastMessage ? lastMessage.date : ''}
-              />
-              // )
-            );
-          })}
-
-          {/* <h1>Liste des équipes</h1> */}
-        </Box>
-      </Container>
-    )
+        return (
+          <ConversationItem
+            key={id}
+            onClick={() => {
+              navigate(`/conversations/team/${id}`);
+            }}
+            title={name}
+            content={lastMessage ? lastMessage.content : ''}
+            unreadMessagesCount={unreadMessagesCount}
+            date={lastMessage ? lastMessage.date : ''}
+          />
+        );
+      })}
+    </>
   );
 }
 
-export default TeamsList;
+export default TeamsList;

@@ -22,15 +22,22 @@ function MessagingHeader() {
   let title = '...';
 
   if (error) {
-    return 'Error loading conversation...';
+    return (
+      <Typography>Error loading conversation...</Typography>
+    );
   }
 
-  if (!loading) {
-    if (roomType === 'private') {
-      title = `${data.receiver.firstname} ${data.receiver.lastname}`;
-    }
+  if (loading) {
+    return (
+      <Typography>Loading ...</Typography>
+    )
   }
 
+  if (roomType === 'private') {
+    title = `${data.receiver.firstname} ${data.receiver.lastname}`;
+  } else if (roomType === 'team'){
+    title = data.name;
+  }
   return (
     <Container
       component="header"
@@ -68,10 +75,11 @@ function MessagingHeader() {
         }}
       >
         {loading && <Diversity3Rounded />}
-        {!loading && <UserIcon user={data.receiver} />}
+        {!loading && roomType === "private" && <UserIcon user={data.receiver} />}
       </Button>
     </Container>
   );
 }
 
-export default MessagingHeader;
+export default MessagingHeader;
+

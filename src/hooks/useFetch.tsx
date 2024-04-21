@@ -85,4 +85,5 @@ export default function useFetch<T = any>({
     refetch,
     inValidate,
   } as const;
-}
+}
+

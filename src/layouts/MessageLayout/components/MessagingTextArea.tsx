@@ -15,6 +15,7 @@ function MessagingTextArea() {
         roomId: parseInt(roomId, 10),
         content: inputValue,
       })
+      .then(() => setInputValue(''))
       .catch((error) => {
         console.error(
           "Erreur lors de l'envoi du message au backend :",

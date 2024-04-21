@@ -54,7 +54,7 @@ function MessagingHeader() {
           alignItems: 'center',
         }}
       >
-        <ArrowBackIosNewRounded onClick={() => navigateTo('/nav/private')} />
+        <ArrowBackIosNewRounded onClick={() => navigateTo(-1)} />
       </Button>
       <Typography variant="h6">{title}</Typography>
       <Button

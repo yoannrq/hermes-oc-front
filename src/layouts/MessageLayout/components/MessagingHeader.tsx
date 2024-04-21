@@ -53,8 +53,12 @@ function MessagingHeader() {
           justifyContent: 'start',
           alignItems: 'center',
         }}
+
+        onClick={handleBackClick}
       >
-        <ArrowBackIosNewRounded onClick={() => navigateTo('/nav/private')} />
+        {/* <ArrowBackIosNewRounded onClick={() => navigateTo('/nav/private')} /> */}
+        <ArrowBackIosNewRounded />
+
       </Button>
       <Typography variant="h6">{title}</Typography>
       <Button

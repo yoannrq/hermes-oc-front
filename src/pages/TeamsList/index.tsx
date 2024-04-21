@@ -83,25 +83,25 @@ function TeamsList() {
             const {
               id,
               name,
-              // profilePictureUrl,
+              profilePictureUrl,
               unreadMessagesCount,
               lastMessage,
             } = team;
 
             return (
-              lastMessage && (
+              // lastMessage && (
                 <ConversationItem
                   key={id}
                   onClick={() => {
                     navigate(`/conversations/team/${id}`);
                   }}
-                  // user={profilePictureUrl}
+                  user={profilePictureUrl}
                   title={name}
-                  content={lastMessage.content}
+                  content={lastMessage ? lastMessage.content : ''}
                   unreadMessagesCount={unreadMessagesCount}
-                  date={lastMessage.date}
+                  date={lastMessage ? lastMessage.date : ''}
                 />
-              )
+              // )
             );
           })}
 

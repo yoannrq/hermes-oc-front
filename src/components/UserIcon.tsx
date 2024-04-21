@@ -11,6 +11,16 @@ export interface UserIconProps {
 }
 
 export default function UserIcon({ user }: UserIconProps) {
+
+
+  //! à vérifier
+  if (!user) {
+    return null;
+  }
+
+
+
+
   const initials = user.initials || `${user.firstname[0]}${user.lastname[0]}`;
 
   return (
@@ -21,4 +31,5 @@ export default function UserIcon({ user }: UserIconProps) {
       {initials}
     </Avatar>
   );
-}
+}
+

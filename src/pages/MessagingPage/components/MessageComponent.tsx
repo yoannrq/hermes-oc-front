@@ -8,6 +8,7 @@ import Toolbar, { EditState } from './Toolbar';
 import AvatarComponent from '../../../components/AvatarComponent';
 import MessageBubble from './MessageBubble';
 import axios from 'axios';
+import UserIcon from '../../../components/UserIcon';
 
 export interface MessageComponentProps {
   message: {
@@ -104,7 +105,8 @@ function MessageComponent({ message }: MessageComponentProps) {
       />
 
       {!isAuthorMessage && (
-        <AvatarComponent src="https://mui.com/static/images/avatar/3.jpg" />
+        // <AvatarComponent src="https://mui.com/static/images/avatar/3.jpg" />
+        <UserIcon user={user} />
       )}
 
       <MessageBubble
@@ -129,4 +131,5 @@ function MessageComponent({ message }: MessageComponentProps) {
   );
 }
 
-export default MessageComponent;
+export default MessageComponent;
+

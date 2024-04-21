@@ -12,6 +12,7 @@ const ONE_HOUR = 3600;
 
 function Messaging() {
   const { roomId, roomType } = useParams() as { [key: string]: string };
+  console.log(roomId, roomType);
   useSocketRoom('message', { roomId: parseInt(roomId, 10), roomType });
   const [scrollIsRestored, setScrollIsRestored] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -121,4 +122,5 @@ function Messaging() {
   );
 }
 
-export default Messaging;
+export default Messaging;
+

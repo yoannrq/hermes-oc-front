@@ -17,7 +17,7 @@ function Messaging() {
   const { scrollContainerRef } = useOutletContext<ContextType>();
   const [scrollIsRestored, setScrollIsRestored] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [scrollHeight, setPreviousScrollHeight] = useState(0);
+  const [previousScrollHeight, setPreviousScrollHeight] = useState(0);
 
   const [pageCount, setPageCount] = useState(1);
   const { getCache, keyify } = useCache();
@@ -36,7 +36,9 @@ function Messaging() {
       const container = scrollContainerRef.current;
 
       const nextScrollPosition =
-        scrollPosition + scrollHeight - previousScrollHeight;
+        scrollPosition +
+        scrollContainerRef.current.scrollHeight -
+        previousScrollHeight;
 
       container.scrollTop = nextScrollPosition;
       setScrollPosition(nextScrollPosition);
@@ -45,7 +47,7 @@ function Messaging() {
     }
   }, [
     scrollIsRestored,
-    scrollHeight,
+    previousScrollHeight,
     scrollContainerRef?.current?.scrollHeight,
   ]);
 

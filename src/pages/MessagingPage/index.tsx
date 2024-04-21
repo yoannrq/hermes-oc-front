@@ -12,7 +12,6 @@ const ONE_HOUR = 3600;
 
 function Messaging() {
   const { roomId, roomType } = useParams() as { [key: string]: string };
-  console.log(roomId, roomType);
   useSocketRoom('message', { roomId: parseInt(roomId, 10), roomType });
   const [scrollIsRestored, setScrollIsRestored] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -26,7 +25,6 @@ function Messaging() {
     if (containerRef.current) {
       const container = containerRef.current;
 
-      const scrollHeight = container.scrollHeight;
       const nextScrollPosition =
         scrollPosition + scrollHeight - previousScrollHeight;
 
@@ -35,11 +33,7 @@ function Messaging() {
       setPreviousScrollHeight(containerRef?.current?.scrollHeight || 0);
       setScrollIsRestored(true);
     }
-  }, [
-    scrollIsRestored,
-    previousScrollHeight,
-    containerRef?.current?.scrollHeight,
-  ]);
+  }, [scrollIsRestored, scrollHeight, containerRef?.current?.scrollHeight]);
 
   const { originTimestamp, pageSize, ttl } = getCache(
     keyify(['messages', 'cacheInfo', roomType, roomId]),
@@ -122,5 +116,4 @@ function Messaging() {
   );
 }
 
-export default Messaging;
-
+export default Messaging;

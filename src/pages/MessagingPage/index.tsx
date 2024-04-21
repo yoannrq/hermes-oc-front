@@ -1,9 +1,9 @@
-import { Container } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, useOutletContext } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 
 import { useCache } from '../../contexts/cacheContext';
 import useSocketRoom from '../../hooks/useSocketRoom';
+import { ContextType } from '../../layouts/MessageLayout/MessageLayout';
 
 import MessagePage from './components/MessagePage';
 import IncomingMessagePage from './components/IncomingMessagePage';
@@ -13,27 +13,41 @@ const ONE_HOUR = 3600;
 function Messaging() {
   const { roomId, roomType } = useParams() as { [key: string]: string };
   useSocketRoom('message', { roomId: parseInt(roomId, 10), roomType });
+
+  const { scrollContainerRef } = useOutletContext<ContextType>();
   const [scrollIsRestored, setScrollIsRestored] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
   const [previousScrollHeight, setPreviousScrollHeight] = useState(0);
 
-  const containerRef = useRef<HTMLElement | null>(null);
   const [pageCount, setPageCount] = useState(1);
   const { getCache, keyify } = useCache();
 
   useEffect(() => {
-    if (containerRef.current) {
-      const container = containerRef.current;
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current?.addEventListener('scroll', handleScroll);
+      return () => {
+        scrollContainerRef.current?.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, [scrollContainerRef, scrollContainerRef?.current]);
+
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
 
       const nextScrollPosition =
         scrollPosition + scrollHeight - previousScrollHeight;
 
       container.scrollTop = nextScrollPosition;
       setScrollPosition(nextScrollPosition);
-      setPreviousScrollHeight(containerRef?.current?.scrollHeight || 0);
+      setPreviousScrollHeight(scrollContainerRef?.current?.scrollHeight || 0);
       setScrollIsRestored(true);
     }
-  }, [scrollIsRestored, scrollHeight, containerRef?.current?.scrollHeight]);
+  }, [
+    scrollIsRestored,
+    previousScrollHeight,
+    scrollContainerRef?.current?.scrollHeight,
+  ]);
 
   const { originTimestamp, pageSize, ttl } = getCache(
     keyify(['messages', 'cacheInfo', roomType, roomId]),
@@ -45,7 +59,7 @@ function Messaging() {
     ONE_HOUR
   );
 
-  function handleScroll(e: React.UIEvent<HTMLElement>) {
+  function handleScroll(e: Event) {
     const { scrollTop } = e.target as HTMLElement;
     setScrollPosition(scrollTop);
   }
@@ -59,7 +73,7 @@ function Messaging() {
   function handleSuccessfulLoadData() {
     if (scrollIsRestored) {
       setScrollIsRestored(false);
-      setPreviousScrollHeight(containerRef.current?.scrollHeight || 0);
+      setPreviousScrollHeight(scrollContainerRef.current?.scrollHeight || 0);
     }
   }
 
@@ -98,22 +112,7 @@ function Messaging() {
     <IncomingMessagePage key={`${roomType}-${roomId}-incoming`} />
   );
 
-  return (
-    <Container
-      component="main"
-      maxWidth="lg"
-      ref={containerRef}
-      onScroll={handleScroll}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        overflowY: ' auto',
-      }}
-    >
-      {messagePages}
-    </Container>
-  );
+  return <>{messagePages}</>;
 }
 
 export default Messaging;

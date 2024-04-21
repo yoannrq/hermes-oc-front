@@ -1,5 +1,5 @@
 import { useParams, useOutletContext } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useCache } from '../../contexts/cacheContext';
 import useSocketRoom from '../../hooks/useSocketRoom';
@@ -17,7 +17,7 @@ function Messaging() {
   const { scrollContainerRef } = useOutletContext<ContextType>();
   const [scrollIsRestored, setScrollIsRestored] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [previousScrollHeight, setPreviousScrollHeight] = useState(0);
+  const [scrollHeight, setPreviousScrollHeight] = useState(0);
 
   const [pageCount, setPageCount] = useState(1);
   const { getCache, keyify } = useCache();
@@ -45,7 +45,7 @@ function Messaging() {
     }
   }, [
     scrollIsRestored,
-    previousScrollHeight,
+    scrollHeight,
     scrollContainerRef?.current?.scrollHeight,
   ]);
 

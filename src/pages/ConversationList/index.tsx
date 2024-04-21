@@ -70,46 +70,6 @@ function ConversastionList() {
           )
         );
       })}
-      {data.map((conversation: any) => {
-        const { privateId, receiver, unreadMessagesCount, lastMessage } =
-          conversation;
-
-        return (
-          lastMessage && (
-            <ConversationItem
-              key={privateId}
-              onClick={() => {
-                navigate(`/conversations/private/${privateId}`);
-              }}
-              user={receiver}
-              title={`${receiver.firstname} ${receiver.lastname}`}
-              content={lastMessage.content}
-              unreadMessagesCount={unreadMessagesCount}
-              date={lastMessage.date}
-            />
-          )
-        );
-      })}
-      {data.map((conversation: any) => {
-        const { privateId, receiver, unreadMessagesCount, lastMessage } =
-          conversation;
-
-        return (
-          lastMessage && (
-            <ConversationItem
-              key={privateId}
-              onClick={() => {
-                navigate(`/conversations/private/${privateId}`);
-              }}
-              user={receiver}
-              title={`${receiver.firstname} ${receiver.lastname}`}
-              content={lastMessage.content}
-              unreadMessagesCount={unreadMessagesCount}
-              date={lastMessage.date}
-            />
-          )
-        );
-      })}
     </>
   );
 }

@@ -5,7 +5,6 @@ import { useOnClickOutside } from 'usehooks-ts';
 import { useUserContext } from '../../../contexts/userContext';
 
 import Toolbar, { EditState } from './Toolbar';
-import AvatarComponent from '../../../components/AvatarComponent';
 import MessageBubble from './MessageBubble';
 import axios from 'axios';
 import UserIcon from '../../../components/UserIcon';
@@ -131,5 +130,4 @@ function MessageComponent({ message }: MessageComponentProps) {
   );
 }
 
-export default MessageComponent;
-
+export default MessageComponent;

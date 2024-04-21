@@ -79,7 +79,7 @@ function TeamsList() {
             padding: '0.4em 1.25em',
           }}
         >
-          {data.map((team) => {
+          {data.map((team: any) => {
             const {
               id,
               name,
@@ -90,17 +90,17 @@ function TeamsList() {
 
             return (
               // lastMessage && (
-                <ConversationItem
-                  key={id}
-                  onClick={() => {
-                    navigate(`/conversations/team/${id}`);
-                  }}
-                  user={profilePictureUrl}
-                  title={name}
-                  content={lastMessage ? lastMessage.content : ''}
-                  unreadMessagesCount={unreadMessagesCount}
-                  date={lastMessage ? lastMessage.date : ''}
-                />
+              <ConversationItem
+                key={id}
+                onClick={() => {
+                  navigate(`/conversations/team/${id}`);
+                }}
+                user={profilePictureUrl}
+                title={name}
+                content={lastMessage ? lastMessage.content : ''}
+                unreadMessagesCount={unreadMessagesCount}
+                date={lastMessage ? lastMessage.date : ''}
+              />
               // )
             );
           })}
@@ -112,4 +112,4 @@ function TeamsList() {
   );
 }
 
-export default TeamsList;
+export default TeamsList;

@@ -6,7 +6,13 @@ import useSocketEvent from '../../../hooks/useSocketEvent';
 import MessageComponent from './MessageComponent';
 import { MessageInterface } from './MessageBubble';
 
-export default function IncomingMessagePage() {
+interface IncomingMessagePageProps {
+  onIncomingMessage: (data: any) => void;
+}
+
+export default function IncomingMessagePage({
+  onIncomingMessage,
+}: IncomingMessagePageProps) {
   const [messages, setMessages] = useState([] as MessageInterface[]);
 
   useSocketEvent('newMessage', handleNewMessage);
@@ -15,6 +21,9 @@ export default function IncomingMessagePage() {
 
   function handleNewMessage(data: any) {
     setMessages((oldMessages) => [...oldMessages, data.message]);
+    if (onIncomingMessage) {
+      onIncomingMessage(data.message);
+    }
   }
 
   function handleUpdatedMessage(data: any) {

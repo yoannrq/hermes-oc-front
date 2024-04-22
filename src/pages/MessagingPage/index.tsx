@@ -79,6 +79,10 @@ function Messaging() {
     }
   }
 
+  function handleScrollBottom() {
+    setScrollIsRestored(false);
+  }
+
   const messagePages = [];
   for (let i = pageCount; i > 0; i--) {
     messagePages.push(
@@ -111,7 +115,10 @@ function Messaging() {
   );
 
   messagePages.push(
-    <IncomingMessagePage key={`${roomType}-${roomId}-incoming`} />
+    <IncomingMessagePage
+      key={`${roomType}-${roomId}-incoming`}
+      onIncomingMessage={handleScrollBottom}
+    />
   );
 
   return <>{messagePages}</>;

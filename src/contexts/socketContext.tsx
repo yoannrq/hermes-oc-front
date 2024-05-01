@@ -5,4 +5,4 @@ export function useSocketContext() {
   return useContext(socketContext);
 }
 
-export const socketContext = createContext<null | Socket>(null);
+export const socketContext = createContext<Socket | null>(null);

@@ -1,7 +1,10 @@
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
-import { router } from './routes';
+import BrowserRouter from './routers/BrowserRouter';
+
 import './main.scss';
+
+import.meta.glob('../src/assets/fonts/*.ttf', { eager: true });
 
 // Je créer un root pour mon application (a partir d'un élément HTML)
 const root = ReactDOM.createRoot(
@@ -9,4 +12,4 @@ const root = ReactDOM.createRoot(
 );
 
 // On injecte notre application dans le DOM
-root.render(<RouterProvider router={router} />);
+root.render(<RouterProvider router={BrowserRouter} />);

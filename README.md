@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# Hermès - Front-End
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenue sur le dépôt front-end de **Hermès**, une application de messagerie conçue spécifiquement pour le personnel du domaine de la santé. Notre objectif est de faciliter les échanges sécurisés et efficaces entre les professionnels de santé, améliorant ainsi la coordination des soins et le suivi des patients.
 
-Currently, two official plugins are available:
+## Objectifs Principaux
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Faciliter la Communication** : Permettre aux professionnels de santé de communiquer facilement et de manière sécurisée.
+- **Améliorer la Coordination** : Aider à la coordination des soins en fournissant des outils de communication adaptés aux besoins des équipes de santé.
+- **Optimiser le Suivi des Patients** : Offrir une plateforme pour discuter des cas patients dans des canaux thématiques dédiés, améliorant ainsi le suivi et la prise en charge.
 
-## Expanding the ESLint configuration
+## Fonctionnalités Clés
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Messagerie Privée** : Permet aux utilisateurs d'envoyer des messages privés à un ou plusieurs collègues.
+- **Messagerie d'Équipes** : Créez des équipes au sein de l'application pour faciliter la communication entre membres d'une même équipe.
+- **Canaux Thématiques Liés à un Patient** : Discutez de cas spécifiques de patients dans des canaux dédiés, permettant une meilleure organisation des informations et un suivi plus efficace.
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Utilisées
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **React** : Bibliothèque JavaScript pour la construction d'interfaces utilisateur, permettant de créer des vues dynamiques et réactives adaptées aux besoins spécifiques des professionnels de santé.
+- **Vite** : Outil de build moderne qui offre un démarrage rapide et des rechargements de module à chaud, optimisant le développement et le débogage du front-end.
+- **Material UI** : Bibliothèque de composants React qui implémente Google's Material Design, fournissant des éléments d'interface utilisateur élégants et cohérents pour une expérience utilisateur intuitive.
+- **UseSpring** : Bibliothèque pour React permettant de créer des animations fluides et naturelles, améliorant l'interactivité et l'esthétique de l'application.

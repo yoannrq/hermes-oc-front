@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch';
 
 import ConversationItem from './components/ConversationItem';
 
-function ConversastionList() {
+function ConversationList() {
   const navigate = useNavigate();
 
   const { data, error, loading } = useFetch({
@@ -74,4 +74,4 @@ function ConversastionList() {
   );
 }
 
-export default ConversastionList;
+export default ConversationList;

@@ -35,9 +35,7 @@ function ConversationRecapItem({
       }}
       onClick={onClick}
     >
-      {user && 
-        <UserIcon user={user} />
-      }
+      {user && <UserIcon user={user} />}
       <Box
         sx={{
           display: 'flex',
@@ -88,4 +86,3 @@ function ConversationRecapItem({
 }
 
 export default ConversationRecapItem;
-

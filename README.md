@@ -2,6 +2,10 @@
 
 Bienvenue sur le dépôt front-end de **Hermès**, une application de messagerie conçue spécifiquement pour le personnel du domaine de la santé. Notre objectif est de faciliter les échanges sécurisés et efficaces entre les professionnels de santé, améliorant ainsi la coordination des soins et le suivi des patients.
 
+[Vous pouvez retrouver la version 1 de l'application ici !](https://www.hermes.yoannrouquie.fr)
+
+[Le répertoire de l'API (Back-end) est disponible ici !](https://github.com/yoannrq/hermes-oc-back)
+
 ## Objectifs Principaux
 
 - **Faciliter la Communication** : Permettre aux professionnels de santé de communiquer facilement et de manière sécurisée.
@@ -19,4 +23,3 @@ Bienvenue sur le dépôt front-end de **Hermès**, une application de messagerie
 - **React** : Bibliothèque JavaScript pour la construction d'interfaces utilisateur, permettant de créer des vues dynamiques et réactives adaptées aux besoins spécifiques des professionnels de santé.
 - **Vite** : Outil de build moderne qui offre un démarrage rapide et des rechargements de module à chaud, optimisant le développement et le débogage du front-end.
 - **Material UI** : Bibliothèque de composants React qui implémente Google's Material Design, fournissant des éléments d'interface utilisateur élégants et cohérents pour une expérience utilisateur intuitive.
-- **UseSpring** : Bibliothèque pour React permettant de créer des animations fluides et naturelles, améliorant l'interactivité et l'esthétique de l'application.

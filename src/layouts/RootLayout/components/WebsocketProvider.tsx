@@ -18,11 +18,21 @@ export default function WebSocketProvider({
   }
 
   useEffect(() => {
-    const URL = import.meta.env.DEV ? 'http://localhost:3000' : '';
+    const URL = 'https://109.176.199.246:3000';
     const socket = io(URL, {
+      withCredentials: true,
       auth: {
         token: 'my-token' + Date.now(),
       },
+      extraHeaders: {
+        "custom-header": "abcd"
+      },
+      transports: ['websocket'],
+      reconnection: true,
+      reconnectionAttempts: Infinity,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000, 
     });
 
     socket.on('connect', async () => {
